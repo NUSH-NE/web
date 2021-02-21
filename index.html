@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<!-- Created by Vincent Kwok 20 Feb 2021 -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>National Events - NUS High</title>
+
+    <!-- MDC Components -->
+    <script src="lib/mdc/material-components.min.js" defer></script>
+    <script src="lib/mdc/init.min.js" defer></script> <!-- MDC auto-init -->
+    <link rel="stylesheet" href="lib/mdc/material-components.min.css">
+    <link rel="stylesheet" href="lib/mdc/mdc-fixup.min.css">
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="assets/fonts/roboto.min.css">
+    <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
+    <link rel="stylesheet" href="assets/css/main.min.css">
+    <link rel="stylesheet" href="assets/css/index.min.css">
+    <link rel="stylesheet" href="assets/css/index.phone.min.css" media="only screen and (max-width: 599px)">
+
+    <!-- Libraries -->
+    <!-- Firebase -->
+    <script src="lib/firebase/firebase-app.min.js" defer></script>
+    <script src="lib/firebase/firebase-analytics.min.js" defer></script>
+    <script src="lib/firebase/firebase-auth.min.js" defer></script>
+    <script src="lib/firebase/firebase-ui-auth.min.js" defer></script>
+    <link rel="stylesheet" href="lib/firebase/firebase-ui-auth.min.css">
+    <script src="lib/firebase/init.min.js" defer></script>
+
+    <!-- JS -->
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js" defer></script>
+    <script src="assets/js/utility.min.js" defer></script>
+    <script src="assets/js/index.min.js" defer></script>
+</head>
+<body class="mdc-typography">
+<!-- Bottom right FAB (user button) -->
+<button class="mdc-fab aligned-fab mdc-elevation--z24 hidden-fab" aria-label="Login/manage your account" data-mdc-auto-init="MDCRipple" id="usrBtn">
+    <div class="mdc-fab__ripple"></div>
+    <span class="mdc-fab__icon material-icons">account_circle</span>
+</button>
+<!------>
+<!-- Dialogs -->
+<!-- Login dialog -->
+<div class="mdc-dialog" data-mdc-auto-init="MDCDialog" id="loginDialog">
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface"
+             role="alertdialog"
+             aria-modal="true"
+             aria-labelledby="my-dialog-title"
+             aria-describedby="my-dialog-content">
+            <div class="mdc-dialog__content" id="my-dialog-content">
+                <div id="firebaseui-auth-container"></div>
+                <div id="loader">Loading...</div>
+            </div>
+            <div class="mdc-dialog__actions">
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Cancel</span>
+                </button>
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="discard">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Discard</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
+<!------>
+<!-- Hero -->
+<div class="hero">
+    <div class="header center-child">
+        <!-- Header text (that transitions) -->
+        <h1 class="mdc-typography--headline2 text-centered" id="pgTitle">National Events</h1>
+    </div>
+    <!------>
+    <!-- Reads section -->
+    <div class="reads mdc-elevation--z12">
+        <h3 class="margin-bottom-0 margin-top-10">Reads</h3>
+        <!-- List of reading materials -->
+        <div class="mason-cards" id="read-cards">
+            <div class="mdc-card">
+                <div class="mdc-card__media mdc-card__media--16-9">
+                    <div class="mdc-card__media-content"></div>
+                </div>
+                <div class="mdc-card-wrapper__text-section">
+                    <div class="mdc-card__text-section-header">This is where the title would go</div>
+                    <div class="mdc-card__text-section-subhead">Add a few words of summary here</div>
+                </div>
+                <div class="mdc-card__actions">
+                    <div class="mdc-card__action-buttons">
+                        <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple">
+                            <div class="mdc-button__ripple"></div>
+                            <span class="mdc-button__label">Read</span>
+                        </button>
+                    </div>
+                    <div class="mdc-card__action-icons">
+                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
+                                title="Share" data-mdc-auto-init="MDCRipple">
+                            share
+                        </button>
+                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
+                                title="More options" data-mdc-auto-init="MDCRipple">
+                            more_vert
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!------>
+            <div class="mdc-card">
+                <div class="mdc-card__media mdc-card__media--16-9">
+                    <div class="mdc-card__media-content"></div>
+                </div>
+                <div class="mdc-card-wrapper__text-section">
+                    <div class="mdc-card__text-section-header">This is another reading story</div>
+                    <div class="mdc-card__text-section-subhead">The image is to capture attention</div>
+                </div>
+                <div class="mdc-card__actions">
+                    <div class="mdc-card__action-buttons">
+                        <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple">
+                            <div class="mdc-button__ripple"></div>
+                            <span class="mdc-button__label">Read</span>
+                        </button>
+                    </div>
+                    <div class="mdc-card__action-icons">
+                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
+                                title="Share" data-mdc-auto-init="MDCRipple">
+                            share
+                        </button>
+                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
+                                title="More options" data-mdc-auto-init="MDCRipple">
+                            more_vert
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!------>
+            <div class="mdc-card">
+                <div class="mdc-card__media mdc-card__media--16-9">
+                    <div class="mdc-card__media-content"></div>
+                </div>
+                <div class="mdc-card-wrapper__text-section">
+                    <div class="mdc-card__text-section-header">Contents of different heights will be balanced</div>
+                    <div class="mdc-card__text-section-subhead">
+                        This is a very very long summary. Why are summaries even that long?
+                        They shouldn't be. Let me make a very very very very long sentence here.
+                        This card will be very long, so let's put in a few more words.
+                    </div>
+                </div>
+                <div class="mdc-card__actions">
+                    <div class="mdc-card__action-buttons">
+                        <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple">
+                            <div class="mdc-button__ripple"></div>
+                            <span class="mdc-button__label">Read</span>
+                        </button>
+                    </div>
+                    <div class="mdc-card__action-icons">
+                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
+                                title="Share" data-mdc-auto-init="MDCRipple">
+                            share
+                        </button>
+                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
+                                title="More options" data-mdc-auto-init="MDCRipple">
+                            more_vert
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!------->
+            <div class="mdc-card">
+                <div class="mdc-card__media mdc-card__media--16-9">
+                    <div class="mdc-card__media-content"></div>
+                </div>
+                <div class="mdc-card-wrapper__text-section">
+                    <div class="mdc-card__text-section-header">Content</div>
+                    <div class="mdc-card__text-section-subhead">Subheader</div>
+                </div>
+                <div class="mdc-card__actions">
+                    <div class="mdc-card__action-buttons">
+                        <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple">
+                            <div class="mdc-button__ripple"></div>
+                            <span class="mdc-button__label">Read</span>
+                        </button>
+                    </div>
+                    <div class="mdc-card__action-icons">
+                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
+                                title="Share" data-mdc-auto-init="MDCRipple">
+                            share
+                        </button>
+                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
+                                title="More options" data-mdc-auto-init="MDCRipple">
+                            more_vert
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!------>
+            <div class="mdc-card">
+                <div class="mdc-card__media mdc-card__media--16-9">
+                    <div class="mdc-card__media-content"></div>
+                </div>
+                <div class="mdc-card-wrapper__text-section">
+                    <div class="mdc-card__text-section-header">Content</div>
+                    <div class="mdc-card__text-section-subhead">Subheader</div>
+                </div>
+                <div class="mdc-card__actions">
+                    <div class="mdc-card__action-buttons">
+                        <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple">
+                            <div class="mdc-button__ripple"></div>
+                            <span class="mdc-button__label">Read</span>
+                        </button>
+                    </div>
+                    <div class="mdc-card__action-icons">
+                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
+                                title="Share" data-mdc-auto-init="MDCRipple">
+                            share
+                        </button>
+                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
+                                title="More options" data-mdc-auto-init="MDCRipple">
+                            more_vert
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------>
+    <div class="quizMoreInfo">
+        <!-- Quizzes section -->
+        <div class="quiz mdc-elevation--z12">
+            <h3 class="margin-bottom-0 margin-top-10">Quizzes</h3>
+            <!-- List of quizzes -->
+            <ul class="mdc-list mdc-list--two-line" data-mdc-auto-init="MDCList">
+                <li class="mdc-list-item" tabindex="0" data-mdc-auto-init="MDCRipple">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                        <span class="mdc-list-item__primary-text">This is a quiz</span>
+                        <span class="mdc-list-item__secondary-text">Summary of quiz, etc.</span>
+                    </span>
+                </li>
+                <!------>
+                <li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                    <span class="mdc-list-item__primary-text">Do you understand Singapore's history?</span>
+                        <span class="mdc-list-item__secondary-text">
+                        This random quiz will test you on important events during Singapore's early days
+                        </span>
+                    </span>
+                </li>
+                <!------>
+                <li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                        <span class="mdc-list-item__primary-text">Another quiz</span>
+                        <span class="mdc-list-item__secondary-text">What do I put here? I don't know</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <!------>
+        <!-- 4 More info cards -->
+        <div class="mdc-card info__1 info-card mdc-elevation--z12 mdc-ripple-surface" data-mdc-auto-init="MDCRipple">
+            <div class="mdc-card-wrapper__text-section">
+                <span class="material-icons">pin_drop</span>
+                <div class="mdc-card__text-section-header">Timeline</div>
+                <div class="mdc-card__text-section-subhead">Timeline of important events during Singapore's early days</div>
+            </div>
+        </div>
+        <div class="mdc-card info__2 info-card mdc-elevation--z12 mdc-ripple-surface" data-mdc-auto-init="MDCRipple">
+            <div class="mdc-card-wrapper__text-section">
+                <span class="material-icons">lightbulb</span>
+                <div class="mdc-card__text-section-header">Any Ideas?</div>
+                <div class="mdc-card__text-section-subhead">Put a short summary of the additional content here</div>
+            </div>
+        </div>
+        <div class="mdc-card info__3 info-card mdc-elevation--z12 mdc-ripple-surface" data-mdc-auto-init="MDCRipple">
+            <div class="mdc-card-wrapper__text-section">
+                <span class="material-icons">more_horiz</span>
+                <div class="mdc-card__text-section-header">More Content</div>
+                <div class="mdc-card__text-section-subhead">Up to four extra content links can be added</div>
+            </div>
+        </div>
+        <div class="mdc-card info__4 info-card mdc-elevation--z12 mdc-ripple-surface" data-mdc-auto-init="MDCRipple">
+            <div class="mdc-card-wrapper__text-section">
+                <span class="material-icons">animation</span>
+                <div class="mdc-card__text-section-header">Beautiful Animations</div>
+                <div class="mdc-card__text-section-subhead">Fully CSS-based transform and shadow animations</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Element for intersection observer to observe -->
+<div class="bottom" id="b"></div>
+</body>
+</html>

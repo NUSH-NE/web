@@ -1,0 +1,1 @@
+const $ = (e) => { return document.getElementById(e); }

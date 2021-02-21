@@ -1,0 +1,127 @@
+.hero {
+    min-height: 100vh;
+    background: linear-gradient(
+            rgba(0, 0, 0, .4),
+            rgba(0, 0, 0, .4)
+    ), url("../img/hero_bg.png");
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 16px;
+}
+
+.reads .mdc-card__media--16-9 {
+    background-image: url('https://picsum.photos/800/450.webp');
+}
+
+/******* Login Dialog *******/
+#loginDialog .mdc-dialog__surface {
+    background-color: transparent;
+}
+#loginDialog .mdc-dialog__surface > .mdc-dialog__content {
+    padding-bottom: 0;
+}
+
+
+/******* Hero *******/
+
+.header {
+    min-height: 70vh;
+}
+.header h1 {
+    padding: 16px 16px;
+    margin: 0;
+    backdrop-filter: blur(8px) saturate(140%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border: 1px solid var(--outline-border-color);
+}
+.reads, .quizMoreInfo > .quiz {
+    border-radius: var(--mdc-shape-medium);
+    background-color: var(--scrim-bg);
+    backdrop-filter: blur(6px) saturate(120%);
+    border: 1px solid var(--outline-border-color);
+    height: fit-content;
+}
+.reads, .quizMoreInfo {
+    margin-top: 16px;
+}
+.reads > h3, .quizMoreInfo > .quiz > h3 {
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 30px;
+}
+.hero > .reads > ul, .hero > .quizMoreInfo > .quiz > ul {
+    padding: 0;
+    margin-top: 10px;
+    border-radius: var(--mdc-shape-medium);
+    background-color: var(--scrim-bg);
+    max-height: 300px;
+    overflow-y: auto;
+}
+/* More info + quiz grid */
+.quizMoreInfo {
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+            "quiz quiz iOne iTwo"
+            "quiz quiz iThree iFour";
+    grid-gap: 8px;
+}
+.quizMoreInfo > .quiz {
+    grid-area: quiz;
+}
+.quizMoreInfo > .info-card {
+    border: 1px solid var(--outline-border-color);
+    transition: all .15s ease-in-out;
+    transition-property: transform, box-shadow;
+}
+.quizMoreInfo > .info-card:hover {
+    transform: scale(1.1);
+    z-index: 2;
+    box-shadow: 0 10px 13px -6px rgba(0, 0, 0, .2),
+    0 20px 31px 3px rgba(0, 0, 0, .14), 0 8px 38px 7px rgba(0, 0, 0, .12);
+}
+.quizMoreInfo > .info-card > .mdc-card-wrapper__text-section > span.material-icons {
+    font-size: 30px;
+    color: var(--mdc-theme-text-icon-on-dark);
+    display: inline-block;
+}
+.quizMoreInfo > .info-card > .mdc-card-wrapper__text-section > .mdc-card__text-section-header {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+
+.hero > .quizMoreInfo > .info__1 {
+     grid-area: iOne;
+     background: #f12711;  /* fallback for old browsers */
+     background: -webkit-linear-gradient(135deg, #513e82, #5f1936);  /* Chrome 10-25, Safari 5.1-6 */
+     background: linear-gradient(135deg, #513e82, #5f1936); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ }
+.hero > .quizMoreInfo > .info__2 {
+    grid-area: iTwo;
+    background: #12c2e9;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(225deg,  #0e9bba, #601187, #9e0811);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(225deg,  #0e9bba, #601187, #9e0811); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.hero > .quizMoreInfo > .info__3 {
+    grid-area: iThree;
+    background: #0F2027;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.hero > .quizMoreInfo > .info__4 {
+    grid-area: iFour;
+    background: #373B44;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #16254d, #0a45a4);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #16254d, #0a45a4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/* Bottom element */
+div.bottom {
+    width: 100%;
+    height: 0.1px;
+    background: transparent;
+}
