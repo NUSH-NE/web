@@ -69,7 +69,7 @@ usrAcctBtn.onclick = () => {
                     // User successfully signed in.
                     // Return type determines whether we continue the redirect automatically
                     // or whether we leave that to developer to handle.
-                    return true;
+                    return false;
                 },
                 uiShown: function() {
                     // The widget is rendered.
@@ -79,11 +79,11 @@ usrAcctBtn.onclick = () => {
             },
             // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
             signInFlow: 'popup',
-            signInSuccessUrl: '<url-to-redirect-to-on-success>',
+            // signInSuccessUrl: 'index.html',
             signInOptions: [
                 // Leave the lines as is for the providers you want to offer your users.
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-                firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                firebase.auth.EmailAuthProvider.PROVIDER_ID
             ],
             // Terms of service url.
             tosUrl: '<your-tos-url>',
@@ -92,6 +92,7 @@ usrAcctBtn.onclick = () => {
         };
         fUI.start('#firebaseui-auth-container', uiConfig);
         loginDialog.open();
+        mdc.autoInit(); // Re-init ripples
     }
 }
 
@@ -113,3 +114,4 @@ reCalcTitleAnim();
 
 // Init firebase Auth UI
 fUI = new firebaseui.auth.AuthUI(firebase.auth());
+console.log(fUI.isPendingRedirect());
