@@ -17,10 +17,20 @@
 
 /******* Login Dialog *******/
 #loginDialog .mdc-dialog__surface {
-    background-color: transparent;
+    background-color: var(--scrim-bg);
 }
 #loginDialog .mdc-dialog__surface > .mdc-dialog__content {
     padding-bottom: 0;
+}
+#loginDialog #usrOps > h2 {
+    margin-top: 5px;
+}
+#loginDialog #loginLoader {
+    overflow: hidden;
+}
+#loginDialog #loginLoader > div {
+    display: block;
+    margin: auto;
 }
 
 
@@ -74,8 +84,11 @@
 }
 .quizMoreInfo > .info-card {
     border: 1px solid var(--outline-border-color);
-    transition: all .15s ease-in-out;
+    transition: all .2s cubic-bezier(0.63, 0.71, 0.44, 1.72);
     transition-property: transform, box-shadow;
+}
+.quizMoreInfo > .info-card.mdc-ripple-upgraded--foreground-activation:hover {
+    transform: scale(1.08) !important;
 }
 .quizMoreInfo > .info-card:hover {
     transform: scale(1.1);

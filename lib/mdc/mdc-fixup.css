@@ -63,6 +63,11 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     box-shadow: var(--overlay-shadows);
+    width: calc(100% - 20px);
+}
+.mdc-dialog.expanded-dialog .mdc-dialog__surface {
+    max-width: 500px;
+    width: 100%;
 }
 .mdc-dialog__content > h3 {
     color: var(--header-text-color, #fff);
@@ -181,4 +186,43 @@
 /* Icon button */
 .mdc-icon-button {
     border-radius: 50%;
+}
+
+
+/* Additional customisations */
+/* Add scale effect to ripples too */
+.mdc-ripple-upgraded:not(.mdc-list-item) {
+    transition: transform .2s cubic-bezier(0.63, 0.71, 0.44, 1.72);
+}
+.mdc-ripple-upgraded:not(.mdc-list-item):not(.hover-no-expand):hover {
+    transform: scale(1.05);
+}
+.mdc-ripple-upgraded.mdc-list-item {
+    transition: transform .15s ease-in-out;
+}
+.mdc-ripple-upgraded.mdc-ripple-upgraded--foreground-activation:not(.mdc-list-item):not(.hover-no-expand):hover {
+    transform: scale(0.98);
+}
+.mdc-ripple-upgraded.mdc-ripple-upgraded--foreground-activation.hover-no-expand:hover {
+    transform: scale(0.96);
+}
+.mdc-ripple-upgraded.mdc-ripple-upgraded--foreground-activation.mdc-list-item:hover {
+    transform: scale(0.95);
+}
+/* Give cards a "glassy" effect */
+.mdc-card {
+    --mdc-theme-surface: var(--scrim-bg);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+/* Warning card */
+.mdc-card.mdc-card__warn {
+    background-color: var(--warning-bg);
+    border: 1px solid var(--sep-border-color);
+}
+.mdc-card.mdc-card__warn > div.mdc-card-wrapper__text-section {
+    padding: 12px 16px;
+}
+.mdc-button.mdc-button__error {
+    --mdc-theme-primary: var(--mdc-theme-error);
 }

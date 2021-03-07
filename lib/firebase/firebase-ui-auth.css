@@ -2707,3 +2707,7 @@ input.firebaseui-input-invalid {
 .firebaseui-flag-ZW {
     background-position: -0px -3598px
 }
+
+.mdl-textfield--floating-label .mdl-textfield__label, .mdl-textfield__label:after {
+    transition-property: all;
+}

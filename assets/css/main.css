@@ -14,6 +14,8 @@ body {
     --overlay-shadows: 0 0 100px 8px rgba(0, 0, 0, .4);
     --main-bg: #121212;
     --top-app-bar-bg: var(--mdc-theme-surface);
+    --mdc-theme-error: #c62828;
+    --warning-bg: rgba(255, 160, 0, .25);
     /* MDC Customisation vars */
     --mdc-checkbox-unchecked-color: #aaa;
     --mdc-theme-primary: #2295fc;
@@ -44,7 +46,7 @@ body {
     padding-top: 0.1px; /* Prevent collapsing of margins */
 }
 
-
+/****** Style Native Elements ******/
 /* Text font and colors */
 h1, h2 {
     color: var(--header-text-color, #fff);
@@ -58,9 +60,19 @@ p, h3, h4, h5, h6, label, small {
 h3 {
     font-family: var(--mdc-typography-headline3-font-family);
 }
+a {
+    color: var(--mdc-theme-primary);
+}
 
 hr {
     border-color: var(--sep-border-color, rgba(255, 255, 255, .4));
+}
+
+img {
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
 }
 
 
@@ -94,11 +106,20 @@ hr {
 .margin-top-10 {
     margin-top: 10px;
 }
+.margin-top-15 {
+    margin-top: 15px;
+}
 .margin-top-5 {
     margin-top: 5px;
 }
 .margin-left-20 {
     margin-left: 20px;
+}
+.margin-left-auto {
+    margin-left: auto;
+}
+.margin-right-auto {
+    margin-right: auto;
 }
 .margin-right-20 {
     margin-right: 20px;
@@ -150,6 +171,14 @@ hr {
     transform: translateX(-50%);
 }
 
+/* Profile image */
+.profile-img {
+    border-radius: 100%;
+    width: 90px;
+    height: 90px;
+    border: 1px solid var(--outline-border-color);
+}
+
 /* FABs */
 .aligned-fab {
     position: fixed;
@@ -167,6 +196,7 @@ hr {
 /* Mason card layout */
 .mason-cards {
     margin: 10px auto 8px auto;
+    max-width: calc(100% - 16px);
 }
 .mason-cards > .mdc-card {
     margin-bottom: 8px;
@@ -175,13 +205,13 @@ hr {
 @media only screen and (max-width: 719px) {
     .mason-cards > .mdc-card {
         margin-bottom: 8px;
-        width: calc(50vw - 36px);
+        width: calc(50% - 4px);
     }
 }
 @media only screen and (max-width: 499px) {
     .mason-cards > .mdc-card {
         margin-bottom: 8px;
-        width: calc(100vw - 50px);
+        width: 100%;
     }
 }
 

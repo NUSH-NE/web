@@ -3,6 +3,7 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/assets/js/index.min.js" />
+        <item url="file://$PROJECT_DIR$/assets/js/strings.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/utility.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-analytics.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-app.min.js" />
@@ -15,6 +16,7 @@
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/assets/js/index.min.js" />
+      <root url="file://$PROJECT_DIR$/assets/js/strings.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/utility.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-analytics.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-app.min.js" />

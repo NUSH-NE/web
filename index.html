@@ -28,8 +28,12 @@
     <link rel="stylesheet" href="lib/firebase/firebase-ui-auth.min.css">
     <script src="lib/firebase/init.min.js" defer></script>
 
+    <!-- Modenizr -->
+    <script src="lib/modernizr/modernizr-custom.js" async></script>
+
     <!-- JS -->
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js" defer></script>
+    <script src="assets/js/strings.min.js" defer></script>
     <script src="assets/js/utility.min.js" defer></script>
     <script src="assets/js/index.min.js" defer></script>
 </head>
@@ -40,27 +44,91 @@
     <span class="mdc-fab__icon material-icons">account_circle</span>
 </button>
 <!------>
+<!-- Snackbar -->
+<div class="mdc-snackbar" data-mdc-auto-init="MDCSnackbar" id="msgSnackbar">
+    <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+        <div class="mdc-snackbar__label" aria-atomic="false"></div>
+    </div>
+</div>
+<!------>
 <!-- Dialogs -->
 <!-- Login dialog -->
-<div class="mdc-dialog" data-mdc-auto-init="MDCDialog" id="loginDialog">
+<div class="mdc-dialog expanded-dialog" data-mdc-auto-init="MDCDialog" id="loginDialog">
     <div class="mdc-dialog__container">
         <div class="mdc-dialog__surface"
              role="alertdialog"
              aria-modal="true"
-             aria-labelledby="my-dialog-title"
-             aria-describedby="my-dialog-content">
-            <div class="mdc-dialog__content" id="my-dialog-content">
+             aria-describedby="login-content">
+            <div class="mdc-dialog__content" id="login-content">
                 <div id="firebaseui-auth-container"></div>
-                <div id="loader">Loading...</div>
+                <div id="loginLoader">
+                    <div class="mdc-circular-progress" style="width:48px;height:48px;" role="progressbar" aria-label="Loading login..." aria-valuemin="0" aria-valuemax="1" data-mdc-auto-init="MDCCircularProgress">
+                        <div class="mdc-circular-progress__determinate-container">
+                            <svg class="mdc-circular-progress__determinate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                <circle class="mdc-circular-progress__determinate-track" cx="24" cy="24" r="18" stroke-width="4"/>
+                                <circle class="mdc-circular-progress__determinate-circle" cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="113.097" stroke-width="4"/>
+                            </svg>
+                        </div>
+                        <div class="mdc-circular-progress__indeterminate-container">
+                            <div class="mdc-circular-progress__spinner-layer">
+                                <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-left">
+                                    <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="4"/>
+                                    </svg>
+                                </div>
+                                <div class="mdc-circular-progress__gap-patch">
+                                    <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="3.2"/>
+                                    </svg>
+                                </div>
+                                <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-right">
+                                    <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="4"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="usrOps">
+                    <h2>Hello</h2>
+                    <hr>
+                    <img alt="User profile image" onerror="this.src = 'assets/img/DefaultAccountTile.png'" draggable="false"
+                         class="margin-left-auto margin-right-auto profile-img display-block margin-top-20"/>
+                    <div class="mdc-card mdc-card__warn margin-top-15" id="verEmailMsg">
+                        <div class="mdc-card-wrapper__text-section padding-bottom-0">Your email address has not been verified</div>
+                        <div class="mdc-card__actions">
+                            <div class="mdc-card__action-buttons">
+                                <button class="mdc-button mdc-card__action mdc-card__action--button hover-no-expand" data-mdc-auto-init="MDCRipple">
+                                    <div class="mdc-button__ripple"></div>
+                                    <i class="material-icons mdc-button__icon" aria-hidden="true">email</i>
+                                    <span class="mdc-button__label">Send Verification Email</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>Personal Information</h3>
+                    <p class="margin-bottom-0"><span id="usrName">Name: </span><a href="#">Change</a></p>
+                    <p class="margin-top-5"><span id="usrEmail">Email: </span><a href="#">Change</a></p>
+                    <h3 class="margin-top-10">Danger Zone</h3>
+                    <button class="mdc-button mdc-button--outlined mdc-button__error hover-no-expand margin-top-5"
+                            id="signOutBtn" data-mdc-auto-init="MDCRipple">
+                        <span class="mdc-button__ripple"></span>
+                        <i class="material-icons mdc-button__icon" aria-hidden="true">logout</i>
+                        <span class="mdc-button__label">Sign Out</span>
+                    </button>
+                    <button class="mdc-button mdc-button--raised mdc-button__error hover-no-expand margin-top-5"
+                            id="deleteAcctBtn" data-mdc-auto-init="MDCRipple">
+                        <span class="mdc-button__ripple"></span>
+                        <i class="material-icons mdc-button__icon" aria-hidden="true">delete_forever</i>
+                        <span class="mdc-button__label">Delete Account</span>
+                    </button>
+                </div>
             </div>
             <div class="mdc-dialog__actions">
                 <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
                     <div class="mdc-button__ripple"></div>
-                    <span class="mdc-button__label">Cancel</span>
-                </button>
-                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="discard">
-                    <div class="mdc-button__ripple"></div>
-                    <span class="mdc-button__label">Discard</span>
+                    <span class="mdc-button__label">Close</span>
                 </button>
             </div>
         </div>
@@ -69,7 +137,7 @@
 </div>
 <!------>
 <!-- Hero -->
-<div class="hero">
+<section class="hero">
     <div class="header center-child">
         <!-- Header text (that transitions) -->
         <h1 class="mdc-typography--headline2 text-centered" id="pgTitle">National Events</h1>
@@ -290,7 +358,7 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 <!-- Element for intersection observer to observe -->
 <div class="bottom" id="b"></div>
 </body>

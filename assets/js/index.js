@@ -2,6 +2,8 @@
 const title = $('pgTitle');
 const usrAcctBtn = $('usrBtn');
 const loginDialog = $('loginDialog').MDCDialog;
+const loginSpinner = q('#loginDialog #loginLoader > div').MDCCircularProgress;
+const fUIAuthDiv = $('firebaseui-auth-container');
 
 // ====== Helper Functions ====== //
 
@@ -39,9 +41,78 @@ function reCalcTitleAnim() {
 function reCalcTotalHeight() {
     // Find the initial height from top of header to top of page
     maxHeight = title.getBoundingClientRect().top + scrollY + 15;
+    reCalcTitleAnim()
+}
+
+function updateUsrInfo(usr) {
+    q('#usrOps > h2').textContent = `Hello, ${usr.displayName}`;
+    q('#usrOps > img.profile-img').src = usr.photoURL
+    $('usrName').textContent = `Name: ${usr.displayName} `;
+    $('usrEmail').textContent = `Email: ${usr.email} `;
+    $('verEmailMsg').style.display = usr.emailVerified ? 'none' : 'block';
+    console.log(usr);
+}
+
+function showHideUserArea() {
+    const fUIContainer = $('firebaseui-auth-container');
+    const usrAreaDiv = $('usrOps');
+    if (cUser) {
+        fUIContainer.style.display = 'none';
+        usrAreaDiv.style.display = 'block';
+        $('loginLoader').style.display = 'none';
+        updateUsrInfo(cUser);
+        return true;
+    }
+    else {
+        fUIContainer.style.display = 'block';
+        usrAreaDiv.style.display = 'none';
+        $('loginLoader').style.display = 'block';
+        loginSpinner.determinate = false;
+        return false;
+    }
+}
+
+function initFUI() {
+    fUIAuthDiv.textContent = '';
+    const uiConfig = {
+        callbacks: {
+            signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                // User successfully signed in.
+                // Return type determines whether we continue the redirect automatically
+                // or whether we leave that to developer to handle.
+                showHideUserArea();
+                return false;
+            },
+            uiShown: function() {
+                // The widget is rendered. (no)
+                setTimeout(() => {
+                    // Hide the loader.
+                    document.getElementById('loginLoader').style.display = 'none';
+                    loginSpinner.determinate = true;
+                    mdc.autoInit();
+                    }, 50);
+                // FirebaseUI is dumb and calls this function b4 the UI has fully loaded
+            }
+        },
+        // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+        signInFlow: 'popup',
+        // signInSuccessUrl: 'index.html',
+        signInOptions: [
+            // Leave the lines as is for the providers you want to offer your users.
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ],
+        // Terms of service url.
+        tosUrl: '#',
+        // Privacy policy url.
+        privacyPolicyUrl: '#'
+    };
+    fUI.start(fUIAuthDiv, uiConfig);
 }
 
 let fUI;
+let fAuth = firebase.auth();
+let cUser = null;
 
 // ============================= //
 // ====== Event Listeners ====== //
@@ -63,39 +134,41 @@ new IntersectionObserver(
 usrAcctBtn.onclick = () => {
     if (loginDialog.isOpen) loginDialog.close();
     else {
-        const uiConfig = {
-            callbacks: {
-                signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-                    // User successfully signed in.
-                    // Return type determines whether we continue the redirect automatically
-                    // or whether we leave that to developer to handle.
-                    return false;
-                },
-                uiShown: function() {
-                    // The widget is rendered.
-                    // Hide the loader.
-                    document.getElementById('loader').style.display = 'none';
-                }
-            },
-            // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-            signInFlow: 'popup',
-            // signInSuccessUrl: 'index.html',
-            signInOptions: [
-                // Leave the lines as is for the providers you want to offer your users.
-                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-                firebase.auth.EmailAuthProvider.PROVIDER_ID
-            ],
-            // Terms of service url.
-            tosUrl: '<your-tos-url>',
-            // Privacy policy url.
-            privacyPolicyUrl: '<your-privacy-policy-url>'
-        };
-        fUI.start('#firebaseui-auth-container', uiConfig);
+        // Check if the user is already signed in
+        if (!showHideUserArea()) initFUI();
         loginDialog.open();
-        mdc.autoInit(); // Re-init ripples
     }
 }
 
+$('signOutBtn').onclick = () => {
+    fAuth.signOut().then(() => {
+        initFUI();
+    }, (err) => {
+        showMsg('Error signing out. Please try again later.');
+        console.error(err);
+    })
+}
+
+
+// Login state change listener
+fAuth.onAuthStateChanged(function(user) {
+    if (user) {
+        cUser = user;
+        showMsg(`Signed in as ${user.displayName}`);
+        window.history.replaceState({}, document.title, window.location.pathname); // Remove all query strings
+    } else {
+        // No user is signed in.
+        showMsg('You are signed out');
+        // Check if the login selector is pending
+        if((new URLSearchParams(window.location.search)).get('mode') === 'select') {
+            loginDialog.open();
+            initFUI();
+        }
+        cUser = null;
+
+    }
+    showHideUserArea();
+});
 
 // ============================ //
 // ====== Initialisation ====== //
@@ -114,4 +187,3 @@ reCalcTitleAnim();
 
 // Init firebase Auth UI
 fUI = new firebaseui.auth.AuthUI(firebase.auth());
-console.log(fUI.isPendingRedirect());
