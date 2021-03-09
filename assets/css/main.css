@@ -16,6 +16,7 @@ body {
     --top-app-bar-bg: var(--mdc-theme-surface);
     --mdc-theme-error: #c62828;
     --warning-bg: rgba(255, 160, 0, .25);
+    --info-bg: rgba(25, 118, 210, 0.25);
     /* MDC Customisation vars */
     --mdc-checkbox-unchecked-color: #aaa;
     --mdc-theme-primary: #2295fc;
@@ -93,6 +94,9 @@ img {
 }
 .margin-bottom-10 {
     margin-bottom: 10px;
+}
+.margin-bottom-5 {
+    margin-bottom: 5px;
 }
 .margin-bottom-20 {
     margin-bottom: 20px;
@@ -213,6 +217,14 @@ img {
         margin-bottom: 8px;
         width: 100%;
     }
+}
+
+/****** Footer ******/
+footer {
+    background-color: var(--darker-surface-bg);
+    backdrop-filter: blur(4px);
+    border-radius: .75em .75em 0 0;
+    padding: 0.5em 1.5em;
 }
 
 /* ====== Custom scrollbar ======= */

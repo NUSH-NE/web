@@ -90,11 +90,13 @@
                         </div>
                     </div>
                 </div>
-                <div id="usrOps">
+                <div id="usrOps" class="margin-bottom-5">
                     <h2>Hello</h2>
                     <hr>
+                    <!-- User profile pic -->
                     <img alt="User profile image" onerror="this.src = 'assets/img/DefaultAccountTile.png'" draggable="false"
                          class="margin-left-auto margin-right-auto profile-img display-block margin-top-20"/>
+                    <!-- Warning card for important messages -->
                     <div class="mdc-card mdc-card__warn margin-top-15" id="verEmailMsg">
                         <div class="mdc-card-wrapper__text-section padding-bottom-0">Your email address has not been verified</div>
                         <div class="mdc-card__actions">
@@ -107,9 +109,11 @@
                             </div>
                         </div>
                     </div>
+                    <!------>
                     <h3>Personal Information</h3>
                     <p class="margin-bottom-0"><span id="usrName">Name: </span><a href="#">Change</a></p>
                     <p class="margin-top-5"><span id="usrEmail">Email: </span><a href="#">Change</a></p>
+                    <!------>
                     <h3 class="margin-top-10">Danger Zone</h3>
                     <button class="mdc-button mdc-button--outlined mdc-button__error hover-no-expand margin-top-5"
                             id="signOutBtn" data-mdc-auto-init="MDCRipple">
@@ -123,6 +127,19 @@
                         <i class="material-icons mdc-button__icon" aria-hidden="true">delete_forever</i>
                         <span class="mdc-button__label">Delete Account</span>
                     </button>
+                </div>
+                <!-- Messages related to user account -->
+                <div class="mdc-card mdc-card__info margin-top-10 hidden margin-bottom-5" id="authMsg">
+                    <div class="mdc-card-wrapper__text-section padding-bottom-0">This is a message</div>
+                    <div class="mdc-card__actions">
+                        <div class="mdc-card__action-buttons">
+                            <button class="mdc-button mdc-card__action mdc-card__action--button hover-no-expand" data-mdc-auto-init="MDCRipple">
+                                <div class="mdc-button__ripple"></div>
+                                <i class="material-icons mdc-button__icon" aria-hidden="true">check_circle</i>
+                                <span class="mdc-button__label">Dismiss</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="mdc-dialog__actions">
@@ -293,6 +310,10 @@
             </div>
         </div>
     </div>
+</section>
+<!------>
+<!-- Games and others section -->
+<section class="gamesEtc">
     <!------>
     <div class="quizMoreInfo">
         <!-- Quizzes section -->
@@ -358,7 +379,13 @@
             </div>
         </div>
     </div>
+    <!-- Footer -->
+    <footer>
+        <h2 class="margin-top-5">National Education Website</h2>
+        <p>Created by Vincent Kwok and Wang Zerui (M21204) in collaboration with the NUS High NE community</p>
+    </footer>
 </section>
+<!------>
 <!-- Element for intersection observer to observe -->
 <div class="bottom" id="b"></div>
 </body>

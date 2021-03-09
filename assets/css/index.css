@@ -1,16 +1,4 @@
-.hero {
-    min-height: 100vh;
-    background: linear-gradient(
-            rgba(0, 0, 0, .4),
-            rgba(0, 0, 0, .4)
-    ), url("../img/hero_bg.png");
-    background-position: center;
-    background-attachment: fixed;
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 16px;
-}
-
+/* Reading cards, for demo purposes only */
 .reads .mdc-card__media--16-9 {
     background-image: url('https://picsum.photos/800/450.webp');
 }
@@ -36,6 +24,19 @@
 
 /******* Hero *******/
 
+.hero {
+    min-height: 100vh;
+    background: linear-gradient(
+            rgba(0, 0, 0, .4),
+            rgba(0, 0, 0, .4)
+    ), url("../img/hero_bg.png");
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    padding: 16px;
+}
+
 .header {
     min-height: 70vh;
 }
@@ -53,7 +54,7 @@
     border: 1px solid var(--outline-border-color);
     height: fit-content;
 }
-.reads, .quizMoreInfo {
+.reads {
     margin-top: 16px;
 }
 .reads > h3, .quizMoreInfo > .quiz > h3 {
@@ -69,6 +70,14 @@
     max-height: 300px;
     overflow-y: auto;
 }
+
+/****** Games and others ******/
+
+section.gamesEtc {
+    background-size: cover !important;
+    background: url("../img/gamesBg.webp") no-repeat fixed center;
+}
+
 /* More info + quiz grid */
 .quizMoreInfo {
     display: grid;
@@ -78,6 +87,7 @@
             "quiz quiz iOne iTwo"
             "quiz quiz iThree iFour";
     grid-gap: 8px;
+    padding: 16px;
 }
 .quizMoreInfo > .quiz {
     grid-area: quiz;
@@ -106,26 +116,25 @@
     vertical-align: bottom;
 }
 
-
-.hero > .quizMoreInfo > .info__1 {
+.quizMoreInfo > .info__1 {
      grid-area: iOne;
      background: #f12711;  /* fallback for old browsers */
      background: -webkit-linear-gradient(135deg, #513e82, #5f1936);  /* Chrome 10-25, Safari 5.1-6 */
      background: linear-gradient(135deg, #513e82, #5f1936); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
  }
-.hero > .quizMoreInfo > .info__2 {
+.quizMoreInfo > .info__2 {
     grid-area: iTwo;
     background: #12c2e9;  /* fallback for old browsers */
     background: -webkit-linear-gradient(225deg,  #0e9bba, #601187, #9e0811);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(225deg,  #0e9bba, #601187, #9e0811); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-.hero > .quizMoreInfo > .info__3 {
+.quizMoreInfo > .info__3 {
     grid-area: iThree;
     background: #0F2027;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-.hero > .quizMoreInfo > .info__4 {
+.quizMoreInfo > .info__4 {
     grid-area: iFour;
     background: #373B44;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #16254d, #0a45a4);  /* Chrome 10-25, Safari 5.1-6 */

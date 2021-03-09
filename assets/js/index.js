@@ -1,9 +1,15 @@
+/*
+Written by Vincent Kwok (M21204)
+This code is very messy - I'll refactor it when I have the time
+ */
+
 // ====== Elements ====== //
 const title = $('pgTitle');
 const usrAcctBtn = $('usrBtn');
 const loginDialog = $('loginDialog').MDCDialog;
 const loginSpinner = q('#loginDialog #loginLoader > div').MDCCircularProgress;
 const fUIAuthDiv = $('firebaseui-auth-container');
+const verifyEmailBtn = q('#verEmailMsg button');
 
 // ====== Helper Functions ====== //
 
@@ -50,21 +56,19 @@ function updateUsrInfo(usr) {
     $('usrName').textContent = `Name: ${usr.displayName} `;
     $('usrEmail').textContent = `Email: ${usr.email} `;
     $('verEmailMsg').style.display = usr.emailVerified ? 'none' : 'block';
-    console.log(usr);
 }
 
 function showHideUserArea() {
-    const fUIContainer = $('firebaseui-auth-container');
     const usrAreaDiv = $('usrOps');
     if (cUser) {
-        fUIContainer.style.display = 'none';
+        fUIAuthDiv.style.display = 'none';
         usrAreaDiv.style.display = 'block';
         $('loginLoader').style.display = 'none';
         updateUsrInfo(cUser);
         return true;
     }
     else {
-        fUIContainer.style.display = 'block';
+        fUIAuthDiv.style.display = 'block';
         usrAreaDiv.style.display = 'none';
         $('loginLoader').style.display = 'block';
         loginSpinner.determinate = false;
@@ -110,6 +114,15 @@ function initFUI() {
     fUI.start(fUIAuthDiv, uiConfig);
 }
 
+function showAuthMsg(msg) {
+    const holder = $('authMsg');
+    const text = q('#authMsg > div.mdc-card-wrapper__text-section');
+    const dButton = q('#authMsg button')
+    dButton.onclick = () => holder.classList.add('hidden');
+    text.textContent = msg;
+    holder.classList.remove('hidden');
+}
+
 let fUI;
 let fAuth = firebase.auth();
 let cUser = null;
@@ -147,6 +160,18 @@ $('signOutBtn').onclick = () => {
         showMsg('Error signing out. Please try again later.');
         console.error(err);
     })
+}
+
+verifyEmailBtn.onclick = (event) => {
+    verifyEmailBtn.disabled = true;
+    cUser.sendEmailVerification().then(function() {
+        // Email sent.
+        showMsg(`Sent a verification email to ${cUser.email}`);
+        showAuthMsg('Reopen this dialog after clicking on the verification link to check your email verification status');
+    }).catch(function(error) {
+        // An error happened.
+        showMsg(`Failed to send the verification email. Error: ${error.message}`);
+    });
 }
 
 
