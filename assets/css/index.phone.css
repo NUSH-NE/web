@@ -4,3 +4,14 @@
 .hero > .header h1 {
     transition: font-size 400ms ease-out;
 }
+
+/* Extra content cards */
+.quizMoreInfo {
+    grid-template-rows: repeat(4, auto);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+            "quiz quiz"
+            "quiz quiz"
+            "iOne iTwo"
+            "iThree iFour";
+}

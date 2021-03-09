@@ -191,10 +191,10 @@ img {
     z-index: 6;
 }
 .mdc-fab {
-    transition: transform .2s cubic-bezier(0.47, 0, 0.75, 0.72);
+    transition: transform .15s cubic-bezier(0.47, 0, 0.75, 0.72) !important;
 }
 .mdc-fab.hidden-fab {
-    transform: translateY(200%);
+    transform: translateY(130%);
 }
 
 /* Mason card layout */

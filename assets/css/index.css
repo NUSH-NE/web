@@ -62,7 +62,7 @@
     margin-right: 20px;
     font-size: 30px;
 }
-.hero > .reads > ul, .hero > .quizMoreInfo > .quiz > ul {
+.hero > .reads > ul {
     padding: 0;
     margin-top: 10px;
     border-radius: var(--mdc-shape-medium);

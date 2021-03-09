@@ -1,1 +1,1 @@
-.hero>.header{min-height:40vh}.hero>.header h1{transition:font-size 400ms ease-out}
+.hero>.header{min-height:40vh}.hero>.header h1{transition:font-size 400ms ease-out}.quizMoreInfo{grid-template-rows:repeat(4,auto);grid-template-columns:repeat(2,1fr);grid-template-areas:"quiz quiz" "quiz quiz" "iOne iTwo" "iThree iFour"}
