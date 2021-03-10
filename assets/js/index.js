@@ -130,7 +130,9 @@ let cUser = null;
 // ============================= //
 // ====== Event Listeners ====== //
 
-document.addEventListener('scroll', reCalcTitleAnim, {passive: true}); // Passive scroll listener
+document.addEventListener('scroll', () => {
+    setTimeout(() => { reCalcTitleAnim() }, 30);
+}, {passive: true}); // Passive scroll listener
 
 window.onresize = reCalcTotalHeight;
 

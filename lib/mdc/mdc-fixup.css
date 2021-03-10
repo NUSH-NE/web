@@ -36,6 +36,10 @@
 .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
     color: var(--header-text-color, #fff);
 }
+/* Textareas */
+.mdc-text-field--textarea {
+    max-height: 30vh;
+}
 /* Chips */
 .mdc-chip, .mdc-chip:hover {
     color: var(--header-text-color, #fff);
@@ -188,6 +192,16 @@
     border-radius: 50%;
 }
 
+/* Fix progress bars */
+.mdc-linear-progress {
+    height: 12px;
+    border-radius: 6px;
+}
+.mdc-linear-progress__bar-inner {
+    display: inline-block;
+    border-top: 12px solid var(--mdc-theme-primary, #6200ee);
+    border-radius: 6px;
+}
 
 /* Additional customisations */
 /* Add scale effect to ripples too */

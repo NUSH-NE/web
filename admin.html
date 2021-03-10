@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Notional Oducation - The Rohaida Version</title>
+
+    <!-- MDC Components -->
+    <script src="lib/mdc/material-components.min.js" defer></script>
+    <script src="lib/mdc/init.min.js" defer></script> <!-- MDC auto-init -->
+    <link rel="stylesheet" href="lib/mdc/material-components.min.css">
+    <link rel="stylesheet" href="lib/mdc/mdc-fixup.min.css">
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="assets/fonts/roboto.min.css">
+    <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
+    <link rel="stylesheet" href="assets/css/main.min.css">
+    <link rel="stylesheet" href="assets/css/admin.min.css">
+
+    <!-- Libraries -->
+    <!-- Firebase -->
+    <script src="lib/firebase/firebase-app.min.js" defer></script>
+    <script src="lib/firebase/firebase-analytics.min.js" defer></script>
+    <script src="lib/firebase/firebase-auth.min.js" defer></script>
+    <script src="lib/firebase/firebase-ui-auth.min.js" defer></script>
+    <script src="lib/firebase/firebase-storage.min.js" defer></script>
+    <link rel="stylesheet" href="lib/firebase/firebase-ui-auth.min.css">
+    <script src="lib/firebase/init.min.js" defer></script>
+
+    <!-- TinyMCE -->
+    <script src="lib/tinymce/tinymce.min.js" defer></script>
+
+    <!-- Backend Scripts -->
+    <script src="assets/js/strings.min.js" defer></script>
+    <script src="assets/js/utility.min.js" defer></script>
+    <script src="assets/js/admin.min.js" defer></script>
+</head>
+<body class="mdc-typography">
+<main>
+    <h1 class="mdc-typography--headline2 margin-top-5 margin-bottom-20">Article Creator</h1>
+    <hr>
+    <!------>
+    <h4 class="mdc-typography--headline4 margin-top-10 margin-bottom-20">Step 1. Write Article Content</h4>
+    <!------>
+    <!-- Progress Spinner -->
+    <div class="mdc-circular-progress centered-progress" style="width:48px;height:48px;" role="progressbar" aria-label="Example Progress Bar" aria-valuemin="0" data-mdc-auto-init="MDCCircularProgress" aria-valuemax="1" id="editorLoading">
+        <div class="mdc-circular-progress__determinate-container">
+            <svg class="mdc-circular-progress__determinate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <circle class="mdc-circular-progress__determinate-track" cx="24" cy="24" r="18" stroke-width="4"/>
+                <circle class="mdc-circular-progress__determinate-circle" cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="113.097" stroke-width="4"/>
+            </svg>
+        </div>
+        <div class="mdc-circular-progress__indeterminate-container">
+            <div class="mdc-circular-progress__spinner-layer">
+                <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-left">
+                    <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="4"/>
+                    </svg>
+                </div>
+                <div class="mdc-circular-progress__gap-patch">
+                    <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="3.2"/>
+                    </svg>
+                </div>
+                <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-right">
+                    <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="4"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------>
+    <!-- Editor -->
+    <textarea class="mdc-text-field__input" rows="8" cols="40" aria-label="Label" id="contentEditor"></textarea>
+    <small class="display-block margin-top-10 margin-bottom-10">Editor can be resized by dragging its bottom right corner</small>
+    <hr>
+    <!------>
+
+    <!------>
+    <!-- Links -->
+    <h4 class="mdc-typography--headline4 margin-top-15 margin-bottom-5">Step 2. Add Resource Links</h4>
+    <p>Add resource links to be shown beside main content, e.g. other websites with for additional reading</p>
+    <label class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea" data-mdc-auto-init="MDCTextField">
+        <span class="mdc-text-field__ripple"></span>
+        <span class="mdc-floating-label" id="linkTextFieldLabel">Resource links, separated with spaces</span>
+        <span class="mdc-text-field__resizer">
+        <textarea class="mdc-text-field__input" rows="1" cols="40" aria-labelledby="linkTextFieldLabel"></textarea>
+    </span>
+        <span class="mdc-line-ripple"></span>
+    </label>
+    <small class="display-block margin-top-10 margin-bottom-10">Text box can be resized by dragging its bottom right corner</small>
+    <hr>
+    <!------>
+
+    <!------>
+    <h4 class="mdc-typography--headline4 margin-top-15 margin-bottom-5">Step 3. Upload Images/Videos</h4>
+    <!------>
+    <!-- Image upload -->
+    <input type="file" name="filename" id="fileUpload">
+    <button class="mdc-button mdc-button--outlined" data-mdc-auto-init="MDCRipple" id="uploadBtn">
+        <span class="mdc-button__ripple"></span>
+        <i class="material-icons mdc-button__icon" aria-hidden="true">cloud_upload</i>
+        <span class="mdc-button__label">Upload Media</span>
+    </button>
+    <small class="margin-left-5">No file(s) selected</small>
+
+    <div role="progressbar" class="mdc-linear-progress centered-progress" aria-label="Example Progress Bar" data-mdc-auto-init="MDCLinearProgress"
+         aria-valuemin="0" aria-valuemax="1" aria-valuenow="0" id="file-upload-progress">
+        <div class="mdc-linear-progress__buffer">
+            <div class="mdc-linear-progress__buffer-bar"></div>
+            <div class="mdc-linear-progress__buffer-dots"></div>
+        </div>
+        <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+            <span class="mdc-linear-progress__bar-inner"></span>
+        </div>
+        <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+            <span class="mdc-linear-progress__bar-inner"></span>
+        </div>
+    </div>
+
+    <img class="preview-img" id="testimg" alt="Preview of selected image" src="" />
+    <!-- Submit -->
+    <button class="mdc-button mdc-button--raised width-100 hover-no-expand" data-mdc-auto-init="MDCRipple" id="submitBtn">
+        <span class="mdc-button__ripple"></span>
+        <i class="material-icons mdc-button__icon" aria-hidden="true">done</i>
+        <span class="mdc-button__label">Add Article</span>
+    </button>
+</main>
+
+
+<!-- Footer -->
+<footer>
+    <h2 class="margin-top-10">National Education Website</h2>
+    <p>Created by Vincent Kwok and Wang Zerui (M21204) in collaboration with the NUS High NE community</p>
+</footer>
+</body>
+</html>
