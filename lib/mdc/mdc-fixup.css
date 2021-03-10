@@ -202,6 +202,9 @@
     border-top: 12px solid var(--mdc-theme-primary, #6200ee);
     border-radius: 6px;
 }
+.mdc-linear-progress__buffer-bar {
+    background-color: var(--outline-border-color);
+}
 
 /* Additional customisations */
 /* Add scale effect to ripples too */
