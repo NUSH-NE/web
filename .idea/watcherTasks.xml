@@ -23,7 +23,7 @@
     </TaskOptions>
     <TaskOptions isEnabled="true">
       <option name="arguments" value="$FileName$ -o $FileNameWithoutExtension$.min.js -m -c" />
-      <option name="checkSyntaxErrors" value="true" />
+      <option name="checkSyntaxErrors" value="false" />
       <option name="description" />
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="js" />

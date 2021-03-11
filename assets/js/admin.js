@@ -1,27 +1,47 @@
 const spinner = $('editorLoading');
 spinner.MDCCircularProgress.determinate = false;
 const storageRef = firebase.storage().ref();
+const fPickerElem = $('fileUpload');
+const db = firebase.firestore();
 
 // Onclick listeners
 $('submitBtn').onclick = () => {
-    const uploadTask = storageRef.child('test.png').put($('fileUpload').files[0]);
+
+    // Get TinyMCE Content
+    tinyMCE.activeEditor.getContent();
+    const uploadTask = storageRef.child(fPickerElem.files[0].name).put(fPickerElem.files[0]);
 
     uploadTask.on('state_changed', (snap) => {
         $('file-upload-progress').MDCLinearProgress.progress = snap.bytesTransferred / snap.totalBytes;
+    }, (e) => {
+        console.error(e);
+    },
+    () => {
+        showMsg('Upload completed');
+        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            console.log('File available at', downloadURL);
+            db.collection('articles').add({
+                kontent: tinyMCE.activeEditor.getContent(),
+                kommunistLink: downloadURL,
+            }).then((docRef) => {
+                console.log("Document written with ID: ", docRef.id);
+            }).catch((error) => {
+                console.error("Error adding document: ", error);
+            });
+        });
     });
 }
-
 $('uploadBtn').onclick = () => {
     $('fileUpload').click();
 }
 
-$('fileUpload').onchange = () => {
+fPickerElem.onchange = (e) => {
     const fr = new FileReader();
     fr.onload = (e) => {
         $('testimg').src = e.target.result;
-        console.log(e.target.result)
     }
-    fr.readAsDataURL($('fileUpload').files[0])
+    fr.readAsDataURL($('fileUpload').files[0]);
+    $('uploadFName').textContent = `Selected file(s): ${e.target.files[0].name}`;
 }
 
 tinymce.init({

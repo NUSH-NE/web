@@ -24,6 +24,7 @@
     <script src="lib/firebase/firebase-auth.min.js" defer></script>
     <script src="lib/firebase/firebase-ui-auth.min.js" defer></script>
     <script src="lib/firebase/firebase-storage.min.js" defer></script>
+    <script src="lib/firebase/firebase-firestore.min.js" defer></script>
     <link rel="stylesheet" href="lib/firebase/firebase-ui-auth.min.css">
     <script src="lib/firebase/init.min.js" defer></script>
 
@@ -36,6 +37,13 @@
     <script src="assets/js/admin.min.js" defer></script>
 </head>
 <body class="mdc-typography">
+<!-- Snackbar -->
+<div class="mdc-snackbar" data-mdc-auto-init="MDCSnackbar" id="msgSnackbar">
+    <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+        <div class="mdc-snackbar__label" aria-atomic="false"></div>
+    </div>
+</div>
+<!------>
 <main>
     <h1 class="mdc-typography--headline2 margin-top-5 margin-bottom-20">Article Creator</h1>
     <hr>
@@ -103,7 +111,7 @@
         <i class="material-icons mdc-button__icon" aria-hidden="true">cloud_upload</i>
         <span class="mdc-button__label">Upload Media</span>
     </button>
-    <small class="margin-left-5">No file(s) selected</small>
+    <small class="margin-left-5" id="uploadFName">No file(s) selected</small>
 
     <div role="progressbar" class="mdc-linear-progress centered-progress" aria-label="Example Progress Bar" data-mdc-auto-init="MDCLinearProgress"
          aria-valuemin="0" aria-valuemax="1" aria-valuenow="0" id="file-upload-progress">

@@ -9,6 +9,7 @@
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-analytics.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-app.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-auth.min.js" />
+        <item url="file://$PROJECT_DIR$/lib/firebase/firebase-firestore.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-storage.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-ui-auth.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/init.min.js" />
@@ -25,6 +26,7 @@
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-analytics.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-app.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-auth.min.js" />
+      <root url="file://$PROJECT_DIR$/lib/firebase/firebase-firestore.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-storage.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-ui-auth.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/init.min.js" />
