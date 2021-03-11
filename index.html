@@ -166,6 +166,21 @@
         <h3 class="margin-bottom-0 margin-top-10">Reads</h3>
         <!-- List of reading materials -->
         <div class="mason-cards" id="read-cards">
+            <div role="progressbar" class="mdc-linear-progress margin-left-10 margin-right-10 margin-top-5 margin-bottom-5"
+                 aria-label="Loading articles..." id="load-articles" aria-valuemin="0" aria-valuemax="1" style="width:calc(100% - 20px)"
+                 aria-valuenow="0" data-mdc-auto-init="MDCLinearProgress">
+                <div class="mdc-linear-progress__buffer">
+                    <div class="mdc-linear-progress__buffer-bar"></div>
+                    <div class="mdc-linear-progress__buffer-dots"></div>
+                </div>
+                <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+                    <span class="mdc-linear-progress__bar-inner"></span>
+                </div>
+                <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                    <span class="mdc-linear-progress__bar-inner"></span>
+                </div>
+            </div>
+            <p class="margin-top-10 margin-left-10">Loading articles...</p>
         </div>
     </div>
 </section>

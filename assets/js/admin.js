@@ -1,14 +1,19 @@
+// Written by Wang Zerui and Vincent Kwok
+
 const spinner = $('editorLoading');
 spinner.MDCCircularProgress.determinate = false;
 const storageRef = firebase.storage().ref();
 const fPickerElem = $('fileUpload');
+const submitBtn = $('submitBtn');
 const db = firebase.firestore();
 let cUser = null;
 const fUIAuthDiv = $('firebaseui-auth-container');
 const loginSpinner = q('#loginDialog #loginLoader > div').MDCCircularProgress;
+const uploadProg = $('file-upload-progress').MDCLinearProgress;
 let fUI;
 const loginDialog = $('loginDialog').MDCDialog;
 fUI = new firebaseui.auth.AuthUI(firebase.auth());
+
 function showHideUserArea() {
     const usrAreaDiv = $('usrOps');
     if (cUser) {
@@ -37,7 +42,7 @@ function updateUsrInfo(usr) {
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-        showMsg("sin in")
+        showMsg("Signed In")
     } else {
         showMsg("STOPPP HACCERMAN STOPPPPP");
 
@@ -90,19 +95,25 @@ function initFUI() {
 
 
 // Onclick listeners
-$('submitBtn').onclick = () => {
-
+submitBtn.onclick = (evt) => {
     // Get TinyMCE Content
     tinyMCE.activeEditor.getContent();
     const uploadTask = storageRef.child(fPickerElem.files[0].name).put(fPickerElem.files[0]);
 
+    // Disable button and start progress bar
+    uploadProg.determinate = false;
+    submitBtn.disabled = true;
+
     uploadTask.on('state_changed', (snap) => {
-        $('file-upload-progress').MDCLinearProgress.progress = snap.bytesTransferred / snap.totalBytes;
+        uploadProg.determinate = true;
+        uploadProg.progress = snap.bytesTransferred / snap.totalBytes;
     }, (e) => {
         console.error(e);
+        submitBtn.disabled = false;
     },
     () => {
         showMsg('Upload completed');
+        submitBtn.disabled = false;
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
             console.log('File available at', downloadURL);
 
@@ -111,7 +122,8 @@ $('submitBtn').onclick = () => {
             db.collection('articles').add({
                 content: tinyMCE.activeEditor.getContent(),
                 link: downloadURL,
-                resourceLink: val.split("\n").map(function(e){return e.trim();})
+                resourceLink: val.split("\n").map(function(e){ return e.trim();}),
+                title: $('article-title').MDCTextField.value
             }).then((docRef) => {
                 console.log("Document written with ID: ", docRef.id);
             }).catch((error) => {
@@ -125,12 +137,28 @@ $('uploadBtn').onclick = () => {
 }
 
 fPickerElem.onchange = (e) => {
-    const fr = new FileReader();
-    fr.onload = (e) => {
-        $('testimg').src = e.target.result;
+    q('.imgPreviews').innerHTML = '';
+    q('.imgPreviews').style.display = 'grid';
+
+    const fileNames = [];
+
+    for (let i = 0; i < fPickerElem.files.length; i++) {
+        const fr = new FileReader();
+
+        fr.onload = (ev) => {
+            const prevImg = document.createElement('img');
+            prevImg.classList.add('preview-img');
+            prevImg.src = ev.target.result.toString();
+            q('.imgPreviews').appendChild(prevImg);
+        }
+
+        fr.readAsDataURL(fPickerElem.files[i]);
+
+        // Append filename to list of filenames
+        fileNames.push(fPickerElem.files[i].name);
     }
-    fr.readAsDataURL($('fileUpload').files[0]);
-    $('uploadFName').textContent = `Selected file(s): ${e.target.files[0].name}`;
+
+    $('uploadFName').textContent = fileNames.length !== 0 ? `Selected file(s): ${fileNames.join(', ')}` : 'No file(s) selected';
 }
 
 tinymce.init({

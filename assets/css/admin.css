@@ -2,6 +2,40 @@ main {
     padding: 16px;
 }
 
+body {
+    background: black linear-gradient(124deg, rgba(126, 92, 14, .6), rgba(113, 116, 14, .6),
+    rgba(14, 116, 32, .6), rgba(14, 110, 116, .6), rgba(34, 29, 149, 0.6), rgba(110, 0, 121, .6),
+    rgba(110, 0, 121, .6), rgba(128, 18, 0, .6), rgba(116, 14, 14, .6));
+    background-size: 2400% 2400%;
+
+    -webkit-animation: rainbow 24s linear infinite;
+    -z-animation: rainbow 24s linear infinite;
+    -o-animation: rainbow 24s linear infinite;
+    animation: rainbow 24s linear infinite;
+}
+
+/* Rainbow background animation */
+@-webkit-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@-moz-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@-o-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+
 h2.mdc-typography--headline2 {
     margin: .25em 0;
 }
@@ -12,6 +46,7 @@ button.mdc-button {
     margin: 10px 0;
 }
 
+/* TinyMCE customisations */
 .tox-statusbar__branding { display: none; }
 .tox .tox-notification--warn, .tox .tox-notification--warning {
     border-color: #ffe89d30 !important;
@@ -19,10 +54,7 @@ button.mdc-button {
 }
 .tox .tox-menu.tox-collection.tox-collection--list { position: relative !important; }
 .tox-tinymce-aux { position: absolute !important; }
-.centered-progress {
-    display: block;
-    margin: 5px auto;
-}
+.tox.tox-silver-sink.tox-tinymce-aux { height: 0; }
 .tox .tox-tbtn, .tox .tox-split-button, .tox .tox-menu, .tox .tox-sv-palette-spectrum { border-radius: 7px !important; }
 .tox .tox-dialog__footer { padding: 8px !important; }
 .tox .tox-button { background-color: var(--mdc-theme-primary); }
@@ -40,4 +72,22 @@ img.preview-img {
     border-radius: 9px;
     width: 100%;
     height: auto;
+    border: 1px solid var(--outline-border-color);
+    transition: all .3s cubic-bezier(0.63, 0.71, 0.44, 1.72);
+    transition-property: transform, border-color;
+}
+img.preview-img:hover {
+    transform: scale(1.2);
+    border-color: transparent;
+    z-index: 18;
+}
+
+div.imgPreviews {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    background-color: var(--scrim-bg);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    padding: 16px;
 }

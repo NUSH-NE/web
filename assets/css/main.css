@@ -175,6 +175,12 @@ img {
     transform: translateX(-50%);
 }
 
+/* Progress bars */
+.centered-progress {
+    display: block;
+    margin: 5px auto;
+}
+
 /* Profile image */
 .profile-img {
     border-radius: 100%;

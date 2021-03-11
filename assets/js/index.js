@@ -11,6 +11,7 @@ const loginSpinner = q('#loginDialog #loginLoader > div').MDCCircularProgress;
 const fUIAuthDiv = $('firebaseui-auth-container');
 const verifyEmailBtn = q('#verEmailMsg button');
 const readCardsHolder = $('read-cards');
+const elem = document.querySelector('.mason-cards');
 
 // ====== Helper Functions ====== //
 
@@ -88,7 +89,7 @@ function getArticleCard(data, img) {
 <div class="mdc-card__media mdc-card__media--16-9" style="background-image:url('${img}')">
 </div>
 <div class="mdc-card-wrapper__text-section">
-    <div class="mdc-card__text-section-header">Test Title</div>
+    <div class="mdc-card__text-section-header">${data.title}</div>
     <div class="mdc-card__text-section-subhead">${data.articleContent}</div>
 </div>
 <div class="mdc-card__actions">
@@ -241,28 +242,32 @@ db.collection("articles")
     .onSnapshot((snapshot) => {
         // Clear holder div
         readCardsHolder.textContent = '';
+        if (snapshot.docs.length === 0) {
+            readCardsHolder.innerHTML = '<p>No articles</p>'
+        }
         snapshot.docs.forEach((doc) => {
-            readCardsHolder.appendChild(getArticleCard({ articleContent: doc.data().content }, doc.data().link));
+            readCardsHolder.appendChild(getArticleCard({
+                articleContent: doc.data().content,
+                title: doc.data().title
+            }, doc.data().link));
         });
-        // Reinint masonry
+
+        // Re-inint masonry
         new Masonry(elem, {
             // options
             itemSelector: '.mdc-card',
             fitWidth: true,
             gutter: 8
         });
+        // Re-init MDC
+        mdc.autoInit();
     });
 
 // ============================ //
 // ====== Initialisation ====== //
 
-const elem = document.querySelector('.mason-cards');
-new Masonry(elem, {
-    // options
-    itemSelector: '.mdc-card',
-    fitWidth: true,
-    gutter: 8
-});
+// Start indeterminable article loading progress bar
+$('load-articles').MDCLinearProgress.determinate = false;
 
 // Recalculate title position for the first time
 reCalcTotalHeight();

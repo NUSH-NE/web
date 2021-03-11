@@ -211,13 +211,13 @@
 .mdc-ripple-upgraded:not(.mdc-list-item) {
     transition: transform .2s cubic-bezier(0.63, 0.71, 0.44, 1.72);
 }
-.mdc-ripple-upgraded:not(.mdc-list-item):not(.hover-no-expand):hover {
+.mdc-ripple-upgraded:not(.mdc-list-item):not(.hover-no-expand):not(.mdc-text-field):hover {
     transform: scale(1.05);
 }
 .mdc-ripple-upgraded.mdc-list-item {
     transition: transform .15s ease-in-out;
 }
-.mdc-ripple-upgraded.mdc-ripple-upgraded--foreground-activation:not(.mdc-list-item):not(.hover-no-expand):hover {
+.mdc-ripple-upgraded.mdc-ripple-upgraded--foreground-activation:not(.mdc-list-item):not(.hover-no-expand):not(.mdc-text-field):hover {
     transform: scale(0.98);
 }
 .mdc-ripple-upgraded.mdc-ripple-upgraded--foreground-activation.hover-no-expand:hover {
