@@ -20,9 +20,13 @@ $('submitBtn').onclick = () => {
         showMsg('Upload completed');
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
             console.log('File available at', downloadURL);
+
+            let val = $("resourceLink").value
+
             db.collection('articles').add({
-                kontent: tinyMCE.activeEditor.getContent(),
-                kommunistLink: downloadURL,
+                content: tinyMCE.activeEditor.getContent(),
+                link: downloadURL,
+                resourceLink: val.split("\n").map(function(e){return e.trim();})
             }).then((docRef) => {
                 console.log("Document written with ID: ", docRef.id);
             }).catch((error) => {
