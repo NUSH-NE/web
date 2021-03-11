@@ -96,6 +96,20 @@ function initFUI() {
 
 // Onclick listeners
 submitBtn.onclick = (evt) => {
+    // Validation
+    if (fPickerElem.files.length === 0) {
+        showMsg('No images selected');
+        return;
+    }
+    else if ($('article-title').MDCTextField.value.length === 0) {
+        showMsg('No article title');
+        return;
+    }
+    else if (tinyMCE.activeEditor.getContent().length === 0) {
+        showMsg('No article content');
+        return;
+    }
+
     // Get TinyMCE Content
     tinyMCE.activeEditor.getContent();
     const uploadTask = storageRef.child(fPickerElem.files[0].name).put(fPickerElem.files[0]);
@@ -138,7 +152,7 @@ $('uploadBtn').onclick = () => {
 
 fPickerElem.onchange = (e) => {
     q('.imgPreviews').innerHTML = '';
-    q('.imgPreviews').style.display = 'grid';
+    q('.imgPreviews').style.display = fPickerElem.files.length !== 0 ? 'grid' : 'none';
 
     const fileNames = [];
 
