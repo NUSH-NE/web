@@ -3,6 +3,91 @@ spinner.MDCCircularProgress.determinate = false;
 const storageRef = firebase.storage().ref();
 const fPickerElem = $('fileUpload');
 const db = firebase.firestore();
+let cUser = null;
+const fUIAuthDiv = $('firebaseui-auth-container');
+const loginSpinner = q('#loginDialog #loginLoader > div').MDCCircularProgress;
+let fUI;
+const loginDialog = $('loginDialog').MDCDialog;
+fUI = new firebaseui.auth.AuthUI(firebase.auth());
+function showHideUserArea() {
+    const usrAreaDiv = $('usrOps');
+    if (cUser) {
+        fUIAuthDiv.style.display = 'none';
+        usrAreaDiv.style.display = 'block';
+        $('loginLoader').style.display = 'none';
+        updateUsrInfo(cUser);
+        return true;
+    }
+    else {
+        fUIAuthDiv.style.display = 'block';
+        usrAreaDiv.style.display = 'none';
+        $('loginLoader').style.display = 'block';
+        loginSpinner.determinate = false;
+        return false;
+    }
+}
+
+function updateUsrInfo(usr) {
+    q('#usrOps > h2').textContent = `Hello, ${usr.displayName}`;
+    q('#usrOps > img.profile-img').src = usr.photoURL
+    $('usrName').textContent = `Name: ${usr.displayName} `;
+    $('usrEmail').textContent = `Email: ${usr.email} `;
+    $('verEmailMsg').style.display = usr.emailVerified ? 'none' : 'block';
+}
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        showMsg("sin in")
+    } else {
+        showMsg("STOPPP HACCERMAN STOPPPPP")
+
+        if (loginDialog.isOpen) loginDialog.close();
+        else {
+            // Check if the user is already signed in
+            if (!showHideUserArea()) initFUI();
+            loginDialog.open();
+        }
+    }
+});
+
+function initFUI() {
+    fUIAuthDiv.textContent = '';
+    const uiConfig = {
+        callbacks: {
+            signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                // User successfully signed in.
+                // Return type determines whether we continue the redirect automatically
+                // or whether we leave that to developer to handle.
+                showHideUserArea();
+                return false;
+            },
+            uiShown: function() {
+                // The widget is rendered. (no)
+                setTimeout(() => {
+                    // Hide the loader.
+                    document.getElementById('loginLoader').style.display = 'none';
+                    loginSpinner.determinate = true;
+                    mdc.autoInit();
+                }, 50);
+                // FirebaseUI is dumb and calls this function b4 the UI has fully loaded
+            }
+        },
+        // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+        signInFlow: 'popup',
+        // signInSuccessUrl: 'index.html',
+        signInOptions: [
+            // Leave the lines as is for the providers you want to offer your users.
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ],
+        // Terms of service url.
+        tosUrl: '#',
+        // Privacy policy url.
+        privacyPolicyUrl: '#'
+    };
+    fUI.start(fUIAuthDiv, uiConfig);
+}
+
 
 // Onclick listeners
 $('submitBtn').onclick = () => {
