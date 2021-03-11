@@ -25,6 +25,7 @@
     <script src="lib/firebase/firebase-analytics.min.js" defer></script>
     <script src="lib/firebase/firebase-auth.min.js" defer></script>
     <script src="lib/firebase/firebase-ui-auth.min.js" defer></script>
+    <script src="lib/firebase/firebase-firestore.min.js" defer></script>
     <link rel="stylesheet" href="lib/firebase/firebase-ui-auth.min.css">
     <script src="lib/firebase/init.min.js" defer></script>
 
@@ -165,149 +166,6 @@
         <h3 class="margin-bottom-0 margin-top-10">Reads</h3>
         <!-- List of reading materials -->
         <div class="mason-cards" id="read-cards">
-            <div class="mdc-card">
-                <div class="mdc-card__media mdc-card__media--16-9">
-                    <div class="mdc-card__media-content"></div>
-                </div>
-                <div class="mdc-card-wrapper__text-section">
-                    <div class="mdc-card__text-section-header">This is where the title would go</div>
-                    <div class="mdc-card__text-section-subhead">Add a few words of summary here</div>
-                </div>
-                <div class="mdc-card__actions">
-                    <div class="mdc-card__action-buttons">
-                        <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple">
-                            <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">Read</span>
-                        </button>
-                    </div>
-                    <div class="mdc-card__action-icons">
-                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
-                                title="Share" data-mdc-auto-init="MDCRipple">
-                            share
-                        </button>
-                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
-                                title="More options" data-mdc-auto-init="MDCRipple">
-                            more_vert
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!------>
-            <div class="mdc-card">
-                <div class="mdc-card__media mdc-card__media--16-9">
-                    <div class="mdc-card__media-content"></div>
-                </div>
-                <div class="mdc-card-wrapper__text-section">
-                    <div class="mdc-card__text-section-header">This is another reading story</div>
-                    <div class="mdc-card__text-section-subhead">The image is to capture attention</div>
-                </div>
-                <div class="mdc-card__actions">
-                    <div class="mdc-card__action-buttons">
-                        <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple">
-                            <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">Read</span>
-                        </button>
-                    </div>
-                    <div class="mdc-card__action-icons">
-                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
-                                title="Share" data-mdc-auto-init="MDCRipple">
-                            share
-                        </button>
-                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
-                                title="More options" data-mdc-auto-init="MDCRipple">
-                            more_vert
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!------>
-            <div class="mdc-card">
-                <div class="mdc-card__media mdc-card__media--16-9">
-                    <div class="mdc-card__media-content"></div>
-                </div>
-                <div class="mdc-card-wrapper__text-section">
-                    <div class="mdc-card__text-section-header">Contents of different heights will be balanced</div>
-                    <div class="mdc-card__text-section-subhead">
-                        This is a very very long summary. Why are summaries even that long?
-                        They shouldn't be. Let me make a very very very very long sentence here.
-                        This card will be very long, so let's put in a few more words.
-                    </div>
-                </div>
-                <div class="mdc-card__actions">
-                    <div class="mdc-card__action-buttons">
-                        <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple">
-                            <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">Read</span>
-                        </button>
-                    </div>
-                    <div class="mdc-card__action-icons">
-                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
-                                title="Share" data-mdc-auto-init="MDCRipple">
-                            share
-                        </button>
-                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
-                                title="More options" data-mdc-auto-init="MDCRipple">
-                            more_vert
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!------->
-            <div class="mdc-card">
-                <div class="mdc-card__media mdc-card__media--16-9">
-                    <div class="mdc-card__media-content"></div>
-                </div>
-                <div class="mdc-card-wrapper__text-section">
-                    <div class="mdc-card__text-section-header">Content</div>
-                    <div class="mdc-card__text-section-subhead">Subheader</div>
-                </div>
-                <div class="mdc-card__actions">
-                    <div class="mdc-card__action-buttons">
-                        <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple">
-                            <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">Read</span>
-                        </button>
-                    </div>
-                    <div class="mdc-card__action-icons">
-                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
-                                title="Share" data-mdc-auto-init="MDCRipple">
-                            share
-                        </button>
-                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
-                                title="More options" data-mdc-auto-init="MDCRipple">
-                            more_vert
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!------>
-            <div class="mdc-card">
-                <div class="mdc-card__media mdc-card__media--16-9">
-                    <div class="mdc-card__media-content"></div>
-                </div>
-                <div class="mdc-card-wrapper__text-section">
-                    <div class="mdc-card__text-section-header">Content</div>
-                    <div class="mdc-card__text-section-subhead">Subheader</div>
-                </div>
-                <div class="mdc-card__actions">
-                    <div class="mdc-card__action-buttons">
-                        <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple">
-                            <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">Read</span>
-                        </button>
-                    </div>
-                    <div class="mdc-card__action-icons">
-                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
-                                title="Share" data-mdc-auto-init="MDCRipple">
-                            share
-                        </button>
-                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
-                                title="More options" data-mdc-auto-init="MDCRipple">
-                            more_vert
-                        </button>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
@@ -379,13 +237,23 @@
             </div>
         </div>
     </div>
+</section>
+<section class="segmented-lr etc-resource">
+
+</section>
+<section class="abt-nus-high">
+    <div class="segmented-lr">
+        <img alt="NUS High Logo" src="https://www.nushigh.edu.sg/qql/slot/u90/2020/Home/school_logo_edit_big.png" />
+        <h2 class="mdc-typography--headline2">NUS High</h2>
+    </div>
+
     <!-- Footer -->
     <footer>
         <h2 class="margin-top-10">National Education Website</h2>
         <p>Created by Vincent Kwok and Wang Zerui (M21204) in collaboration with the NUS High NE community</p>
     </footer>
+    <!------>
 </section>
-<!------>
 <!-- Element for intersection observer to observe -->
 <div class="bottom" id="b"></div>
 </body>

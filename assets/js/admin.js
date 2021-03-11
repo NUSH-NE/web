@@ -39,7 +39,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         showMsg("sin in")
     } else {
-        showMsg("STOPPP HACCERMAN STOPPPPP")
+        showMsg("STOPPP HACCERMAN STOPPPPP");
 
         if (loginDialog.isOpen) loginDialog.close();
         else {

@@ -141,7 +141,18 @@ section.gamesEtc {
     background: linear-gradient(to right, #16254d, #0a45a4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-/* Bottom element */
+/****** Segmented Layout for resources etc ******/
+.segmented-lr {
+    display: grid;
+}
+
+/* About NUS High */
+section.abt-nus-high {
+    background-size: cover !important;
+    background: url("../img/nush.png") no-repeat fixed center;
+}
+
+/* Bottom element for bottom detection*/
 div.bottom {
     width: 100%;
     height: 0.1px;

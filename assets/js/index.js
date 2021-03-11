@@ -10,6 +10,7 @@ const loginDialog = $('loginDialog').MDCDialog;
 const loginSpinner = q('#loginDialog #loginLoader > div').MDCCircularProgress;
 const fUIAuthDiv = $('firebaseui-auth-container');
 const verifyEmailBtn = q('#verEmailMsg button');
+const readCardsHolder = $('read-cards');
 
 // ====== Helper Functions ====== //
 
@@ -74,6 +75,43 @@ function showHideUserArea() {
         loginSpinner.determinate = false;
         return false;
     }
+}
+
+function getArticleCard(data, img) {
+    const containerDiv = document.createElement('div');
+
+    // Set classes
+    containerDiv.classList.add('mdc-card');
+
+    // Fill innerHTML
+    containerDiv.innerHTML = `
+<div class="mdc-card__media mdc-card__media--16-9" style="background-image:url('${img}')">
+</div>
+<div class="mdc-card-wrapper__text-section">
+    <div class="mdc-card__text-section-header">Test Title</div>
+    <div class="mdc-card__text-section-subhead">${data.articleContent}</div>
+</div>
+<div class="mdc-card__actions">
+    <div class="mdc-card__action-buttons">
+        <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple">
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Read</span>
+        </button>
+    </div>
+    <div class="mdc-card__action-icons">
+        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
+                title="Share" data-mdc-auto-init="MDCRipple">
+            share
+        </button>
+        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface" data-mdc-ripple-is-unbounded
+                title="More options" data-mdc-auto-init="MDCRipple">
+            more_vert
+        </button>
+    </div>
+</div>
+    `;
+
+    return containerDiv;
 }
 
 function initFUI() {
@@ -196,6 +234,24 @@ fAuth.onAuthStateChanged(function(user) {
     }
     showHideUserArea();
 });
+
+const db = firebase.firestore();
+
+db.collection("articles")
+    .onSnapshot((snapshot) => {
+        // Clear holder div
+        readCardsHolder.textContent = '';
+        snapshot.docs.forEach((doc) => {
+            readCardsHolder.appendChild(getArticleCard({ articleContent: doc.data().content }, doc.data().link));
+        });
+        // Reinint masonry
+        new Masonry(elem, {
+            // options
+            itemSelector: '.mdc-card',
+            fitWidth: true,
+            gutter: 8
+        });
+    });
 
 // ============================ //
 // ====== Initialisation ====== //
