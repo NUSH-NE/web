@@ -143,6 +143,37 @@ section.gamesEtc {
 /****** Segmented Layout for resources etc ******/
 .segmented-lr {
     display: grid;
+    grid-template-columns: .8fr 1.2fr;
+}
+.segmented-lr > div.segmented-heading, .segmented-lr > div.segmented-content {
+    margin: 24px 12px 24px 24px;
+    padding: 16px;
+    border: 1px solid var(--outline-border-color);
+    border-radius: var(--mdc-shape-medium);
+    background-color: var(--scrim-bg);
+    backdrop-filter: blur(12px) brightness(70%) saturate(140%);
+    text-align: center;
+}
+.segmented-lr > div.segmented-heading > img {
+    width: 400px;
+    max-width: 80%;
+    display: block;
+    margin: 16px auto 30px auto;
+}
+.segmented-lr > div.segmented-heading > h3 {
+    margin: 20px 0 5px 0;
+    font-size: 3rem;
+}
+.segmented-lr > div.segmented-content {
+    margin: 24px 24px 24px 12px;
+    backdrop-filter: blur(4px) saturate(140%);
+}
+.segmented-lr > div.segmented-content > div.mdc-chip-set .mdc-chip {
+    letter-spacing: var(--mdc-typography-button-letter-spacing, 0.0892857143em);
+    text-transform: var(--mdc-typography-button-text-transform, uppercase);
+    color: var(--mdc-theme-primary);
+    font-size: var(--mdc-typography-button-font-size, 0.875rem);
+    height: 36px;
 }
 
 /* About NUS High */

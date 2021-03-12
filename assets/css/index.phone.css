@@ -15,3 +15,16 @@
             "iOne iTwo"
             "iThree iFour";
 }
+
+.segmented-lr {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+}
+.segmented-lr > div.segmented-heading, .segmented-lr > div.segmented-content {
+    margin: 16px;
+    padding: 4px;
+}
+.segmented-lr > div.segmented-heading > h3 {
+    margin: 20px 0 10px 0;
+}

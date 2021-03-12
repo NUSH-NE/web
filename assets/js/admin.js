@@ -95,7 +95,7 @@ function initFUI() {
 
 
 // Onclick listeners
-submitBtn.onclick = (evt) => {
+submitBtn.onclick = () => {
     // Validation
     if (fPickerElem.files.length === 0) {
         showMsg('No images selected');

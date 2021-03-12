@@ -41,12 +41,18 @@
     max-height: 30vh;
 }
 /* Chips */
+.mdc-chip-set {
+    justify-content: center;
+}
 .mdc-chip, .mdc-chip:hover {
     color: var(--header-text-color, #fff);
 }
 .mdc-chip {
     background-color: var(--mdc-theme-surface);
     transition: background-color .1s ease-in-out;
+}
+.mdc-chip__icon--leading, .mdc-chip__icon--trailing {
+    color: var(--mdc-theme-text-icon-on-dark);
 }
 .mdc-chip.mdc-chip--selected {
     background-color: var(--mdc-theme-secondary);
