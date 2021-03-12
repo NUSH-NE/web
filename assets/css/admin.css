@@ -47,7 +47,6 @@ button.mdc-button {
 }
 
 /* TinyMCE customisations */
-.tox-statusbar__branding { display: none; }
 .tox .tox-notification--warn, .tox .tox-notification--warning {
     border-color: #ffe89d30 !important;
     background-color: #2b2b2b9e !important;

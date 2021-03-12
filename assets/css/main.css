@@ -54,13 +54,14 @@ h1, h2 {
     transition: color 250ms;
     font-family: var(--mdc-typography-headline2-font-family);
 }
+h3 { font-family: var(--mdc-typography-headline3-font-family); }
 p, h3, h4, h5, h6, label, small {
     color: var(--content-text-color, #fff);
     transition: color 250ms;
 }
-h3 {
-    font-family: var(--mdc-typography-headline3-font-family);
-}
+h1 { font-family: var(--mdc-typography-headline1-font-family); }
+h2 { font-family: var(--mdc-typography-headline2-font-family); }
+h3 { font-family: var(--mdc-typography-headline3-font-family); }
 a {
     color: var(--mdc-theme-primary);
 }
@@ -143,6 +144,12 @@ img {
 }
 .padding-bottom-0 {
     padding-bottom: 0 !important;
+}
+.padding-no {
+    padding: 0 !important;
+}
+.padding-textContent {
+    padding: 16px !important;
 }
 /* Widths */
 .width-100 {

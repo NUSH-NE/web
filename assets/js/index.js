@@ -12,6 +12,7 @@ const fUIAuthDiv = $('firebaseui-auth-container');
 const verifyEmailBtn = q('#verEmailMsg button');
 const readCardsHolder = $('read-cards');
 const elem = document.querySelector('.mason-cards');
+const readerDialog = $('readerDialog').MDCDialog;
 
 // ====== Helper Functions ====== //
 
@@ -78,7 +79,7 @@ function showHideUserArea() {
     }
 }
 
-function getArticleCard(data, img) {
+function getArticleCard(data, img, btnListener) {
     const containerDiv = document.createElement('div');
 
     // Set classes
@@ -111,6 +112,11 @@ function getArticleCard(data, img) {
     </div>
 </div>
     `;
+
+    const btn = containerDiv.querySelector('.mdc-button.mdc-card__action.mdc-card__action--button');
+    btn.onclick = () => {
+        btnListener(data, img);
+    }
 
     return containerDiv;
 }
@@ -162,6 +168,23 @@ function showAuthMsg(msg) {
     holder.classList.remove('hidden');
 }
 
+function showReaderDialog(data, img) {
+    const contentHolder = $('reader-content-holder');
+    contentHolder.textContent = ''; // Clear content
+
+    const imgE = document.createElement('img');
+    imgE.src = img;
+    imgE.classList.add('readerHeadImg');
+    contentHolder.appendChild(imgE);
+
+    const content = document.createElement('div');
+    contentHolder.appendChild(content);
+
+    content.innerHTML = data.articleContent;
+    $('reader-title-elem').textContent = data.title;
+    readerDialog.open();
+}
+
 let fUI;
 let fAuth = firebase.auth();
 let cUser = null;
@@ -203,7 +226,7 @@ $('signOutBtn').onclick = () => {
     })
 }
 
-verifyEmailBtn.onclick = (event) => {
+verifyEmailBtn.onclick = () => {
     verifyEmailBtn.disabled = true;
     cUser.sendEmailVerification().then(function() {
         // Email sent.
@@ -251,7 +274,7 @@ db.collection("articles")
             readCardsHolder.appendChild(getArticleCard({
                 articleContent: doc.data().content,
                 title: doc.data().title
-            }, doc.data().link));
+            }, doc.data().link, showReaderDialog));
         });
 
         // Re-inint masonry

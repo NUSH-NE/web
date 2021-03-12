@@ -154,6 +154,58 @@
     <div class="mdc-dialog__scrim"></div>
 </div>
 <!------>
+<!-- Article reader dialog -->
+<div class="mdc-dialog mega-dialog reader-dialog" data-mdc-auto-init="MDCDialog" id="readerDialog">
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface"
+             role="alertdialog"
+             aria-modal="true"
+             aria-labelledby="reader-title"
+             aria-describedby="reader-content">
+            <div class="mdc-dialog__actions">
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+                    <div class="mdc-button__ripple"></div>
+                    <i class="material-icons mdc-button__icon" aria-hidden="true">open_in_full</i>
+                    <span class="mdc-button__label">Expanded View</span>
+                </button>
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Close</span>
+                </button>
+            </div>
+            <div class="mdc-dialog__title text-centered padding-bottom-0" id="reader-title"><!--
+                <i class="material-icons font-size-75">calculate</i>
+                --><h2 class="margin-top-0 margin-bottom-10" id="reader-title-elem">Article title</h2>
+            </div>
+            <div class="mdc-dialog__content padding-no">
+                <div id="reader-content-holder" class="padding-textContent readerContent"></div> <!-- Content holder -->
+                <aside class="readerAside">
+                    <div class="headerRow">
+                        <button id="add-to-favorites"
+                                class="mdc-icon-button display-inline"
+                                data-mdc-auto-init="MDCIconButtonToggle"
+                                aria-label="Add to favorites"
+                                aria-pressed="false">
+                            <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">chevron_right</i>
+                            <i class="material-icons mdc-icon-button__icon">chevron_left</i>
+                        </button>
+                        <h2 class="margin-top-0 display-inline">Resources</h2>
+                    </div>
+                    <!------>
+                    <hr>
+                    <ul>
+                        <li>hmm</li>
+                        <li>hmm</li>
+                        <li>hmm</li>
+                        <li>hmm</li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
+<!------>
 <!-- Hero -->
 <section class="hero">
     <div class="header center-child">
@@ -267,7 +319,7 @@
             <h4 class="mdc-typography--headline4">NUSH Websites</h4>
             <hr>
             <div class="mdc-chip-set" role="grid" data-mdc-auto-init="MDCChipSet">
-                <a class="mdc-chip" role="row" data-mdc-auto-init="MDCChip" href="https://www.nushigh.edu.sg/" target="_blank">
+                <a class="mdc-chip" role="row" data-mdc-auto-init="MDCChip" href="https://www.nushigh.edu.sg/" target="_blank" rel="noreferrer">
                     <div class="mdc-chip__ripple"></div>
                     <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">web</i>
                     <span role="gridcell">
@@ -279,7 +331,7 @@
                         <i class="material-icons mdc-chip__icon mdc-chip__icon--trailing" tabindex="-1" role="button">open_in_new</i>
                     </span>
                 </a>
-                <a class="mdc-chip" role="row" data-mdc-auto-init="MDCChip" href="https://onenushighlights.com/" target="_blank">
+                <a class="mdc-chip" role="row" data-mdc-auto-init="MDCChip" href="https://onenushighlights.com/" target="_blank" rel="noreferrer">
                     <div class="mdc-chip__ripple"></div>
                     <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">group</i>
                     <span role="gridcell">

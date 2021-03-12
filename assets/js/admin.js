@@ -181,6 +181,9 @@ tinymce.init({
     min_height: 110,
     max_height: 1000,
     menubar: false,
+    browser_spellcheck: true,
+    contextmenu: false,
+    branding: false,
     plugins: [
         'advlist autolink lists link image charmap print preview anchor',
         'searchreplace visualblocks code fullscreen',

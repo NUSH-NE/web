@@ -65,6 +65,12 @@
     overflow-x: hidden;
 }
 /* Dialogs */
+.mdc-dialog__title {
+    border-bottom: 1px solid var(--sep-border-color);
+}
+.mdc-dialog__title::before { /* Some random element that causes all sorts of issues */
+    display: none;
+}
 .mdc-dialog .mdc-dialog__surface {
     background-color: var(--darker-surface-bg, #000);
     border: 1px solid var(--outline-border-color, rgba(115, 115, 115, .5));
@@ -77,6 +83,10 @@
 }
 .mdc-dialog.expanded-dialog .mdc-dialog__surface {
     max-width: 500px;
+    width: 100%;
+}
+.mdc-dialog.mega-dialog .mdc-dialog__surface {
+    max-width: 1000px;
     width: 100%;
 }
 .mdc-dialog__content > h3 {

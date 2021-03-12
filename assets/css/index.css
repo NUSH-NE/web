@@ -21,6 +21,42 @@
     margin: auto;
 }
 
+/******* Reader Dialog *******/
+img.readerHeadImg {
+    border-radius: var(--mdc-shape-medium);
+    width: 100%;
+    max-width: 500px;
+    display: block;
+    margin: 0 auto;
+}
+div.reader-dialog div.readerContent {
+    flex-grow: 2;
+}
+div.reader-dialog div.mdc-dialog__content {
+    display: flex;
+}
+div.reader-dialog aside.readerAside {
+    width: 100%;
+    align-self: start;
+    margin: 24px 0;
+    padding: 16px;
+    border-radius: var(--overlay-border-radius) 0 0 var(--overlay-border-radius);
+    max-width: 260px;
+    transition: max-width .4s ease-in-out;
+    background-color: var(--mdc-theme-surface);
+}
+div.reader-dialog aside.readerAside > div.headerRow {
+    display: flex;
+}
+div.reader-dialog aside.readerAside > div.headerRow > h2 {
+    margin: auto 10px;
+}
+div.reader-dialog aside.readerAside > ul {
+    padding: 0;
+    list-style-type: none;
+    margin: 0;
+}
+
 
 /******* Hero *******/
 
