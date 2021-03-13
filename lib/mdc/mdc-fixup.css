@@ -82,11 +82,11 @@
     width: calc(100% - 20px);
 }
 .mdc-dialog.expanded-dialog .mdc-dialog__surface {
-    max-width: 500px;
+    max-width: calc(500px - 20px);
     width: 100%;
 }
 .mdc-dialog.mega-dialog .mdc-dialog__surface {
-    max-width: 1000px;
+    max-width: calc(100% - 20px);
     width: 100%;
 }
 .mdc-dialog__content > h3 {

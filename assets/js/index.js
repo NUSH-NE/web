@@ -13,6 +13,8 @@ const verifyEmailBtn = q('#verEmailMsg button');
 const readCardsHolder = $('read-cards');
 const elem = document.querySelector('.mason-cards');
 const readerDialog = $('readerDialog').MDCDialog;
+const readFixToggle = $('read-sidebar-fixed').MDCIconButtonToggle;
+const readSidebar = q('div.reader-dialog aside.readerAside');
 
 // ====== Helper Functions ====== //
 
@@ -170,7 +172,9 @@ function showAuthMsg(msg) {
 
 function showReaderDialog(data, img) {
     const contentHolder = $('reader-content-holder');
+    const resLinkHolder = $('readerResLinks');
     contentHolder.textContent = ''; // Clear content
+    resLinkHolder.textContent = '';
 
     const imgE = document.createElement('img');
     imgE.src = img;
@@ -180,8 +184,22 @@ function showReaderDialog(data, img) {
     const content = document.createElement('div');
     contentHolder.appendChild(content);
 
+    // Append article to container
     content.innerHTML = data.articleContent;
+
+    // Change title
     $('reader-title-elem').textContent = data.title;
+
+    // Add resource links
+    !data.resLinks ? resLinkHolder.innerHTML += '<p>No resource links</p>' :
+    data.resLinks.forEach((link) => {
+        const listHolder = document.createElement('li');
+        const liElem = document.createElement('a');
+        liElem.textContent = link.length <= 50 ? link : link.slice(50) + '...';
+        liElem.href = link;
+        listHolder.appendChild(liElem);
+        resLinkHolder.appendChild(listHolder);
+    });
     readerDialog.open();
 }
 
@@ -273,7 +291,8 @@ db.collection("articles")
         snapshot.docs.forEach((doc) => {
             readCardsHolder.appendChild(getArticleCard({
                 articleContent: doc.data().content,
-                title: doc.data().title
+                title: doc.data().title,
+                resLinks: doc.data().resourceLink
             }, doc.data().link, showReaderDialog));
         });
 
@@ -287,6 +306,11 @@ db.collection("articles")
         // Re-init MDC
         mdc.autoInit();
     });
+
+// Toggle listener
+readFixToggle.listen('MDCIconButtonToggle:change', (e) => {
+    e.detail.isOn ? readSidebar.classList.add('fixed') : readSidebar.classList.remove('fixed');
+});
 
 // ============================ //
 // ====== Initialisation ====== //

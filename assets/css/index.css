@@ -31,29 +31,48 @@ img.readerHeadImg {
 }
 div.reader-dialog div.readerContent {
     flex-grow: 2;
+    padding: 24px;
 }
 div.reader-dialog div.mdc-dialog__content {
     display: flex;
 }
+div.reader-dialog aside.readerAside:hover, div.reader-dialog aside.readerAside.fixed {
+    padding: 16px;
+    max-width: 260px;
+}
 div.reader-dialog aside.readerAside {
     width: 100%;
     align-self: start;
-    margin: 24px 0;
-    padding: 16px;
+    margin: 24px 0 24px 47px;
+    padding: 0;
     border-radius: var(--overlay-border-radius) 0 0 var(--overlay-border-radius);
-    max-width: 260px;
-    transition: max-width .4s ease-in-out;
+    max-width: 0;
+    transition: all .4s ease-out;
+    transition-property: max-width, padding;
+    background-color: var(--mdc-theme-surface);
+    position: relative;
+}
+div.reader-dialog aside.readerAside > h2 {
+    margin: 12px 0;
+}
+div.reader-dialog aside.readerAside > hr {
+    margin-left: 0;
+    transition: margin-left .4s ease-out;
+}
+div.reader-dialog aside.readerAside:hover > hr, div.reader-dialog aside.readerAside.fixed > hr {
+    /* Make it "full bleed" */
+    margin-left: -16px;
+    margin-right: -16px;
+}
+div.reader-dialog aside.readerAside > div.showHideContainer {
+    position: absolute;
+    left: -47px;
+    padding-right: 12px;
+    border-radius: var(--mdc-shape-small);
     background-color: var(--mdc-theme-surface);
 }
-div.reader-dialog aside.readerAside > div.headerRow {
-    display: flex;
-}
-div.reader-dialog aside.readerAside > div.headerRow > h2 {
-    margin: auto 10px;
-}
 div.reader-dialog aside.readerAside > ul {
-    padding: 0;
-    list-style-type: none;
+    padding-left: 20px;
     margin: 0;
 }
 
