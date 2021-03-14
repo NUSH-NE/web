@@ -15,6 +15,8 @@ const elem = document.querySelector('.mason-cards');
 const readerDialog = $('readerDialog').MDCDialog;
 const readFixToggle = $('read-sidebar-fixed').MDCIconButtonToggle;
 const readSidebar = q('div.reader-dialog aside.readerAside');
+const addPostBtn = $('addPostBtn');
+const fileUploadElem = $('fileUpload');
 
 // ====== Helper Functions ====== //
 
@@ -312,8 +314,65 @@ readFixToggle.listen('MDCIconButtonToggle:change', (e) => {
     e.detail.isOn ? readSidebar.classList.add('fixed') : readSidebar.classList.remove('fixed');
 });
 
+// Add post button click listener
+addPostBtn.onclick = () => {
+    fileUploadElem.click();
+}
+
+fileUploadElem.onchange = () => {
+    const fr = new FileReader();
+
+    fr.onload = (ev) => {
+        q('.post-dialog img.img-preview').src = ev.target.result.toString();
+    }
+
+    fr.readAsDataURL(fileUploadElem.files[0]);
+    $('postImgDialog').MDCDialog.open();
+}
+
 // ============================ //
 // ====== Initialisation ====== //
+
+// Init Flickity
+const flkty = new Flickity('#postCarousel', {
+    // options
+    wrapAround: true,
+    lazyLoad: 4,
+    pageDots: false,
+    arrowShape: 'M 69.25 12.457031 C 67.207031 10.417969 63.917969 10.417969 61.875 12.457031 L 27.25 47.082031 C 25.625 48.707031 25.625 51.332031 27.25 52.957031 L 61.875 87.582031 C 63.917969 89.625 67.207031 89.625 69.25 87.582031 C 71.292969 85.542969 71.292969 82.25 69.25 80.207031 L 39.082031 50 L 69.292969 19.792969 C 71.292969 17.792969 71.292969 14.457031 69.25 12.457031 Z M 69.25 12.457031'
+});
+
+// Add images
+for (let i = 0; i < 100; i++) {
+    const cell = document.createElement('div');
+    cell.innerHTML = `<img data-flickity-lazyload="https://picsum.photos/1600/900.webp?random=${i}" class="mdc-elevation--z16"/>`;
+    cell.classList.add('carousel-cell');
+
+    q('#postCarousel .flickity-slider').appendChild(cell);
+}
+flkty.reloadCells();
+
+function reload() {
+    q('#postCarousel .flickity-slider').textContent = '';
+
+    for (let i = 0; i < 100; i++) {
+        const cell = document.createElement('div');
+        cell.innerHTML = `<img data-flickity-lazyload="https://picsum.photos/1600/900.webp?random=${i}" class="mdc-elevation--z16"/>`;
+        cell.classList.add('carousel-cell');
+
+        q('#postCarousel .flickity-slider').appendChild(cell);
+    }
+    flkty.reloadCells();
+    flkty.next();
+    flkty.previous();
+}
+// Moving next and back somehow fixes the issue of requiring a resize before images load
+flkty.next(); 
+flkty.previous();
+flkty.nextButton.element.classList.add('mdc-ripple-surface', 'mdc-elevation--z20');
+flkty.nextButton.element.setAttribute('data-mdc-auto-init', 'MDCRipple');
+flkty.prevButton.element.classList.add('mdc-ripple-surface', 'mdc-elevation--z20');
+flkty.prevButton.element.setAttribute('data-mdc-auto-init', 'MDCRipple');
 
 // Start indeterminable article loading progress bar
 $('load-articles').MDCLinearProgress.determinate = false;

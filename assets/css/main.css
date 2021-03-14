@@ -45,6 +45,11 @@ body {
 /* Sensible defaults */
 * {
     padding-top: 0.1px; /* Prevent collapsing of margins */
+    box-sizing: border-box;
+}
+
+input[type="file"] {
+    display: none;
 }
 
 /****** Style Native Elements ******/
@@ -261,4 +266,11 @@ footer {
 }
 ::-webkit-scrollbar-thumb:hover {
     background-color: rgb(149, 149, 149);
+}
+
+/******* Keyboard accessibility *******/
+body:not(.using-mouse) :focus {
+    outline: none !important;
+    /*box-shadow: 20px 15px 30px yellow, -20px 15px 30px lime, -20px -15px 30px blue, 20px -15px 30px red; !important; /* That'll show 'em */
+    box-shadow: 0 0 0 5px rgba(21, 156, 228, .6);
 }

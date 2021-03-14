@@ -39,6 +39,7 @@ div.reader-dialog div.mdc-dialog__content {
 div.reader-dialog aside.readerAside:hover, div.reader-dialog aside.readerAside.fixed {
     padding: 16px;
     max-width: 260px;
+    transition-delay: 0s;
 }
 div.reader-dialog aside.readerAside {
     width: 100%;
@@ -48,6 +49,7 @@ div.reader-dialog aside.readerAside {
     border-radius: var(--overlay-border-radius) 0 0 var(--overlay-border-radius);
     max-width: 0;
     transition: all .4s ease-out;
+    transition-delay: 1s;
     transition-property: max-width, padding;
     background-color: var(--mdc-theme-surface);
     position: relative;
@@ -57,12 +59,16 @@ div.reader-dialog aside.readerAside > h2 {
 }
 div.reader-dialog aside.readerAside > hr {
     margin-left: 0;
-    transition: margin-left .4s ease-out;
+    margin-right: 0;
+    transition: all .4s ease-out;
+    transition-property: margin-left, margin-right;
+    transition-delay: 1s;
 }
 div.reader-dialog aside.readerAside:hover > hr, div.reader-dialog aside.readerAside.fixed > hr {
     /* Make it "full bleed" */
     margin-left: -16px;
     margin-right: -16px;
+    transition-delay: 0s;
 }
 div.reader-dialog aside.readerAside > div.showHideContainer {
     position: absolute;
@@ -74,6 +80,14 @@ div.reader-dialog aside.readerAside > div.showHideContainer {
 div.reader-dialog aside.readerAside > ul {
     padding-left: 20px;
     margin: 0;
+}
+
+/******* Post Dialog *******/
+.post-dialog img.img-preview {
+    border-radius: var(--mdc-shape-medium);
+    width: 100%;
+    margin-top: 20px !important;
+    border: 1px solid var(--outline-border-color);
 }
 
 
@@ -195,12 +209,105 @@ section.gamesEtc {
     background: linear-gradient(to right, #16254d, #0a45a4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+/****** Image carousel *******/
+
+.carousel-cell {
+    width: 60%;
+    height: 300px;
+    /* flex-box, center image in cell */
+    display: -webkit-box;
+    display: -webkit-flex;
+    display:         flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.carousel-cell img {
+    border-radius: var(--mdc-shape-medium);
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    border: 2px solid var(--outline-border-color);
+    /* dim unselected */
+    opacity: 0;
+    -webkit-transform: scale(0.85);
+    transform: scale(0.85);
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s, transform 0.3s, -webkit-filter 0.3s, filter 0.3s;
+    transition: opacity 0.3s, transform 0.3s, filter 0.3s;
+}
+
+/* fade in image when loaded */
+.carousel-cell img.flickity-lazyloaded,
+.carousel-cell img.flickity-lazyerror {
+    opacity: .7;
+}
+.carousel-cell.is-selected img.flickity-lazyloaded,
+.carousel-cell.is-selected img.flickity-lazyerror {
+    opacity: 1;
+}
+
+/* brighten selected image */
+.carousel-cell.is-selected img {
+    opacity: 0;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-filter: none;
+    filter: none;
+}
+
+@media screen and ( max-width: 499px ) {
+    .carousel-cell {
+        width: 80%;
+    }
+}
+
+@media screen and ( min-width: 859px ) {
+    .carousel-cell {
+        height: 550px;
+        width: 70%;
+    }
+}
+
+/* Buttons, no circle */
+.flickity-prev-next-button {
+    width: 60px;
+    height: 60px;
+    background-color: var(--mdc-theme-surface) !important;
+    opacity: .5;
+    transition: opacity .2s ease-in-out;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+.flickity-prev-next-button:hover, .flickity-prev-next-button:active {
+    opacity: .8;
+}
+/* Arrow colors */
+.flickity-prev-next-button .arrow, .flickity-prev-next-button.no-svg {
+    fill: white;
+}
+/* Move arrows closer to edge */
+.flickity-prev-next-button.previous { left: 0; }
+.flickity-prev-next-button.next { right: 0; }
+/* Hide disabled button */
+.flickity-prev-next-button:disabled {
+    display: none;
+}
+
 /****** Segmented Layout for resources etc ******/
 .segmented-lr {
     display: grid;
     grid-template-columns: .8fr 1.2fr;
 }
-.segmented-lr > div.segmented-heading, .segmented-lr > div.segmented-content {
+.segmented-rl {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+}
+.segmented > div.segmented-heading, .segmented > div.segmented-content {
     margin: 24px 12px 24px 24px;
     padding: 16px;
     border: 1px solid var(--outline-border-color);
@@ -209,21 +316,32 @@ section.gamesEtc {
     backdrop-filter: blur(12px) brightness(70%) saturate(140%);
     text-align: center;
 }
-.segmented-lr > div.segmented-heading > img {
+.segmented.segmented-lr > div.segmented-heading, .segmented.segmented-lr > div.segmented-content {
+    margin: 24px 12px 24px 24px;
+}
+.segmented.segmented-rl > div.segmented-heading, .segmented.segmented-rl > div.segmented-content {
+    margin: 24px 24px 24px 12px;
+}
+.segmented > div.segmented-heading > img {
     width: 400px;
     max-width: 80%;
     display: block;
     margin: 16px auto 30px auto;
 }
-.segmented-lr > div.segmented-heading > h3 {
+.segmented > div.segmented-heading > h3 {
     margin: 20px 0 5px 0;
     font-size: 3rem;
 }
-.segmented-lr > div.segmented-content {
-    margin: 24px 24px 24px 12px;
+.segmented > div.segmented-content {
     backdrop-filter: blur(4px) saturate(140%);
 }
-.segmented-lr > div.segmented-content > div.mdc-chip-set .mdc-chip {
+.segmented.segmented-lr > div.segmented-content {
+    margin: 24px 24px 24px 12px;
+}
+.segmented.segmented-rl > div.segmented-content {
+    margin: 24px 12px 24px 24px;
+}
+.segmented > div.segmented-content > div.mdc-chip-set .mdc-chip {
     letter-spacing: var(--mdc-typography-button-letter-spacing, 0.0892857143em);
     text-transform: var(--mdc-typography-button-text-transform, uppercase);
     color: var(--mdc-theme-primary);

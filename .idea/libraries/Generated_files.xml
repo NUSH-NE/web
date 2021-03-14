@@ -13,6 +13,7 @@
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-storage.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-ui-auth.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/init.min.js" />
+        <item url="file://$PROJECT_DIR$/lib/flickity/flickity.min.js" />
         <item url="file://$PROJECT_DIR$/lib/mdc/init.min.js" />
         <item url="file://$PROJECT_DIR$/lib/mdc/material-components.min.js" />
         <item url="file://$PROJECT_DIR$/lib/tinymce/tinymce.min.js" />
@@ -30,6 +31,7 @@
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-storage.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-ui-auth.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/init.min.js" />
+      <root url="file://$PROJECT_DIR$/lib/flickity/flickity.min.js" />
       <root url="file://$PROJECT_DIR$/lib/mdc/init.min.js" />
       <root url="file://$PROJECT_DIR$/lib/mdc/material-components.min.js" />
       <root url="file://$PROJECT_DIR$/lib/tinymce/tinymce.min.js" />

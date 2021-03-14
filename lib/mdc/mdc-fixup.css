@@ -36,6 +36,9 @@
 .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
     color: var(--header-text-color, #fff);
 }
+.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field-character-counter, .mdc-text-field:not(.mdc-text-field--disabled)+.mdc-text-field-helper-line .mdc-text-field-character-counter, .mdc-text-field:not(.mdc-text-field--disabled)+.mdc-text-field-helper-line .mdc-text-field-helper-text {
+    color: var(--mdc-theme-text-secondary-on-background);
+}
 /* Textareas */
 .mdc-text-field--textarea {
     max-height: 30vh;
@@ -80,6 +83,9 @@
     -webkit-backdrop-filter: blur(12px);
     box-shadow: var(--overlay-shadows);
     width: calc(100% - 20px);
+}
+.mdc-dialog .mdc-dialog__content {
+    padding-bottom: 0;
 }
 .mdc-dialog.expanded-dialog .mdc-dialog__surface {
     max-width: calc(500px - 20px);

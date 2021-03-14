@@ -16,15 +16,15 @@
             "iThree iFour";
 }
 
-.segmented-lr {
+.segmented {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
 }
-.segmented-lr > div.segmented-heading, .segmented-lr > div.segmented-content {
-    margin: 16px;
+.segmented > div.segmented-heading, .segmented > div.segmented-content {
+    margin: 16px !important;
     padding: 4px;
 }
-.segmented-lr > div.segmented-heading > h3 {
-    margin: 20px 0 10px 0;
+.segmented > div.segmented-heading > h3 {
+    margin: 20px 0 10px 0 !important;
 }

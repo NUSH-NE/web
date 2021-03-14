@@ -1,0 +1,4 @@
+.flickity-prev-next-button {
+    top: calc(50% - 22px);
+    transform: none;
+}

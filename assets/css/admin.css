@@ -63,10 +63,6 @@ button.mdc-button {
 }
 .tox .tox-dialog__header { padding: 8px 8px 0 16px !important; }
 
-input[type="file"] {
-    display: none;
-}
-
 img.preview-img {
     border-radius: 9px;
     width: 100%;

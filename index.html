@@ -32,6 +32,11 @@
     <!-- Modenizr -->
     <script src="lib/modernizr/modernizr-custom.js" async></script>
 
+    <!-- Flickity -->
+    <script src="lib/flickity/flickity.min.js" defer></script>
+    <link rel="stylesheet" href="lib/flickity/flickity.min.css">
+    <link rel="stylesheet" href="lib/flickity/flickity-fixup.min.css">
+
     <!-- JS -->
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js" defer></script>
     <script src="assets/js/strings.min.js" defer></script>
@@ -188,9 +193,6 @@
                                 aria-pressed="false">
                             <svg class="mdc-icon-button__icon" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
                                 <g>
-                                    <rect fill="none" height="24" width="24"/>
-                                </g>
-                                <g>
                                     <path d="M14,4v5c0,1.12,0.37,2.16,1,3H9c0.65-0.86,1-1.9,1-3V4H14 M17,2H7C6.45,2,6,2.45,6,3c0,0.55,0.45,1,1,1c0,0,0,0,0,0l1,0v5 c0,1.66-1.34,3-3,3v2h5.97v7l1,1l1-1v-7H19v-2c0,0,0,0,0,0c-1.66,0-3-1.34-3-3V4l1,0c0,0,0,0,0,0c0.55,0,1-0.45,1-1 C18,2.45,17.55,2,17,2L17,2z"/>
                                 </g>
                             </svg>
@@ -204,6 +206,51 @@
                     <ul id="readerResLinks">
                     </ul>
                 </aside>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
+<!------>
+<!-- Post image dialog -->
+<div class="mdc-dialog expanded-dialog post-dialog" data-mdc-auto-init="MDCDialog" id="postImgDialog">
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface"
+             role="alertdialog"
+             aria-modal="true"
+             aria-labelledby="postImg-title"
+             aria-describedby="postImg-content">
+            <div class="mdc-dialog__title text-centered padding-bottom-0" id="postImg-title"><!--
+                <i class="material-icons font-size-75">calculate</i>
+                --><h2>Create Post</h2>
+            </div>
+            <div class="mdc-dialog__content" id="postImg-content">
+                <img class="img-preview mdc-elevation--z12" alt="Preview of uploaded image" src="">
+                <hr>
+                <label class="mdc-text-field mdc-text-field--outlined width-100 margin-top-10" data-mdc-auto-init="MDCTextField" id="post-caption">
+                    <span class="mdc-notched-outline">
+                        <span class="mdc-notched-outline__leading"></span>
+                        <span class="mdc-notched-outline__notch">
+                            <span class="mdc-floating-label" id="post-caption-label">Image caption</span>
+                        </span>
+                        <span class="mdc-notched-outline__trailing"></span>
+                    </span>
+                    <input type="text" class="mdc-text-field__input" aria-labelledby="post-caption-label" maxlength="100">
+                </label>
+                <div class="mdc-text-field-helper-line">
+                    <div class="mdc-text-field-character-counter">0 / 100</div>
+                </div>
+            </div>
+            <div class="mdc-dialog__actions">
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Cancel</span>
+                </button>
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Post</span>
+                    <i class="material-icons mdc-button__icon" aria-hidden="true">cloud_upload</i>
+                </button>
             </div>
         </div>
     </div>
@@ -243,7 +290,25 @@
 <!------>
 <!-- Games and others section -->
 <section class="gamesEtc">
+    <!-- Image carousel -->
+    <div class="mdc-card margin-top-15 margin-bottom-10 margin-left-10 margin-right-10">
+        <div class="mdc-card-wrapper__text-section">
+            <h2 class="mdc-typography--headline2 text-centered margin-no">NE Event Images</h2>
+        </div>
+        <div class="mdc-card__actions">
+            <input type="file" name="filename" id="fileUpload" accept="image/*">
+            <button class="mdc-button mdc-button--raised width-100 hover-no-expand" data-mdc-auto-init="MDCRipple" id="addPostBtn">
+                <span class="mdc-button__ripple"></span>
+                <i class="material-icons mdc-button__icon" aria-hidden="true">insert_photo</i>
+                <span class="mdc-button__label">Make a post</span>
+                <i class="material-icons mdc-button__icon" aria-hidden="true">cloud_upload</i>
+            </button>
+        </div>
+    </div>
     <!------>
+    <div class="carousel margin-top-15 margin-bottom-20" id="postCarousel"></div>
+    <!------>
+    <!-- Start of quizzes -->
     <div class="quizMoreInfo">
         <!-- Quizzes section -->
         <div class="quiz mdc-elevation--z12">
@@ -309,11 +374,45 @@
         </div>
     </div>
 </section>
-<section class="segmented-lr etc-resource">
-
+<section class="segmented segmented-rl etc-resource">
+    <div class="segmented__section segmented-content">
+        <h4 class="mdc-typography--headline4">Related Websites</h4>
+        <hr>
+        <div class="mdc-chip-set" role="grid" data-mdc-auto-init="MDCChipSet">
+            <a class="mdc-chip" role="row" data-mdc-auto-init="MDCChip" href="https://www.nushigh.edu.sg/" target="_blank" rel="noreferrer" tabindex="0">
+                <div class="mdc-chip__ripple"></div>
+                <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">web</i>
+                <span role="gridcell">
+                    <span class="mdc-chip__primary-action" role="button">
+                        <span class="mdc-chip__text">Official NUSH Website</span>
+                    </span>
+                </span>
+                <span role="gridcell">
+                    <i class="material-icons mdc-chip__icon mdc-chip__icon--trailing" tabindex="-1" role="button">open_in_new</i>
+                </span>
+            </a>
+            <a class="mdc-chip" role="row" data-mdc-auto-init="MDCChip" href="https://onenushighlights.com/" target="_blank" rel="noreferrer" tabindex="0">
+                <div class="mdc-chip__ripple"></div>
+                <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">group</i>
+                <span role="gridcell">
+                    <span class="mdc-chip__primary-action" role="button">
+                        <span class="mdc-chip__text">NUSH Student Website</span>
+                    </span>
+                </span>
+                <span role="gridcell">
+                    <i class="material-icons mdc-chip__icon mdc-chip__icon--trailing" tabindex="-1" role="button">open_in_new</i>
+                </span>
+            </a>
+        </div>
+    </div>
+    <div class="segmented__section segmented-heading">
+        <img alt="NUS High Logo" src="assets/img/link-icon-dark.svg" />
+        <hr>
+        <h3 class="mdc-typography--headline2">Other Links</h3>
+    </div>
 </section>
 <section class="abt-nus-high">
-    <div class="segmented-lr">
+    <div class="segmented segmented-lr">
         <div class="segmented__section segmented-heading">
             <img alt="NUS High Logo" src="assets/img/nush-logo-dark.png" />
             <hr>
@@ -323,11 +422,11 @@
             <h4 class="mdc-typography--headline4">NUSH Websites</h4>
             <hr>
             <div class="mdc-chip-set" role="grid" data-mdc-auto-init="MDCChipSet">
-                <a class="mdc-chip" role="row" data-mdc-auto-init="MDCChip" href="https://www.nushigh.edu.sg/" target="_blank" rel="noreferrer">
+                <a class="mdc-chip" role="row" data-mdc-auto-init="MDCChip" href="https://www.nushigh.edu.sg/" target="_blank" rel="noreferrer" tabindex="0">
                     <div class="mdc-chip__ripple"></div>
                     <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">web</i>
                     <span role="gridcell">
-                        <span class="mdc-chip__primary-action" role="button" tabindex="0">
+                        <span class="mdc-chip__primary-action" role="button">
                             <span class="mdc-chip__text">Official NUSH Website</span>
                         </span>
                     </span>
@@ -335,11 +434,11 @@
                         <i class="material-icons mdc-chip__icon mdc-chip__icon--trailing" tabindex="-1" role="button">open_in_new</i>
                     </span>
                 </a>
-                <a class="mdc-chip" role="row" data-mdc-auto-init="MDCChip" href="https://onenushighlights.com/" target="_blank" rel="noreferrer">
+                <a class="mdc-chip" role="row" data-mdc-auto-init="MDCChip" href="https://onenushighlights.com/" target="_blank" rel="noreferrer" tabindex="0">
                     <div class="mdc-chip__ripple"></div>
                     <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">group</i>
                     <span role="gridcell">
-                        <span class="mdc-chip__primary-action" role="button" tabindex="-1">
+                        <span class="mdc-chip__primary-action" role="button">
                             <span class="mdc-chip__text">NUSH Student Website</span>
                         </span>
                     </span>
