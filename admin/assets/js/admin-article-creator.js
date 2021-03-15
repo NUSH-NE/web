@@ -130,17 +130,20 @@ submitBtn.onclick = () => {
         submitBtn.disabled = false;
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
 
-            let val = $("resourceLink").value
-
             db.collection('articles').add({
                 content: tinyMCE.activeEditor.getContent(),
                 link: downloadURL,
-                resourceLink: val.split("\n").map(function(e){ return e.trim();}),
+                resourceLink: $('resourceLink').value.split("\n").map(function(e){ return e.trim();}),
                 title: $('article-title').MDCTextField.value
             }).then((docRef) => {
-                console.log("Document written with ID: ", docRef.id);
+                showMsg('Added article with ID ' + docRef);
+                // Clear everything
+                fPickerElem.value = '';
+                $('article-title').MDCTextField.value = '';
+                $('resourceLink').value = '';
+                tinyMCE.activeEditor.setContent('');
             }).catch((error) => {
-                console.error("Error adding document: ", error);
+                showMsg('Error adding article: ' + error)
             });
         });
     });

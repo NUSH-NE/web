@@ -2,7 +2,8 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
-        <item url="file://$PROJECT_DIR$/assets/js/admin.min.js" />
+        <item url="file://$PROJECT_DIR$/admin/assets/js/admin-article-creator.min.js" />
+        <item url="file://$PROJECT_DIR$/admin/assets/js/admin.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/index.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/strings.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/utility.min.js" />
@@ -21,7 +22,8 @@
       </sourceFilesUrls>
     </properties>
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/assets/js/admin.min.js" />
+      <root url="file://$PROJECT_DIR$/admin/assets/js/admin-article-creator.min.js" />
+      <root url="file://$PROJECT_DIR$/admin/assets/js/admin.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/index.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/strings.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/utility.min.js" />

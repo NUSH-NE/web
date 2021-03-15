@@ -453,6 +453,18 @@ db.collection('usrImgPosts')
                 cell.innerHTML = `<img data-flickity-lazyload="${change.doc.data().imgURL}" class="mdc-elevation--z16" 
                 onerror="this.src='assets/img/broken_image-dark.svg'" draggable="false"/>`;
                 cell.classList.add('carousel-cell');
+
+                const contentHolder = document.createElement('div');
+                contentHolder.classList.add('content-cover');
+                contentHolder.innerHTML = '<h3 class="margin-no">Image Caption</h3>';
+
+                const content = document.createElement('p');
+                content.textContent = change.doc.data().caption;
+                content.classList.add('mdc-typography--body1');
+
+                contentHolder.appendChild(content);
+                cell.appendChild(contentHolder);
+
                 flkty.append(cell);
             }
             if (change.type === "modified") {

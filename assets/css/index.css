@@ -124,6 +124,9 @@ div.reader-dialog aside.readerAside > ul {
 }
 .reads {
     margin-top: 16px;
+    max-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .reads > h3, .quizMoreInfo > .quiz > h3 {
     margin-left: 20px;
@@ -237,6 +240,7 @@ section.gamesEtc:before {
     justify-content: center;
     -webkit-align-items: center;
     align-items: center;
+    position: relative;
 }
 
 .carousel-cell img {
@@ -272,6 +276,23 @@ section.gamesEtc:before {
     transform: scale(1);
     -webkit-filter: none;
     filter: none;
+}
+.carousel-cell > div.content-cover {
+    position: absolute;
+    word-break: break-all;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    opacity: 0;
+    padding: 16px;
+    background: linear-gradient(0deg, var(--darker-surface-bg) 0%, var(--darker-surface-bg) 80%, rgba(0, 0, 0, 0) 100%);
+    border-radius: var(--mdc-shape-medium);
+    overflow: hidden auto;
+    transition: opacity .4s ease-out;
+}
+.carousel-cell.is-selected:hover > div.content-cover {
+    opacity: 1;
 }
 
 @media screen and ( max-width: 499px ) {
