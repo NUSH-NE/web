@@ -1,8 +1,9 @@
-.hero > .header {
+.header {
     min-height: 40vh;
 }
-.hero > .header h1 {
-    transition: font-size 400ms ease-out;
+
+.header h1 {
+    transition: all 400ms ease-out;
 }
 
 /* Extra content cards */

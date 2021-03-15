@@ -34,7 +34,7 @@ function reCalcTitleAnim() {
         title.style.top = '10px';
         title.style.right = '10px';
         title.style.zIndex = '6';
-        title.style.backgroundColor = `rgba(0, 0, 0, 0.5)`;
+        title.style.backgroundColor = `rgba(0, 0, 0, .7)`;
         title.style.borderRadius = '7px';
         title.style.minWidth = 'unset';
         title.style.fontSize = '1.75rem';
@@ -212,9 +212,14 @@ let cUser = null;
 // ============================= //
 // ====== Event Listeners ====== //
 
+let throttleScroll = false;
 document.addEventListener('scroll', () => {
-    setTimeout(() => { reCalcTitleAnim() }, 30);
-}, {passive: true}); // Passive scroll listener
+    if (!throttleScroll) {
+        setTimeout(() => reCalcTitleAnim(), 0);
+        throttleScroll = true;
+        setTimeout(() => throttleScroll = false, 24);
+    }
+}, { passive: true }); // Passive scroll listener
 
 window.onresize = reCalcTotalHeight;
 
@@ -339,6 +344,8 @@ const flkty = new Flickity('#postCarousel', {
     wrapAround: true,
     lazyLoad: 4,
     pageDots: false,
+    friction: 0.5,
+    selectedAttraction: 0.1,
     arrowShape: 'M 69.25 12.457031 C 67.207031 10.417969 63.917969 10.417969 61.875 12.457031 L 27.25 47.082031 C 25.625 48.707031 25.625 51.332031 27.25 52.957031 L 61.875 87.582031 C 63.917969 89.625 67.207031 89.625 69.25 87.582031 C 71.292969 85.542969 71.292969 82.25 69.25 80.207031 L 39.082031 50 L 69.292969 19.792969 C 71.292969 17.792969 71.292969 14.457031 69.25 12.457031 Z M 69.25 12.457031'
 });
 
@@ -369,6 +376,7 @@ function reload() {
 // Moving next and back somehow fixes the issue of requiring a resize before images load
 flkty.next(); 
 flkty.previous();
+// Add ripple effect to next and prev buttons
 flkty.nextButton.element.classList.add('mdc-ripple-surface', 'mdc-elevation--z20');
 flkty.nextButton.element.setAttribute('data-mdc-auto-init', 'MDCRipple');
 flkty.prevButton.element.classList.add('mdc-ripple-surface', 'mdc-elevation--z20');
