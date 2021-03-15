@@ -129,7 +129,6 @@ submitBtn.onclick = () => {
         showMsg('Upload completed');
         submitBtn.disabled = false;
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-            console.log('File available at', downloadURL);
 
             let val = $("resourceLink").value
 

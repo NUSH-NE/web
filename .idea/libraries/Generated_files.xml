@@ -17,6 +17,7 @@
         <item url="file://$PROJECT_DIR$/lib/mdc/init.min.js" />
         <item url="file://$PROJECT_DIR$/lib/mdc/material-components.min.js" />
         <item url="file://$PROJECT_DIR$/lib/tinymce/tinymce.min.js" />
+        <item url="file://$PROJECT_DIR$/lib/uuid/uuidv4.min.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
@@ -35,6 +36,7 @@
       <root url="file://$PROJECT_DIR$/lib/mdc/init.min.js" />
       <root url="file://$PROJECT_DIR$/lib/mdc/material-components.min.js" />
       <root url="file://$PROJECT_DIR$/lib/tinymce/tinymce.min.js" />
+      <root url="file://$PROJECT_DIR$/lib/uuid/uuidv4.min.js" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

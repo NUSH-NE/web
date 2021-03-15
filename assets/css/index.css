@@ -94,15 +94,14 @@ div.reader-dialog aside.readerAside > ul {
 /******* Hero *******/
 
 .hero {
+    padding: 16px;
+    background-position: center !important;
     background: linear-gradient(
             rgba(0, 0, 0, .4),
             rgba(0, 0, 0, .4)
     ), url("../img/hero_bg.png");
-    background-position: center;
-    background-attachment: fixed;
     background-size: cover !important;
-    background-repeat: no-repeat;
-    padding: 16px;
+    background-attachment: fixed;
 }
 
 .header {
@@ -143,8 +142,22 @@ div.reader-dialog aside.readerAside > ul {
 /****** Games and others ******/
 
 section.gamesEtc {
+    overflow: hidden;
+    position: relative;
+}
+section.gamesEtc:before {
+    content: '';
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: url("../img/gamesBg.webp");
+    background-color: var(--mdc-theme-surface);
+    background-position: center !important;
     background-size: cover !important;
-    background: url("../img/gamesBg.webp") no-repeat fixed center;
+    will-change: transform;
+    z-index: -2;
 }
 
 /* More info + quiz grid */

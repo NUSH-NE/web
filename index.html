@@ -26,6 +26,7 @@
     <script src="lib/firebase/firebase-auth.min.js" defer></script>
     <script src="lib/firebase/firebase-ui-auth.min.js" defer></script>
     <script src="lib/firebase/firebase-firestore.min.js" defer></script>
+    <script src="lib/firebase/firebase-storage.min.js" defer></script>
     <link rel="stylesheet" href="lib/firebase/firebase-ui-auth.min.css">
     <script src="lib/firebase/init.min.js" defer></script>
 
@@ -36,6 +37,9 @@
     <script src="lib/flickity/flickity.min.js" defer></script>
     <link rel="stylesheet" href="lib/flickity/flickity.min.css">
     <link rel="stylesheet" href="lib/flickity/flickity-fixup.min.css">
+
+    <!-- UUIDv5 -->
+    <script src="lib/uuid/uuidv4.min.js" defer></script>
 
     <!-- JS -->
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js" defer></script>
@@ -225,7 +229,7 @@
                 --><h2>Create Post</h2>
             </div>
             <div class="mdc-dialog__content" id="postImg-content">
-                <img class="img-preview mdc-elevation--z12" alt="Preview of uploaded image" src="">
+                <img class="img-preview mdc-elevation--z12" alt="Preview of uploaded image" src="" onerror="this.src='assets/img/broken_image-dark.svg'">
                 <hr>
                 <label class="mdc-text-field mdc-text-field--outlined width-100 margin-top-10" data-mdc-auto-init="MDCTextField" id="post-caption">
                     <span class="mdc-notched-outline">
@@ -246,7 +250,7 @@
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">Cancel</span>
                 </button>
-                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="upload">
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">Post</span>
                     <i class="material-icons mdc-button__icon" aria-hidden="true">cloud_upload</i>
@@ -294,6 +298,19 @@
     <div class="mdc-card margin-top-15 margin-bottom-10 margin-left-10 margin-right-10">
         <div class="mdc-card-wrapper__text-section">
             <h2 class="mdc-typography--headline2 text-centered margin-no">NE Event Images</h2>
+        </div>
+        <div role="progressbar" class="mdc-linear-progress centered-progress" aria-label="Image upload progress" data-mdc-auto-init="MDCLinearProgress"
+             aria-valuemin="0" aria-valuemax="1" aria-valuenow="0" id="file-upload-progress">
+            <div class="mdc-linear-progress__buffer">
+                <div class="mdc-linear-progress__buffer-bar"></div>
+                <div class="mdc-linear-progress__buffer-dots"></div>
+            </div>
+            <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+                <span class="mdc-linear-progress__bar-inner"></span>
+            </div>
+            <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                <span class="mdc-linear-progress__bar-inner"></span>
+            </div>
         </div>
         <div class="mdc-card__actions">
             <input type="file" name="filename" id="fileUpload" accept="image/*">

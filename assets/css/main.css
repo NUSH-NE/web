@@ -47,9 +47,28 @@ body {
     padding-top: 0.1px; /* Prevent collapsing of margins */
     box-sizing: border-box;
 }
+*:after {
+    content: "";
+    display: table;
+    clear: both;
+}
 
 input[type="file"] {
     display: none;
+}
+
+img[alt]:after {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Roboto, Helvetica, sans-serif;
+    font-weight: 300;
+    line-height: 2;
+    text-align: center;
+    content: attr(alt);
 }
 
 /****** Style Native Elements ******/
@@ -186,6 +205,11 @@ img {
 
 /* Progress bars */
 .centered-progress {
+    display: block;
+    margin: 10px;
+    width: calc(100% - 20px);
+}
+.centered-circular-progress {
     display: block;
     margin: 5px auto;
 }

@@ -17,6 +17,9 @@ const readFixToggle = $('read-sidebar-fixed').MDCIconButtonToggle;
 const readSidebar = q('div.reader-dialog aside.readerAside');
 const addPostBtn = $('addPostBtn');
 const fileUploadElem = $('fileUpload');
+const storageRef = firebase.storage().ref();
+const fProgressBar = $('file-upload-progress').MDCLinearProgress;
+const postDialog = $('postImgDialog').MDCDialog;
 
 // ====== Helper Functions ====== //
 
@@ -205,6 +208,14 @@ function showReaderDialog(data, img) {
     readerDialog.open();
 }
 
+function debounceResize(func){
+    let timer;
+    return function(event){
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(func, 100, event);
+    };
+}
+
 let fUI;
 let fAuth = firebase.auth();
 let cUser = null;
@@ -215,13 +226,16 @@ let cUser = null;
 let throttleScroll = false;
 document.addEventListener('scroll', () => {
     if (!throttleScroll) {
-        setTimeout(() => reCalcTitleAnim(), 0);
+        reCalcTitleAnim();
         throttleScroll = true;
-        setTimeout(() => throttleScroll = false, 24);
+        setTimeout(() => throttleScroll = false, 30);
     }
 }, { passive: true }); // Passive scroll listener
 
-window.onresize = reCalcTotalHeight;
+window.addEventListener('resize', debounceResize(() => {
+    reCalcTotalHeight(); // Ayo
+    reCalcTotalHeight();
+}));
 
 // Hide FAB once bottom element is fully visible (reached bottom)
 new IntersectionObserver(
@@ -325,6 +339,21 @@ addPostBtn.onclick = () => {
 }
 
 fileUploadElem.onchange = () => {
+    // Validation
+    console.log(fileUploadElem.files[0])
+    if (fileUploadElem.files.length === 0) {
+        showMsg('No file selected');
+        return;
+    }
+    else if (!fileUploadElem.files[0].type.match(/^image\/.*/)) {
+        showMsg('Selected file is not an image');
+        return;
+    }
+    else if (fileUploadElem.files[0].size > 2000000) {
+        showMsg('Image size too big (max 2MB)');
+        return;
+    }
+
     const fr = new FileReader();
 
     fr.onload = (ev) => {
@@ -332,8 +361,49 @@ fileUploadElem.onchange = () => {
     }
 
     fr.readAsDataURL(fileUploadElem.files[0]);
-    $('postImgDialog').MDCDialog.open();
+
+    postDialog.open();
 }
+
+// Listen for closing of dialog
+postDialog.listen('MDCDialog:closed', (e) => {
+    if (e.detail.action === 'upload') {
+        // Upload file
+        const uploadTask = storageRef.child('usrImgPosts').child(uuidv4()).put(fileUploadElem.files[0]);
+
+        addPostBtn.disabled = true
+
+        uploadTask.on('state_changed', (snap) => {
+                fProgressBar.determinate = true;
+                fProgressBar.progress = snap.bytesTransferred / snap.totalBytes;
+            }, (e) => {
+                console.error(e);
+                addPostBtn.disabled = false;
+            },
+            () => {
+                showMsg('Upload completed');
+                fileUploadElem.value = ''; // Clear file picker
+                uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                    console.log({downloadURL});
+                    // Add to Firestore
+                    db.collection('usrImgPosts').add({
+                        uid: cUser.uid,
+                        imgURL: downloadURL,
+                        caption: $('post-caption').MDCTextField.value
+                    })
+                        .then(() => {
+                            showMsg('Added post');
+                            addPostBtn.disabled = false;
+                            $('post-caption').MDCTextField.value = '';
+                        })
+                        .catch((error) => {
+                            showMsg('Aw, Snap! Error adding post!' + error);
+                            addPostBtn.disabled = false;
+                        });
+                });
+            });
+    }
+});
 
 // ============================ //
 // ====== Initialisation ====== //
@@ -349,30 +419,6 @@ const flkty = new Flickity('#postCarousel', {
     arrowShape: 'M 69.25 12.457031 C 67.207031 10.417969 63.917969 10.417969 61.875 12.457031 L 27.25 47.082031 C 25.625 48.707031 25.625 51.332031 27.25 52.957031 L 61.875 87.582031 C 63.917969 89.625 67.207031 89.625 69.25 87.582031 C 71.292969 85.542969 71.292969 82.25 69.25 80.207031 L 39.082031 50 L 69.292969 19.792969 C 71.292969 17.792969 71.292969 14.457031 69.25 12.457031 Z M 69.25 12.457031'
 });
 
-// Add images
-for (let i = 0; i < 100; i++) {
-    const cell = document.createElement('div');
-    cell.innerHTML = `<img data-flickity-lazyload="https://picsum.photos/1600/900.webp?random=${i}" class="mdc-elevation--z16"/>`;
-    cell.classList.add('carousel-cell');
-
-    q('#postCarousel .flickity-slider').appendChild(cell);
-}
-flkty.reloadCells();
-
-function reload() {
-    q('#postCarousel .flickity-slider').textContent = '';
-
-    for (let i = 0; i < 100; i++) {
-        const cell = document.createElement('div');
-        cell.innerHTML = `<img data-flickity-lazyload="https://picsum.photos/1600/900.webp?random=${i}" class="mdc-elevation--z16"/>`;
-        cell.classList.add('carousel-cell');
-
-        q('#postCarousel .flickity-slider').appendChild(cell);
-    }
-    flkty.reloadCells();
-    flkty.next();
-    flkty.previous();
-}
 // Moving next and back somehow fixes the issue of requiring a resize before images load
 flkty.next(); 
 flkty.previous();
@@ -391,3 +437,29 @@ reCalcTitleAnim();
 
 // Init firebase Auth UI
 fUI = new firebaseui.auth.AuthUI(firebase.auth());
+
+
+// ======================================================= //
+// ====== Event Listeners (that must go after init) ====== //
+// ======================================================= //
+
+// Listen for changes in user posts
+db.collection('usrImgPosts')
+    .onSnapshot((snap) => {
+        snap.docChanges().forEach((change) => {
+            if (change.type === "added") {
+                console.log('added');
+                const cell = document.createElement('div');
+                cell.innerHTML = `<img data-flickity-lazyload="${change.doc.data().imgURL}" class="mdc-elevation--z16" 
+                onerror="this.src='assets/img/broken_image-dark.svg'" draggable="false"/>`;
+                cell.classList.add('carousel-cell');
+                flkty.append(cell);
+            }
+            if (change.type === "modified") {
+                console.log("Modified: ", change.doc.data());
+            }
+            if (change.type === "removed") {
+                console.log("Removed: ", change.doc.data());
+            }
+        })
+    });
