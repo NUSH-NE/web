@@ -1,1 +1,1 @@
-div.article-actions{display:flex;margin:10px}div.article-actions:first-child{margin-left:auto}div.article-actions>button{margin:0 5px}
+div.article-actions{display:flex;margin:10px;flex-wrap:wrap}div.article-actions:first-child{margin-left:auto}div.article-actions>button{margin:0 5px}td.mdc-data-table__cell.mdc-data-table__cell--checkbox,th.mdc-data-table__header-cell.mdc-data-table__header-cell--checkbox{position:sticky;left:0;border-right:1px solid var(--outline-border-color);background-color:var(--main-bg);padding:1px 4px}

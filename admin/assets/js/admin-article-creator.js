@@ -89,7 +89,7 @@ submitBtn.onclick = () => {
                 resourceLink: $('resourceLink').value.split("\n").map(function(e){ return e.trim();}),
                 title: $('article-title').MDCTextField.value
             }).then((docRef) => {
-                showMsg('Added article with ID ' + docRef);
+                showMsg('Added article with ID: ' + docRef.id);
                 // Clear everything
                 fPickerElem.value = '';
                 $('article-title').MDCTextField.value = '';

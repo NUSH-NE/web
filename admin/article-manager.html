@@ -23,6 +23,7 @@
     <script src="../lib/firebase/firebase-app.min.js" defer></script>
     <script src="../lib/firebase/firebase-analytics.min.js" defer></script>
     <script src="../lib/firebase/firebase-auth.min.js" defer></script>
+    <script src="../lib/firebase/firebase-firestore.min.js" defer></script>
     <script src="../lib/firebase/init.min.js" defer></script>
 
     <!-- Backend Scripts -->
@@ -39,22 +40,99 @@
     </div>
 </div>
 <!------>
+<!-- Dialogs -->
+<div class="mdc-dialog expanded-dialog" data-mdc-auto-init="MDCDialog" id="del-dialog">
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface"
+             role="alertdialog"
+             aria-modal="true"
+             aria-labelledby="del-dialog-title"
+             aria-describedby="del-dialog-content">
+            <div class="mdc-dialog__title text-centered padding-bottom-0" id="del-dialog-title">
+                <i class="material-icons font-size-75 text-centered margin-top-15">delete_forever</i>
+                <h2 class="margin-top-5">Permanently Delete Article?</h2>
+            </div>
+            <div class="mdc-dialog__content text-container-padding text-centered" id="del-dialog-content">
+                This action cannot be undone<br>
+                The article(s) will be permanently removed with all associated content (e.g. media).
+            </div>
+            <div class="mdc-dialog__actions">
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Cancel</span>
+                </button>
+                <button type="button" class="mdc-button mdc-dialog__button mdc-button--raised mdc-button__error" data-mdc-dialog-action="delete">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Delete Forever</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
+<!------>
 <main>
     <h1 class="mdc-typography--headline2 margin-top-5 margin-bottom-20">Article Manager</h1>
     <hr>
 
+    <div class="mdc-card">
+        <div class="mdc-card-wrapper__text-section">
+            <h2 class="margin-top-0">Useful Links</h2>
+            <!------>
+            <div class="mdc-chip-set" role="grid" data-mdc-auto-init="MDCChipSet">
+                <a class="mdc-chip" role="row" data-mdc-auto-init="MDCChip" href="article-creator.html" target="_blank" rel="noreferrer" tabindex="0">
+                    <div class="mdc-chip__ripple"></div>
+                    <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">edit</i>
+                    <span role="gridcell">
+                        <span class="mdc-chip__primary-action" role="button">
+                            <span class="mdc-chip__text">Article Composer</span>
+                        </span>
+                    </span>
+                    <span role="gridcell">
+                        <i class="material-icons mdc-chip__icon mdc-chip__icon--trailing" tabindex="-1" role="button">open_in_new</i>
+                    </span>
+                </a>
+                <a class="mdc-chip" role="row" data-mdc-auto-init="MDCChip" href="../index.html" target="_blank" rel="noreferrer" tabindex="0">
+                    <div class="mdc-chip__ripple"></div>
+                    <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">home</i>
+                    <span role="gridcell">
+                        <span class="mdc-chip__primary-action" role="button">
+                            <span class="mdc-chip__text">NE Homepage</span>
+                        </span>
+                    </span>
+                    <span role="gridcell">
+                        <i class="material-icons mdc-chip__icon mdc-chip__icon--trailing" tabindex="-1" role="button">open_in_new</i>
+                    </span>
+                </a>
+                <a class="mdc-chip" role="row" data-mdc-auto-init="MDCChip" href="../admin.html" target="_blank" rel="noreferrer" tabindex="0">
+                    <div class="mdc-chip__ripple"></div>
+                    <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">dashboard</i>
+                    <span role="gridcell">
+                        <span class="mdc-chip__primary-action" role="button">
+                            <span class="mdc-chip__text">Admin Dashboard</span>
+                        </span>
+                    </span>
+                    <span role="gridcell">
+                        <i class="material-icons mdc-chip__icon mdc-chip__icon--trailing" tabindex="-1" role="button">open_in_new</i>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <hr>
     <!-- Table of articles -->
     <div class="mdc-card">
         <div class="article-actions">
-            <button class="mdc-button mdc-button--raised hover-no-expand" data-mdc-auto-init="MDCRipple">
+            <button class="mdc-button mdc-button--raised hover-no-expand" data-mdc-auto-init="MDCRipple" id="edit-article">
                 <span class="mdc-button__ripple"></span>
                 <i class="material-icons mdc-button__icon" aria-hidden="true">edit</i>
                 <span class="mdc-button__label">Edit article</span>
             </button>
-            <button class="mdc-button mdc-button--outlined mdc-button__error hover-no-expand" data-mdc-auto-init="MDCRipple">
+            <button class="mdc-button mdc-button--outlined mdc-button__error hover-no-expand" data-mdc-auto-init="MDCRipple" id="delete-article">
                 <span class="mdc-button__ripple"></span>
                 <i class="material-icons mdc-button__icon" aria-hidden="true">delete_forever</i>
-                <span class="mdc-button__label">Delete article forever</span>
+                <span class="mdc-button__label">Delete forever</span>
             </button>
         </div>
         <div class="mdc-data-table width-100 mdc-elevation--z12" data-mdc-auto-init="MDCDataTable" id="articlesTable">
@@ -75,25 +153,11 @@
                             </div>
                         </th>
                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Article name</th>
+                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">ID</th>
+                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Likes vs Dislikes</th>
                     </tr>
                     </thead>
-                    <tbody class="mdc-data-table__content">
-                    <tr data-row-id="u0" class="mdc-data-table__row">
-                        <td class="mdc-data-table__cell mdc-data-table__cell--checkbox">
-                            <div class="mdc-checkbox mdc-data-table__row-checkbox">
-                                <input type="checkbox" class="mdc-checkbox__native-control" aria-labelledby="u0"/>
-                                <div class="mdc-checkbox__background">
-                                    <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-                                        <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
-                                    </svg>
-                                    <div class="mdc-checkbox__mixedmark"></div>
-                                </div>
-                                <div class="mdc-checkbox__ripple"></div>
-                            </div>
-                        </td>
-                        <th class="mdc-data-table__cell" scope="row" id="u0">Arcus watch slowdown</th>
-                    </tr>
-                    </tbody>
+                    <tbody class="mdc-data-table__content"></tbody>
                 </table>
             </div>
             <!-- Progress indicator -->

@@ -228,8 +228,6 @@ verifyEmailBtn.onclick = () => {
 
 const db = firebase.firestore();
 
-
-
 db.collection("articles")
     .onSnapshot((snapshot) => {
         // Clear holder div

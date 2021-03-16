@@ -177,6 +177,9 @@ img {
 .padding-no {
     padding: 0 !important;
 }
+.text-container-padding {
+    padding: 24px !important;
+}
 /* Widths */
 .width-100 {
     width: 100%;

@@ -63,11 +63,12 @@
 .mdc-chip .mdc-chip__checkmark-path {
     stroke: var(--header-text-color);
 }
+
+/* Dialogs */
 .mdc-dialog .mdc-dialog__content {
     color: var(--header-text-color);
     overflow-x: hidden;
 }
-/* Dialogs */
 .mdc-dialog__title {
     border-bottom: 1px solid var(--sep-border-color);
 }
@@ -110,6 +111,9 @@
 }
 .mdc-dialog .mdc-dialog__title {
     color: var(--header-text-color, #fff);
+}
+.mdc-dialog__actions {
+    border-top-color: var(--sep-border-color);
 }
 /* Outlined buttons */
 .mdc-button--outlined:not(:disabled) {
