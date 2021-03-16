@@ -115,6 +115,10 @@
 .mdc-button--outlined:not(:disabled) {
     border-color: var(--sep-border-color);
 }
+.mdc-button--outlined:disabled {
+    border-color: var(--sep-border-color);
+    color: var(--sep-border-color)
+}
 /* Raised buttons */
 .mdc-button.mdc-button--raised {
     --mdc-theme-primary: #1976d2;
@@ -226,6 +230,24 @@
 }
 .mdc-linear-progress__buffer-bar {
     background-color: var(--outline-border-color);
+}
+
+/* Data tables */
+.mdc-data-table__cell, .mdc-data-table__header-cell, .mdc-data-table__pagination-rows-per-page-label, .mdc-data-table__pagination-total {
+    color: var(--mdc-theme-text-primary-on-background);
+}
+.mdc-data-table__pagination, .mdc-data-table__row {
+    border-top-color: var(--outline-border-color);
+}
+.mdc-data-table__row {
+    transition: background-color .1s ease-in-out;
+}
+.mdc-data-table__row--selected {
+    background-color: rgba(98, 0, 238, .1);
+}
+.mdc-linear-progress.mdc-linear-progress--indeterminate.mdc-data-table__linear-progress {
+    height: 4px;
+    border-radius: 0;
 }
 
 /* Additional customisations */

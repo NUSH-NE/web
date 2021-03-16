@@ -7,8 +7,6 @@ This code is very messy - I'll refactor it when I have the time
 const title = $('pgTitle');
 const usrAcctBtn = $('usrBtn');
 const loginDialog = $('loginDialog').MDCDialog;
-const loginSpinner = q('#loginDialog #loginLoader > div').MDCCircularProgress;
-const fUIAuthDiv = $('firebaseui-auth-container');
 const verifyEmailBtn = q('#verEmailMsg button');
 const readCardsHolder = $('read-cards');
 const elem = document.querySelector('.mason-cards');
@@ -69,20 +67,10 @@ function updateUsrInfo(usr) {
 }
 
 function showHideUserArea() {
-    const usrAreaDiv = $('usrOps');
     if (cUser) {
-        fUIAuthDiv.style.display = 'none';
-        usrAreaDiv.style.display = 'block';
-        $('loginLoader').style.display = 'none';
+        $('usrOps').style.display = 'block';
         updateUsrInfo(cUser);
         return true;
-    }
-    else {
-        fUIAuthDiv.style.display = 'block';
-        usrAreaDiv.style.display = 'none';
-        $('loginLoader').style.display = 'block';
-        loginSpinner.determinate = false;
-        return false;
     }
 }
 
@@ -126,44 +114,6 @@ function getArticleCard(data, img, btnListener) {
     }
 
     return containerDiv;
-}
-
-function initFUI() {
-    fUIAuthDiv.textContent = '';
-    const uiConfig = {
-        callbacks: {
-            signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-                // User successfully signed in.
-                // Return type determines whether we continue the redirect automatically
-                // or whether we leave that to developer to handle.
-                showHideUserArea();
-                return false;
-            },
-            uiShown: function() {
-                // The widget is rendered. (no)
-                setTimeout(() => {
-                    // Hide the loader.
-                    document.getElementById('loginLoader').style.display = 'none';
-                    loginSpinner.determinate = true;
-                    mdc.autoInit();
-                    }, 50);
-                // FirebaseUI is dumb and calls this function b4 the UI has fully loaded
-            }
-        },
-        // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-        signInFlow: 'popup',
-        // signInSuccessUrl: 'index.html',
-        signInOptions: [
-            // Leave the lines as is for the providers you want to offer your users.
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.EmailAuthProvider.PROVIDER_ID
-        ],
-        // Terms of service url.
-        tosUrl: '#',
-        // Privacy policy url.
-        privacyPolicyUrl: '#'
-    };
-    fUI.start(fUIAuthDiv, uiConfig);
 }
 
 function showAuthMsg(msg) {
@@ -218,7 +168,6 @@ function debounceResize(func){
 
 let fUI;
 let fAuth = firebase.auth();
-let cUser = null;
 
 // ============================= //
 // ====== Event Listeners ====== //
@@ -276,27 +225,6 @@ verifyEmailBtn.onclick = () => {
         showMsg(`Failed to send the verification email. Error: ${error.message}`);
     });
 }
-
-
-// Login state change listener
-fAuth.onAuthStateChanged(function(user) {
-    if (user) {
-        cUser = user;
-        showMsg(`Signed in as ${user.displayName}`);
-        window.history.replaceState({}, document.title, window.location.pathname); // Remove all query strings
-    } else {
-        // No user is signed in.
-        showMsg('You are signed out');
-        // Check if the login selector is pending
-        if((new URLSearchParams(window.location.search)).get('mode') === 'select') {
-            loginDialog.open();
-            initFUI();
-        }
-        cUser = null;
-
-    }
-    showHideUserArea();
-});
 
 const db = firebase.firestore();
 
@@ -435,10 +363,6 @@ $('load-articles').MDCLinearProgress.determinate = false;
 reCalcTotalHeight();
 reCalcTitleAnim();
 
-// Init firebase Auth UI
-fUI = new firebaseui.auth.AuthUI(firebase.auth());
-
-
 // ======================================================= //
 // ====== Event Listeners (that must go after init) ====== //
 // ======================================================= //
@@ -447,16 +371,17 @@ fUI = new firebaseui.auth.AuthUI(firebase.auth());
 db.collection('usrImgPosts')
     .onSnapshot((snap) => {
         snap.docChanges().forEach((change) => {
-            if (change.type === "added") {
-                console.log('added');
+            if (change.type === 'added') {
                 const cell = document.createElement('div');
+
+                cell.setAttribute('data-article-id', change.doc.id);
                 cell.innerHTML = `<img data-flickity-lazyload="${change.doc.data().imgURL}" class="mdc-elevation--z16" 
                 onerror="this.src='assets/img/broken_image-dark.svg'" draggable="false"/>`;
                 cell.classList.add('carousel-cell');
 
                 const contentHolder = document.createElement('div');
                 contentHolder.classList.add('content-cover');
-                contentHolder.innerHTML = '<h3 class="margin-no">Image Caption</h3>';
+                contentHolder.innerHTML = '<h3>Image Caption</h3>';
 
                 const content = document.createElement('p');
                 content.textContent = change.doc.data().caption;
@@ -467,11 +392,11 @@ db.collection('usrImgPosts')
 
                 flkty.append(cell);
             }
-            if (change.type === "modified") {
-                console.log("Modified: ", change.doc.data());
+            if (change.type === 'modified') {
+                console.log('Modified: ', change.doc.data());
             }
-            if (change.type === "removed") {
-                console.log("Removed: ", change.doc.data());
+            if (change.type === 'removed') {
+                flkty.remove(q(`[data-article-id="${change.doc.id}"]`));
             }
         })
     });

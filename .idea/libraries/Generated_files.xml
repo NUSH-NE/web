@@ -3,10 +3,13 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/admin/assets/js/admin-article-creator.min.js" />
-        <item url="file://$PROJECT_DIR$/admin/assets/js/admin.min.js" />
+        <item url="file://$PROJECT_DIR$/admin/assets/js/article-manager.min.js" />
+        <item url="file://$PROJECT_DIR$/assets/js/admin.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/index.min.js" />
+        <item url="file://$PROJECT_DIR$/assets/js/login.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/strings.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/utility.min.js" />
+        <item url="file://$PROJECT_DIR$/lib/DOMPurify/dompurify.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-analytics.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-app.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-auth.min.js" />
@@ -23,10 +26,13 @@
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/admin/assets/js/admin-article-creator.min.js" />
-      <root url="file://$PROJECT_DIR$/admin/assets/js/admin.min.js" />
+      <root url="file://$PROJECT_DIR$/admin/assets/js/article-manager.min.js" />
+      <root url="file://$PROJECT_DIR$/assets/js/admin.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/index.min.js" />
+      <root url="file://$PROJECT_DIR$/assets/js/login.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/strings.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/utility.min.js" />
+      <root url="file://$PROJECT_DIR$/lib/DOMPurify/dompurify.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-analytics.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-app.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-auth.min.js" />

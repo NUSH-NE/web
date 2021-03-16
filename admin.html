@@ -23,12 +23,22 @@
     <script src="lib/firebase/firebase-app.min.js" defer></script>
     <script src="lib/firebase/firebase-analytics.min.js" defer></script>
     <script src="lib/firebase/firebase-auth.min.js" defer></script>
+    <script src="lib/firebase/init.min.js" defer></script>
 
     <!-- Backend Scripts -->
     <script src="assets/js/strings.min.js" defer></script>
     <script src="assets/js/utility.min.js" defer></script>
+    <script src="assets/js/admin.min.js" defer></script>
 </head>
 <body class="center-child mdc-typography">
+<!------>
+<!-- Snackbar -->
+<div class="mdc-snackbar" data-mdc-auto-init="MDCSnackbar" id="msgSnackbar">
+    <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+        <div class="mdc-snackbar__label" aria-atomic="false"></div>
+    </div>
+</div>
+<!------>
 <!-- Tooltips -->
 <div id="tt-1" class="mdc-tooltip" role="tooltip" aria-hidden="true" data-mdc-auto-init="MDCTooltip">
     <div class="mdc-tooltip__surface">Article Creator</div>
@@ -43,7 +53,7 @@
     <div class="mdc-tooltip__surface">User Management</div>
 </div>
 <div id="tt-5" class="mdc-tooltip" role="tooltip" aria-hidden="true" data-mdc-auto-init="MDCTooltip">
-    <div class="mdc-tooltip__surface">Coming Soon!</div>
+    <div class="mdc-tooltip__surface">Link Editor</div>
 </div>
 <div id="tt-6" class="mdc-tooltip" role="tooltip" aria-hidden="true" data-mdc-auto-init="MDCTooltip">
     <div class="mdc-tooltip__surface">Coming Soon!</div>
@@ -55,18 +65,56 @@
     <div class="mdc-tooltip__surface">Coming Soon!</div>
 </div>
 <!------>
+<!-- Loading scrim -->
+<div class="loading-scrim center-child">
+    <div class="mdc-circular-progress" style="width:48px;height:48px;" role="progressbar" aria-label="Loading..." aria-valuemin="0" aria-valuemax="1" data-mdc-auto-init="MDCCircularProgress">
+        <div class="mdc-circular-progress__determinate-container">
+            <svg class="mdc-circular-progress__determinate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <circle class="mdc-circular-progress__determinate-track" cx="24" cy="24" r="18" stroke-width="4"/>
+                <circle class="mdc-circular-progress__determinate-circle" cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="113.097" stroke-width="4"/>
+            </svg>
+        </div>
+        <div class="mdc-circular-progress__indeterminate-container">
+            <div class="mdc-circular-progress__spinner-layer">
+                <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-left">
+                    <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="4"/>
+                    </svg>
+                </div>
+                <div class="mdc-circular-progress__gap-patch">
+                    <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="3.2"/>
+                    </svg>
+                </div>
+                <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-right">
+                    <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="4"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <main>
     <h2 class="mdc-typography--headline2 text-centered">NE Website<br><b>Admin Panel</b></h2>
     <div class="admin-btn-holder">
-        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface" data-mdc-auto-init="MDCRipple" aria-describedby="tt-1">create</a>
-        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface" data-mdc-auto-init="MDCRipple" aria-describedby="tt-2">list</a>
-        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface" data-mdc-auto-init="MDCRipple" aria-describedby="tt-3">collections</a>
-        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface" data-mdc-auto-init="MDCRipple" aria-describedby="tt-4">manage_accounts</a>
+        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface" href="admin/article-creator.html"
+           data-mdc-auto-init="MDCRipple" aria-describedby="tt-1">create</a>
+        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface" href="admin/article-manager.html"
+           data-mdc-auto-init="MDCRipple" aria-describedby="tt-2">list</a>
+        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface"
+           data-mdc-auto-init="MDCRipple" aria-describedby="tt-3">collections</a>
+        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface"
+           data-mdc-auto-init="MDCRipple" aria-describedby="tt-4">manage_accounts</a>
         <!-- New row -->
-        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface" data-mdc-auto-init="MDCRipple" aria-describedby="tt-5">sticky_note_2</a>
-        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface" data-mdc-auto-init="MDCRipple" aria-describedby="tt-6">verified</a>
-        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface" data-mdc-auto-init="MDCRipple" aria-describedby="tt-7">room</a>
-        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface" data-mdc-auto-init="MDCRipple" aria-describedby="tt-8">shopping_cart</a>
+        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface"
+           data-mdc-auto-init="MDCRipple" aria-describedby="tt-5">link</a>
+        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface"
+           data-mdc-auto-init="MDCRipple" aria-describedby="tt-6">verified</a>
+        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface"
+           data-mdc-auto-init="MDCRipple" aria-describedby="tt-7">room</a>
+        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface"
+           data-mdc-auto-init="MDCRipple" aria-describedby="tt-8">shopping_cart</a>
     </div>
 </main>
 </body>

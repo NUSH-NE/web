@@ -7,6 +7,8 @@ main {
     position: relative;
     border-radius: var(--mdc-shape-medium);
     background-color: var(--mdc-theme-surface);
+    min-height: 200px;
+    min-width: 200px;
 }
 
 /* Border gradient animation */
@@ -48,6 +50,12 @@ div.admin-btn-holder {
     margin: 0 auto;
 }
 
+main > h2.text-centered.mdc-typography--headline2 {
+    background: -webkit-linear-gradient(0deg, #ffa745 0%, #fe869f 30%, #ef7ac8 45%, #a083ed 70%, #43aeff 85%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 div.admin-btn-holder > a.admin-buttons {
     display: block;
     height: 100px;
@@ -57,5 +65,6 @@ div.admin-btn-holder > a.admin-buttons {
     line-height: 100px; /* Hack to center align icons */
     font-size: 60px;
     text-align: center;
+    text-decoration: none;
 }
 

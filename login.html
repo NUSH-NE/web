@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NUSH NE - Login</title>
+
+    <!-- MDC Components -->
+    <script src="lib/mdc/material-components.min.js" defer></script>
+    <script src="lib/mdc/init.min.js" defer></script> <!-- MDC auto-init -->
+    <link rel="stylesheet" href="lib/mdc/material-components.min.css">
+    <link rel="stylesheet" href="lib/mdc/mdc-fixup.min.css">
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="assets/fonts/roboto.min.css">
+    <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
+    <link rel="stylesheet" href="assets/css/main.min.css">
+    <link rel="stylesheet" href="assets/css/admin-home.min.css">
+
+    <!-- Libraries -->
+    <!-- Firebase -->
+    <script src="lib/firebase/firebase-app.min.js" defer></script>
+    <script src="lib/firebase/firebase-analytics.min.js" defer></script>
+    <script src="lib/firebase/firebase-auth.min.js" defer></script>
+    <script src="lib/firebase/firebase-ui-auth.min.js" defer></script>
+    <script src="lib/firebase/init.min.js" defer></script>
+    <link rel="stylesheet" href="lib/firebase/firebase-ui-auth.min.css">
+
+    <!-- Backend Scripts -->
+    <script>isLoginPg = true</script>
+    <script src="assets/js/strings.min.js" defer></script>
+    <script src="assets/js/login.min.js" defer></script>
+    <script src="assets/js/utility.min.js" defer></script>
+</head>
+<body class="mdc-typography center-child using-mouse">
+<main>
+    <div id="firebaseui-auth-container"></div>
+    <div id="loginLoader">
+        <div class="mdc-circular-progress centered-circular-progress" style="width:48px;height:48px;" role="progressbar" aria-label="Loading login..." aria-valuemin="0" aria-valuemax="1" data-mdc-auto-init="MDCCircularProgress">
+            <div class="mdc-circular-progress__determinate-container">
+                <svg class="mdc-circular-progress__determinate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="mdc-circular-progress__determinate-track" cx="24" cy="24" r="18" stroke-width="4"/>
+                    <circle class="mdc-circular-progress__determinate-circle" cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="113.097" stroke-width="4"/>
+                </svg>
+            </div>
+            <div class="mdc-circular-progress__indeterminate-container">
+                <div class="mdc-circular-progress__spinner-layer">
+                    <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-left">
+                        <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="4"/>
+                        </svg>
+                    </div>
+                    <div class="mdc-circular-progress__gap-patch">
+                        <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="3.2"/>
+                        </svg>
+                    </div>
+                    <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-right">
+                        <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="4"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

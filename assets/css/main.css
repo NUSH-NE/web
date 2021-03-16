@@ -71,6 +71,11 @@ img[alt]:after {
     content: attr(alt);
 }
 
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
 /****** Style Native Elements ******/
 /* Text font and colors */
 h1, h2 {
@@ -256,6 +261,29 @@ img {
         margin-bottom: 8px;
         width: 100%;
     }
+}
+
+/****** Loading Scrim ******/
+div.loading-scrim {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--scrim-bg);
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    z-index: 20;
+    opacity: 1;
+    transition: all .5s ease-out;
+    transition-property: backdrop-filter, -webkit-backdrop-filter, background-color, opacity;
+}
+div.loading-scrim.hidden {
+    pointer-events: none;
+    background-color: transparent;
+    backdrop-filter: blur(0) saturate(100%);
+    -webkit-backdrop-filter: blur(0) saturate(100%);
+    opacity: 0;
 }
 
 /****** Footer ******/

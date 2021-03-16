@@ -1,0 +1,11 @@
+div.article-actions {
+    display: flex;
+    margin: 10px;
+}
+
+div.article-actions:first-child {
+    margin-left: auto;
+}
+div.article-actions > button {
+    margin: 0 5px;
+}
