@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NE Admin - Article Manager</title>
+
+    <!-- MDC Components -->
+    <script src="lib/mdc/material-components.min.js" defer></script>
+    <script src="lib/mdc/init.min.js" defer></script> <!-- MDC auto-init -->
+    <link rel="stylesheet" href="lib/mdc/material-components.min.css">
+    <link rel="stylesheet" href="lib/mdc/mdc-fixup.min.css">
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="assets/fonts/roboto.min.css">
+    <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
+    <link rel="stylesheet" href="assets/css/main.min.css">
+    <link rel="stylesheet" href="assets/css/quiz.min.css">
+
+    <!-- Libraries -->
+    <!-- Firebase -->
+    <script src="lib/firebase/firebase-app.min.js" defer></script>
+    <script src="lib/firebase/firebase-analytics.min.js" defer></script>
+    <script src="lib/firebase/firebase-auth.min.js" defer></script>
+    <script src="lib/firebase/firebase-firestore.min.js" defer></script>
+    <script src="lib/firebase/init.min.js" defer></script>
+
+    <!-- Backend Scripts -->
+    <script src="assets/js/strings.min.js" defer></script>
+    <script src="assets/js/utility.min.js" defer></script>
+</head>
+<body class="mdc-typography">
+<!------>
+<!-- Snackbar -->
+<div class="mdc-snackbar" data-mdc-auto-init="MDCSnackbar" id="msgSnackbar">
+    <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+        <div class="mdc-snackbar__label" aria-atomic="false"></div>
+    </div>
+</div>
+<!------>
+<div class="top-bar-container">
+    <div role="progressbar" class="mdc-linear-progress centered-progress" aria-label="Image upload progress" data-mdc-auto-init="MDCLinearProgress"
+         aria-valuemin="0" aria-valuemax="1" aria-valuenow="0" id="file-upload-progress">
+        <div class="mdc-linear-progress__buffer">
+            <div class="mdc-linear-progress__buffer-bar"></div>
+            <div class="mdc-linear-progress__buffer-dots"></div>
+        </div>
+        <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+            <span class="mdc-linear-progress__bar-inner"></span>
+        </div>
+        <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+            <span class="mdc-linear-progress__bar-inner"></span>
+        </div>
+    </div>
+    <div class="top-bar-elem-container">
+        <span class="quiz-point-counter">1092</span><span>&nbsp;&nbsp;Points</span>
+        <button class="mdc-button mdc-button--raised quiz-skip-btn" data-mdc-auto-init="MDCRipple">
+            <span class="mdc-button__ripple"></span>
+            <span class="mdc-button__label">Skip</span>
+            <i class="material-icons mdc-button__icon" aria-hidden="true">skip_next</i>
+        </button>
+    </div>
+</div>
+<div class="quiz-header">
+    <div class="margin-right-auto">
+        <div class="quiz-counter">8</div>
+    </div>
+    <div class="text-centered">
+        <h2 class="mdc-typography--headline2">This is a <i>Quation</i></h2>
+    </div>
+    <div class="margin-left-auto">
+        <div class="quiz-counter">10s</div>
+    </div>
+</div>
+<button class="quiz-btn quiz-opt__1 mdc-ripple-surface hover-no-expand" data-mdc-auto-init="MDCRipple">
+    <span class="material-icons" style="transform: scale(1.4)">stop</span>
+    <span class="mdc-typography--body1">Option 1</span>
+</button>
+<button class="quiz-btn quiz-opt__2 mdc-ripple-surface hover-no-expand" data-mdc-auto-init="MDCRipple">
+    <span class="material-icons" style="transform: rotate(45deg) scale(1.4)">stop</span>
+    <span class="mdc-typography--body1">More options</span>
+</button>
+<button class="quiz-btn quiz-opt__3 mdc-ripple-surface hover-no-expand" data-mdc-auto-init="MDCRipple">
+    <span class="material-icons">circle</span>
+    <span class="mdc-typography--body1">Even more options</span>
+</button>
+<button class="quiz-btn quiz-opt__4 mdc-ripple-surface hover-no-expand" data-mdc-auto-init="MDCRipple">
+    <span class="material-icons">change_history</span>
+    <span class="mdc-typography--body1">Don't you love this ripoff</span>
+</button>
+</body>
+</html>
