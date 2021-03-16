@@ -99,6 +99,12 @@ div.reader-dialog aside.readerAside > ul {
     background-size: cover !important;
     background-attachment: fixed;
 }
+body.light .hero {
+    background-image: url("../img/hero_bg.png");
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed;
+}
 
 .header {
     min-height: 70vh;
@@ -319,7 +325,7 @@ section.gamesEtc:before {
 }
 /* Arrow colors */
 .flickity-prev-next-button .arrow, .flickity-prev-next-button.no-svg {
-    fill: white;
+    fill: var(--mdc-theme-text-icon-on-dark);
 }
 /* Move arrows closer to edge */
 .flickity-prev-next-button.previous { left: 0; }

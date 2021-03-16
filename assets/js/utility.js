@@ -55,3 +55,24 @@ firebase.auth().onAuthStateChanged((user) => {
         }
     }
 });
+
+// Theme handlers
+const getTheme = () => {
+    // Returns: true if theme is dark, false otherwise
+    return localStorage.pageTheme === 'dark';
+}
+
+const refreshTheme = () => {
+    if (getTheme()) document.body.classList.remove('light');
+    else document.body.classList.add('light');
+}
+
+// Params:
+// newTheme - True: Dark theme, False: Light theme
+const setTheme = (newTheme) => {
+    localStorage.pageTheme = newTheme ? 'dark' : 'light';
+    refreshTheme();
+}
+
+// Set current theme to stored theme
+refreshTheme();

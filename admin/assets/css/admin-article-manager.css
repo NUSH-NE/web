@@ -1,7 +1,8 @@
 div.article-actions {
     display: flex;
-    margin: 10px;
+    margin: 6px;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 div.article-actions:first-child {

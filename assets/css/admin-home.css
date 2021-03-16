@@ -55,6 +55,11 @@ main > h2.text-centered.mdc-typography--headline2 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+body.light main > h2.text-centered.mdc-typography--headline2 {
+    background: -webkit-linear-gradient(0deg, rgb(224, 116, 0) 0px, rgb(212, 0, 37) 30%, rgb(205, 30, 142) 45%, rgb(91, 39, 199) 70%, rgb(0, 95, 167) 85%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
 div.admin-btn-holder > a.admin-buttons {
     display: block;
