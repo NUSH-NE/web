@@ -7,6 +7,7 @@
         <item url="file://$PROJECT_DIR$/assets/js/admin.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/index.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/login.min.js" />
+        <item url="file://$PROJECT_DIR$/assets/js/quiz.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/strings.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/utility.min.js" />
         <item url="file://$PROJECT_DIR$/lib/DOMPurify/dompurify.min.js" />
@@ -18,6 +19,7 @@
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-ui-auth.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/init.min.js" />
         <item url="file://$PROJECT_DIR$/lib/flickity/flickity.min.js" />
+        <item url="file://$PROJECT_DIR$/lib/lottie/lottie.min.js" />
         <item url="file://$PROJECT_DIR$/lib/mdc/init.min.js" />
         <item url="file://$PROJECT_DIR$/lib/mdc/material-components.min.js" />
         <item url="file://$PROJECT_DIR$/lib/tinymce/tinymce.min.js" />
@@ -30,6 +32,7 @@
       <root url="file://$PROJECT_DIR$/assets/js/admin.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/index.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/login.min.js" />
+      <root url="file://$PROJECT_DIR$/assets/js/quiz.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/strings.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/utility.min.js" />
       <root url="file://$PROJECT_DIR$/lib/DOMPurify/dompurify.min.js" />
@@ -41,6 +44,7 @@
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-ui-auth.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/init.min.js" />
       <root url="file://$PROJECT_DIR$/lib/flickity/flickity.min.js" />
+      <root url="file://$PROJECT_DIR$/lib/lottie/lottie.min.js" />
       <root url="file://$PROJECT_DIR$/lib/mdc/init.min.js" />
       <root url="file://$PROJECT_DIR$/lib/mdc/material-components.min.js" />
       <root url="file://$PROJECT_DIR$/lib/tinymce/tinymce.min.js" />

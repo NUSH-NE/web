@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>NE Admin - Article Manager</title>
 
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+
     <!-- MDC Components -->
     <script src="lib/mdc/material-components.min.js" defer></script>
     <script src="lib/mdc/init.min.js" defer></script> <!-- MDC auto-init -->
@@ -25,11 +31,15 @@
     <script src="lib/firebase/firebase-firestore.min.js" defer></script>
     <script src="lib/firebase/init.min.js" defer></script>
 
+    <!-- Lottie Animation -->
+    <script src="lib/lottie/lottie.min.js" defer></script>
+
     <!-- Backend Scripts -->
     <script src="assets/js/strings.min.js" defer></script>
     <script src="assets/js/utility.min.js" defer></script>
+    <script src="assets/js/quiz.min.js" defer></script>
 </head>
-<body class="mdc-typography">
+<body class="mdc-typography using-mouse">
 <!------>
 <!-- Snackbar -->
 <div class="mdc-snackbar" data-mdc-auto-init="MDCSnackbar" id="msgSnackbar">
@@ -38,9 +48,59 @@
     </div>
 </div>
 <!------>
+<!-- Dialogs -->
+<div class="mdc-dialog expanded-dialog" data-mdc-auto-init="MDCDialog" id="result-dialog">
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface"
+             role="alertdialog"
+             aria-modal="true"
+             aria-labelledby="res-dialog-title"
+             aria-describedby="res-dialog-content">
+            <div class="mdc-dialog__title text-centered padding-bottom-0" id="res-dialog-title">
+                <lottie-player class="text-centered margin-top-15 margin-left-auto margin-right-auto" background="transparent" autoplay
+                               speed="1" style="width:140px;height:140px" id="resultAnim"></lottie-player>
+                <h2 class="margin-top-5"></h2>
+            </div>
+            <div class="mdc-dialog__content text-container-padding text-centered" id="res-dialog-content"></div>
+            <div class="mdc-dialog__actions">
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="ok">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">OK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
+<!------>
+<div class="mdc-dialog expanded-dialog" data-mdc-auto-init="MDCDialog" id="end-dialog">
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface"
+             role="alertdialog"
+             aria-modal="true"
+             aria-labelledby="end-dialog-title"
+             aria-describedby="end-dialog-content">
+            <div class="mdc-dialog__title text-centered padding-bottom-0" id="end-dialog-title">
+                <lottie-player class="text-centered margin-top-15 margin-left-auto margin-right-auto" background="transparent" src="assets/raw/finish.json"
+                               speed="1" style="width:140px;height:140px" id="endAnim"></lottie-player>
+                <h2 class="margin-top-5">Quiz Finished</h2>
+            </div>
+            <div class="mdc-dialog__content text-container-padding text-centered" id="end-dialog-content">
+            </div>
+            <div class="mdc-dialog__actions">
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="ok">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">OK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
+<!------>
 <div class="top-bar-container">
-    <div role="progressbar" class="mdc-linear-progress centered-progress" aria-label="Image upload progress" data-mdc-auto-init="MDCLinearProgress"
-         aria-valuemin="0" aria-valuemax="1" aria-valuenow="0" id="file-upload-progress">
+    <div role="progressbar" class="mdc-linear-progress centered-progress" aria-label="Time left for question" data-mdc-auto-init="MDCLinearProgress"
+         aria-valuemin="0" aria-valuemax="1" aria-valuenow="0" id="timer-progress">
         <div class="mdc-linear-progress__buffer">
             <div class="mdc-linear-progress__buffer-bar"></div>
             <div class="mdc-linear-progress__buffer-dots"></div>
@@ -63,13 +123,14 @@
 </div>
 <div class="quiz-header">
     <div class="margin-right-auto">
-        <div class="quiz-counter">8</div>
+        <div class="quiz-counter" id="timer-number">8</div>
     </div>
-    <div class="text-centered">
-        <h2 class="mdc-typography--headline2">This is a <i>Quation</i></h2>
+    <div class="text-centered qn-holder">
+        <h2 class="mdc-typography--headline2 margin-top-0 margin-bottom-0" id="question-text"></h2>
+        <lottie-player src="assets/raw/google-loading.json" background="transparent" speed="1" id="main-anim" loop autoplay style="width: auto;height: 100%"></lottie-player>
     </div>
     <div class="margin-left-auto">
-        <div class="quiz-counter">10s</div>
+        <div class="quiz-counter" id="num-qns">8</div>
     </div>
 </div>
 <button class="quiz-btn quiz-opt__1 mdc-ripple-surface hover-no-expand" data-mdc-auto-init="MDCRipple">
@@ -78,15 +139,15 @@
 </button>
 <button class="quiz-btn quiz-opt__2 mdc-ripple-surface hover-no-expand" data-mdc-auto-init="MDCRipple">
     <span class="material-icons" style="transform: rotate(45deg) scale(1.4)">stop</span>
-    <span class="mdc-typography--body1">More options</span>
+    <span class="mdc-typography--body1">Option 2</span>
 </button>
 <button class="quiz-btn quiz-opt__3 mdc-ripple-surface hover-no-expand" data-mdc-auto-init="MDCRipple">
     <span class="material-icons">circle</span>
-    <span class="mdc-typography--body1">Even more options</span>
+    <span class="mdc-typography--body1">Option 3</span>
 </button>
 <button class="quiz-btn quiz-opt__4 mdc-ripple-surface hover-no-expand" data-mdc-auto-init="MDCRipple">
     <span class="material-icons">change_history</span>
-    <span class="mdc-typography--body1">Don't you love this ripoff</span>
+    <span class="mdc-typography--body1">Option 4</span>
 </button>
 </body>
 </html>

@@ -5,7 +5,7 @@ body {
     "header header"
     "opt1 opt2"
     "opt3 opt4";
-    grid-template-rows: 55px 1fr 20% 20%;
+    grid-template-rows: 60px 1fr repeat(2, min(20%, 130px));
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 8px;
     padding: 16px 16px 8px 16px;
@@ -20,6 +20,12 @@ div.quiz-header > div {
     height: 100%;
     display: flex;
     align-items: center;
+}
+div.quiz-header > div.qn-holder {
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+}
+div.quiz-header > div.qn-holder > lottie-player {
 }
 
 button.quiz-opt__1 { grid-area: opt1; background-color: rgb(222, 30, 60) }
