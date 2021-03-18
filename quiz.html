@@ -34,6 +34,10 @@
     <!-- Lottie Animation -->
     <script src="lib/lottie/lottie.min.js" defer></script>
 
+    <!-- Odometer -->
+    <script src="lib/odometer/odometer.min.js" defer></script>
+    <link rel="stylesheet" href="lib/odometer/odometer-theme-custom.min.css">
+
     <!-- Backend Scripts -->
     <script src="assets/js/strings.min.js" defer></script>
     <script src="assets/js/utility.min.js" defer></script>
@@ -61,7 +65,10 @@
                                speed="1" style="width:140px;height:140px" id="resultAnim"></lottie-player>
                 <h2 class="margin-top-5"></h2>
             </div>
-            <div class="mdc-dialog__content text-container-padding text-centered" id="res-dialog-content"></div>
+            <div class="mdc-dialog__content text-container-padding text-centered" >
+                <p id="res-dialog-content"></p>
+                <div class="odometer display-block" id="dialog-pts-odometer"></div>
+            </div>
             <div class="mdc-dialog__actions">
                 <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="ok">
                     <div class="mdc-button__ripple"></div>
@@ -85,8 +92,7 @@
                                speed="1" style="width:140px;height:140px" id="endAnim"></lottie-player>
                 <h2 class="margin-top-5">Quiz Finished</h2>
             </div>
-            <div class="mdc-dialog__content text-container-padding text-centered" id="end-dialog-content">
-            </div>
+            <div class="mdc-dialog__content text-container-padding text-centered" id="end-dialog-content"></div>
             <div class="mdc-dialog__actions">
                 <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="ok">
                     <div class="mdc-button__ripple"></div>

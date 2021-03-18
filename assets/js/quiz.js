@@ -74,13 +74,16 @@ class pointsCalc {
         this.history[id].tTime = this.history[id].endTime - this.history[id].startTime;
         this.history[id].res = res;
         // Now do some math
-        this.history[id].pts = (0.1 * Math.pow(10 - (this.history[id].tTime * (10000 / this.maxTime) / 1000), 2.3)) * 10;
-        return this.history;
+        this.history[id].pts = res === 2 ? 0 : !!res ?
+            ((0.5 * Math.pow(10 - (this.history[id].tTime * (10000 / this.maxTime) / 1000), 2)) + 2) * 10 : 20;
     }
 
     mainEnd() {
         this.history.stats.quizEnd = new Date();
         this.history.stats.quizTime = this.history.quizEnd - this.history.quizStart;
+    }
+
+    getHistory() {
         return this.history;
     }
 }
@@ -88,6 +91,7 @@ class pointsCalc {
 (() => {
     const resDialog = $('result-dialog').MDCDialog;
     const endDialog = $('end-dialog').MDCDialog;
+    const dialogMeter = $('dialog-pts-odometer');
 
     const init = () => {
         endDialog.scrimClickAction = '';
@@ -124,7 +128,7 @@ class pointsCalc {
         cOp: 1
     }];
 
-    const qnSeq = [0, 1];
+    const qnSeq = [0, 2, 1];
 
     const endQuiz = () => {
         $('end-dialog-content').textContent = `You have reached the end of the quiz, and scored 10000 points! Congrats!`;
@@ -137,6 +141,11 @@ class pointsCalc {
         q('#res-dialog-title > h2').textContent = oot ? 'You ran out of time!' : (res ? 'Correct!' : 'Wrong!');
         $('res-dialog-content').textContent = oot ? 'Try to be faster next time! You can do it!' :
             (res ? 'Congratulations! Keep up the good work!' : 'Whoops! Try harder next time. You can do it!');
+
+        // Get calculated points
+        dialogMeter.textContent = '0'; // Clear to 0 to allow reanimation
+        dialogMeter.textContent = qPt.getHistory()[qnSeq[0]].pts.toFixed(0);
+
         resDialog.open();
     }
 
@@ -173,7 +182,7 @@ class pointsCalc {
         if (qnSeq.length === 0) return;
         const res = op > 4 ? 2 : (op === qnsObj[qnSeq[0]].cOp ? 1 : 0);
 
-        console.log(qPt.end(qnSeq[0], res)); // Call points tally counter
+        qPt.end(qnSeq[0], res); // Call points tally counter
 
         showMsg(res === 2 ? 'Out of time' : !!res ? 'Correct' : 'Wrong');
         showRes(res === 1, res === 2);
