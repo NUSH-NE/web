@@ -67,12 +67,13 @@
             </div>
             <div class="mdc-dialog__content text-container-padding text-centered" >
                 <p id="res-dialog-content"></p>
+                <p class="margin-bottom-0 mdc-typography--overline">Points received</p>
                 <div class="odometer display-block" id="dialog-pts-odometer"></div>
             </div>
             <div class="mdc-dialog__actions">
                 <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="ok">
                     <div class="mdc-button__ripple"></div>
-                    <span class="mdc-button__label">OK</span>
+                    <span class="mdc-button__label">Next Question</span>
                 </button>
             </div>
         </div>
@@ -104,6 +105,13 @@
     <div class="mdc-dialog__scrim"></div>
 </div>
 <!------>
+<!-- Purple scrim -->
+<div class="quiz-scrim hidden">
+<div class="abstract abstract__1"></div>
+<div class="abstract abstract__2"></div>
+<div class="abstract abstract__3"></div>
+</div>
+<!-- Start of main quiz elements -->
 <div class="top-bar-container">
     <div role="progressbar" class="mdc-linear-progress centered-progress" aria-label="Time left for question" data-mdc-auto-init="MDCLinearProgress"
          aria-valuemin="0" aria-valuemax="1" aria-valuenow="0" id="timer-progress">
@@ -119,7 +127,7 @@
         </div>
     </div>
     <div class="top-bar-elem-container">
-        <span class="quiz-point-counter">1092</span><span>&nbsp;&nbsp;Points</span>
+        <span class="quiz-point-counter" id="totPts">0</span><span>&nbsp;&nbsp;Points</span>
         <button class="mdc-button mdc-button--raised quiz-skip-btn" data-mdc-auto-init="MDCRipple">
             <span class="mdc-button__ripple"></span>
             <span class="mdc-button__label">Skip</span>

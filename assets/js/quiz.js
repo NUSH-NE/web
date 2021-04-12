@@ -21,15 +21,20 @@ class timer {
         this.progress.progress = 1; // Move progress bar to full position
         this.cb((this.totalTime / 1000).toFixed(0)); // Call callback for the first time
 
+        this.st = new Date();
+
         setTimeout(() => {
             this.intID = setInterval(() => {
                 this.progress.progress = this.current / this.totalTime;
-                if (this.current % 1000 === 0) this.cb(this.current / 1000); // Every 1 second call callback
+                this.cb((this.current / 1000).toFixed(0)); // Call callback to update various UI elems
 
-                this.current -= 100;
+                this.current = this.totalTime - (new Date() - this.st);
                 if (this.current < 0) {
                     clearInterval(this.intID);
                     this.intID = null;
+                    // Set all progresses to 0
+                    this.progress.progress = 0;
+                    this.cb(0);
                 }
             }, 100);
         }, 250); // Wait 250ms for animation to complete
@@ -49,14 +54,12 @@ class pointsCalc {
     }
 
     mainStart() {
-        this.history = {
-            stats: {
-                quizStart: new Date(),
-                quizEnd: null,
-                quizTime: null,
-                tPoints: 0
-            }
-        };
+        this.stats = {
+            quizStart: new Date(),
+            quizEnd: null,
+            quizTime: null,
+        }
+        this.history = {};
     }
 
     start(id) {
@@ -79,12 +82,19 @@ class pointsCalc {
     }
 
     mainEnd() {
-        this.history.stats.quizEnd = new Date();
-        this.history.stats.quizTime = this.history.quizEnd - this.history.quizStart;
+        this.stats.quizEnd = new Date();
+        this.stats.quizTime = this.stats.quizEnd - this.stats.quizStart;
     }
 
     getHistory() {
         return this.history;
+    }
+
+    getTotPts() {
+        console.log(this.history);
+        let s = 0;
+        for (const k in this.history) if (this.history.hasOwnProperty(k)) s += Math.round(this.history[k].pts);
+        return s;
     }
 }
 
@@ -93,10 +103,7 @@ class pointsCalc {
     const endDialog = $('end-dialog').MDCDialog;
     const dialogMeter = $('dialog-pts-odometer');
 
-    const init = () => {
-        endDialog.scrimClickAction = '';
-        endDialog.escapeKeyAction  = '';
-    }
+    const random = (max) => Math.floor(Math.random() * max);
 
     const tm = new timer($('timer-progress'), (t) => {
         $('timer-number').textContent = t;
@@ -106,32 +113,38 @@ class pointsCalc {
     const qPt = new pointsCalc(10000);
 
     const qnsObj = [{
-        qn: 'Funny',
-        op1: 'Yes',
-        op2: 'No',
-        op3: 'Very',
-        op4: 'Extremely',
-        cOp: 4,
+        qn: 'This is a test question',
+        op1: 'First option',
+        op2: 'This is definitely the correct option',
+        op3: 'You can add your own question text',
+        op4: 'Like this',
+        cOp: 2,
     }, {
-        qn: 'Are you retarded',
-        op1: 'Yes',
-        op2: 'No',
-        op3: 'Very',
-        op4: 'Extremely',
-        cOp: 4,
+        qn: 'Hello There!',
+        op1: 'Goodbye!',
+        op2: 'Hey',
+        op3: 'Hello!',
+        op4: 'Happy',
+        cOp: 3,
     }, {
-        qn: 'You are a piece of funny stone',
-        op1: 'Waaang',
-        op2: 'Andre',
-        op3: 'Rohaida',
-        op4: 'Zerui',
+        qn: 'This is another funny question',
+        op1: 'Click me!',
+        op2: 'More options',
+        op3: 'Even more options',
+        op4: 'You can include as many questions as you want',
         cOp: 1
     }];
 
-    const qnSeq = [0, 2, 1];
+    const qnSeq = [];
+
+    // Bootstraps the UI
+    const init = () => {
+        endDialog.scrimClickAction = '';
+        endDialog.escapeKeyAction  = '';
+    }
 
     const endQuiz = () => {
-        $('end-dialog-content').textContent = `You have reached the end of the quiz, and scored 10000 points! Congrats!`;
+        $('end-dialog-content').textContent = `You have reached the end of the quiz, and scored ${qPt.getTotPts()} points! Congrats!`;
         $('endAnim').play();
         endDialog.open();
     }
@@ -147,6 +160,8 @@ class pointsCalc {
         dialogMeter.textContent = qPt.getHistory()[qnSeq[0]].pts.toFixed(0);
 
         resDialog.open();
+
+        $('totPts').textContent = qPt.getTotPts();
     }
 
     const refreshUI = () => {
@@ -203,6 +218,21 @@ class pointsCalc {
 
     init();
 
-    qPt.mainStart();
-    refreshUI();
+    // Starts the quiz (call when questions array is ready)
+    const startQuiz = () => {
+        // Generate random question sequence
+        for (let i = 0; i < qnsObj.length; i++) {
+            let qn = random(qnsObj.length);
+            // Generate a random number that is not already in the question sequence
+            do qn = random(qnsObj.length)
+            while (qnSeq.includes(qn));
+
+            qnSeq.push(qn);
+        }
+
+        qPt.mainStart();
+        refreshUI();
+    }
+
+    startQuiz();
 })(); // Wrap the whole logic into a self calling function
