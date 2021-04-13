@@ -2,55 +2,37 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
-        <item url="file://$PROJECT_DIR$/admin/assets/js/admin-article-creator.min.js" />
-        <item url="file://$PROJECT_DIR$/admin/assets/js/article-manager.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/admin.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/index.min.js" />
-        <item url="file://$PROJECT_DIR$/assets/js/login.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/quiz.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/strings.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/utility.min.js" />
-        <item url="file://$PROJECT_DIR$/lib/DOMPurify/dompurify.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-analytics.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-app.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-auth.min.js" />
-        <item url="file://$PROJECT_DIR$/lib/firebase/firebase-firestore.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-storage.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/firebase-ui-auth.min.js" />
         <item url="file://$PROJECT_DIR$/lib/firebase/init.min.js" />
-        <item url="file://$PROJECT_DIR$/lib/flickity/flickity.min.js" />
-        <item url="file://$PROJECT_DIR$/lib/lottie/lottie.min.js" />
         <item url="file://$PROJECT_DIR$/lib/mdc/init.min.js" />
         <item url="file://$PROJECT_DIR$/lib/mdc/material-components.min.js" />
-        <item url="file://$PROJECT_DIR$/lib/odometer/odometer.min.js" />
         <item url="file://$PROJECT_DIR$/lib/tinymce/tinymce.min.js" />
-        <item url="file://$PROJECT_DIR$/lib/uuid/uuidv4.min.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/admin/assets/js/admin-article-creator.min.js" />
-      <root url="file://$PROJECT_DIR$/admin/assets/js/article-manager.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/admin.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/index.min.js" />
-      <root url="file://$PROJECT_DIR$/assets/js/login.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/quiz.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/strings.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/utility.min.js" />
-      <root url="file://$PROJECT_DIR$/lib/DOMPurify/dompurify.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-analytics.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-app.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-auth.min.js" />
-      <root url="file://$PROJECT_DIR$/lib/firebase/firebase-firestore.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-storage.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/firebase-ui-auth.min.js" />
       <root url="file://$PROJECT_DIR$/lib/firebase/init.min.js" />
-      <root url="file://$PROJECT_DIR$/lib/flickity/flickity.min.js" />
-      <root url="file://$PROJECT_DIR$/lib/lottie/lottie.min.js" />
       <root url="file://$PROJECT_DIR$/lib/mdc/init.min.js" />
       <root url="file://$PROJECT_DIR$/lib/mdc/material-components.min.js" />
-      <root url="file://$PROJECT_DIR$/lib/odometer/odometer.min.js" />
       <root url="file://$PROJECT_DIR$/lib/tinymce/tinymce.min.js" />
-      <root url="file://$PROJECT_DIR$/lib/uuid/uuidv4.min.js" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

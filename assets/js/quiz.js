@@ -99,9 +99,14 @@ class pointsCalc {
 }
 
 (() => {
+    // Elements
     const resDialog = $('result-dialog').MDCDialog;
     const endDialog = $('end-dialog').MDCDialog;
     const dialogMeter = $('dialog-pts-odometer');
+    // Scrim and contained elements
+    const scrim = $('scrim');
+    const sTimer = q('#scrimTimer > span');
+    const sTimerHolder = $('scrimTimer');
 
     const random = (max) => Math.floor(Math.random() * max);
 
@@ -165,18 +170,46 @@ class pointsCalc {
     }
 
     const refreshUI = () => {
-        tm.initTimer(10000);
-        tm.startTimer();
-        qPt.start(qnSeq[0]);
+        // Timer to show question for 5 seconds first
+        let t = 5000;
+        let rState = 0;
 
-        q('button.quiz-opt__1 > span.mdc-typography--body1').textContent = qnsObj[qnSeq[0]].op1;
-        q('button.quiz-opt__2 > span.mdc-typography--body1').textContent = qnsObj[qnSeq[0]].op2;
-        q('button.quiz-opt__3 > span.mdc-typography--body1').textContent = qnsObj[qnSeq[0]].op3;
-        q('button.quiz-opt__4 > span.mdc-typography--body1').textContent = qnsObj[qnSeq[0]].op4;
+        // Init some stuff before showing scrim
+        sTimer.textContent = (t / 1000).toFixed(0);
+        sTimerHolder.style.setProperty('--shape-rotation', `${rState * 45}deg`);
+        scrim.classList.remove('hidden');
 
-        $('question-text').textContent = qnsObj[qnSeq[0]].qn;
+        // Put question on scrim
+        $('scrimQn').textContent = qnsObj[qnSeq[0]].qn;
 
-        $('num-qns').textContent = qnSeq.length;
+        const intID = setInterval(() => {
+            sTimer.textContent = (t / 1000).toFixed(0);
+            t -= 100;
+
+            // Rotate block while keeping text straight
+            sTimerHolder.style.setProperty('--shape-rotation', `${rState * 45}deg`);
+            if (t % 500 === 0) rState++;
+
+            if (t < 0) {
+                scrim.classList.add('hidden');
+                clearInterval(intID);
+
+                // Init helper objects
+                tm.initTimer(10000);
+                tm.startTimer();
+                qPt.start(qnSeq[0]);
+
+                // Init all elements
+                q('button.quiz-opt__1 > span.mdc-typography--body1').textContent = qnsObj[qnSeq[0]].op1;
+                q('button.quiz-opt__2 > span.mdc-typography--body1').textContent = qnsObj[qnSeq[0]].op2;
+                q('button.quiz-opt__3 > span.mdc-typography--body1').textContent = qnsObj[qnSeq[0]].op3;
+                q('button.quiz-opt__4 > span.mdc-typography--body1').textContent = qnsObj[qnSeq[0]].op4;
+
+                $('question-text').textContent = qnsObj[qnSeq[0]].qn;
+
+                $('num-qns').textContent = qnSeq.length;
+            }
+        }, 100);
     }
 
     const nextQn = () => {
