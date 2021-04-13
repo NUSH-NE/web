@@ -1,0 +1,44 @@
+body {
+    background: black linear-gradient(124deg, rgba(126, 92, 14, .6), rgba(113, 116, 14, .6),
+    rgba(14, 116, 32, .6), rgba(14, 110, 116, .6), rgba(34, 29, 149, 0.6), rgba(110, 0, 121, .6),
+    rgba(110, 0, 121, .6), rgba(128, 18, 0, .6), rgba(116, 14, 14, .6));
+    background-size: 2400% 2400% !important;
+
+    -webkit-animation: rainbow 24s linear infinite;
+    -z-animation: rainbow 24s linear infinite;
+    -o-animation: rainbow 24s linear infinite;
+    animation: rainbow 24s linear infinite;
+}
+
+body.light {
+    background: white linear-gradient(124deg, rgba(250, 183, 38, 0.3), rgba(244, 248, 26, 0.3),
+    rgba(32, 248, 67, 0.3), rgba(37, 233, 243, 0.3), rgba(108, 98, 222, 0.3), rgba(224, 49, 245, 0.3),
+    rgba(196, 55, 210, 0.3), rgba(255, 111, 89, 0.3), rgba(255, 97, 97, 0.3));
+}
+
+/* Rainbow background animation */
+@-webkit-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@-moz-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@-o-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+
+
+main {
+    padding: 16px;
+}

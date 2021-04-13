@@ -1,9 +1,15 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Notional Oducation - The Rohaida Version</title>
+    <title>NE Admin Dashboard</title>
+    
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
 
     <!-- MDC Components -->
     <script src="lib/mdc/material-components.min.js" defer></script>
@@ -15,28 +21,23 @@
     <link rel="stylesheet" href="assets/fonts/roboto.min.css">
     <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
     <link rel="stylesheet" href="assets/css/main.min.css">
-    <link rel="stylesheet" href="assets/css/admin.min.css">
+    <link rel="stylesheet" href="assets/css/admin-home.min.css">
+    <link rel="stylesheet" href="assets/css/admin-home.phone.min.css" media="only screen and (max-width: 599px)">
 
     <!-- Libraries -->
     <!-- Firebase -->
     <script src="lib/firebase/firebase-app.min.js" defer></script>
     <script src="lib/firebase/firebase-analytics.min.js" defer></script>
     <script src="lib/firebase/firebase-auth.min.js" defer></script>
-    <script src="lib/firebase/firebase-ui-auth.min.js" defer></script>
-    <script src="lib/firebase/firebase-storage.min.js" defer></script>
-    <script src="lib/firebase/firebase-firestore.min.js" defer></script>
-    <link rel="stylesheet" href="lib/firebase/firebase-ui-auth.min.css">
     <script src="lib/firebase/init.min.js" defer></script>
-
-    <!-- TinyMCE -->
-    <script src="lib/tinymce/tinymce.min.js" defer></script>
 
     <!-- Backend Scripts -->
     <script src="assets/js/strings.min.js" defer></script>
     <script src="assets/js/utility.min.js" defer></script>
     <script src="assets/js/admin.min.js" defer></script>
 </head>
-<body class="mdc-typography">
+<body class="center-child mdc-typography">
+<!------>
 <!-- Snackbar -->
 <div class="mdc-snackbar" data-mdc-auto-init="MDCSnackbar" id="msgSnackbar">
     <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
@@ -44,118 +45,35 @@
     </div>
 </div>
 <!------>
-<!-- Login Dialog -->
-<div class="mdc-dialog expanded-dialog" data-mdc-auto-init="MDCDialog" id="loginDialog">
-    <div class="mdc-dialog__container">
-        <div class="mdc-dialog__surface"
-             role="alertdialog"
-             aria-modal="true"
-             aria-describedby="login-content">
-            <div class="mdc-dialog__content" id="login-content">
-                <div id="firebaseui-auth-container"></div>
-                <div id="loginLoader">
-                    <div class="mdc-circular-progress" style="width:48px;height:48px;" role="progressbar" aria-label="Loading login..." aria-valuemin="0" aria-valuemax="1" data-mdc-auto-init="MDCCircularProgress">
-                        <div class="mdc-circular-progress__determinate-container">
-                            <svg class="mdc-circular-progress__determinate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                <circle class="mdc-circular-progress__determinate-track" cx="24" cy="24" r="18" stroke-width="4"/>
-                                <circle class="mdc-circular-progress__determinate-circle" cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="113.097" stroke-width="4"/>
-                            </svg>
-                        </div>
-                        <div class="mdc-circular-progress__indeterminate-container">
-                            <div class="mdc-circular-progress__spinner-layer">
-                                <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-left">
-                                    <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="4"/>
-                                    </svg>
-                                </div>
-                                <div class="mdc-circular-progress__gap-patch">
-                                    <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="3.2"/>
-                                    </svg>
-                                </div>
-                                <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-right">
-                                    <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="4"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="usrOps" class="margin-bottom-5">
-                    <h2>Hello</h2>
-                    <hr>
-                    <!-- User profile pic -->
-                    <img alt="User profile image" onerror="this.src = 'assets/img/DefaultAccountTile.png'" draggable="false"
-                         class="margin-left-auto margin-right-auto profile-img display-block margin-top-20"/>
-                    <!-- Warning card for important messages -->
-                    <div class="mdc-card mdc-card__warn margin-top-15" id="verEmailMsg">
-                        <div class="mdc-card-wrapper__text-section padding-bottom-0">Your email address has not been verified</div>
-                        <div class="mdc-card__actions">
-                            <div class="mdc-card__action-buttons">
-                                <button class="mdc-button mdc-card__action mdc-card__action--button hover-no-expand" data-mdc-auto-init="MDCRipple">
-                                    <div class="mdc-button__ripple"></div>
-                                    <i class="material-icons mdc-button__icon" aria-hidden="true">email</i>
-                                    <span class="mdc-button__label">Send Verification Email</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!------>
-                    <h3>Personal Information</h3>
-                    <p class="margin-bottom-0"><span id="usrName">Name: </span><a href="#">Change</a></p>
-                    <p class="margin-top-5"><span id="usrEmail">Email: </span><a href="#">Change</a></p>
-                    <!------>
-                    <h3 class="margin-top-10">Danger Zone</h3>
-                    <button class="mdc-button mdc-button--outlined mdc-button__error hover-no-expand margin-top-5"
-                            id="signOutBtn" data-mdc-auto-init="MDCRipple">
-                        <span class="mdc-button__ripple"></span>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">logout</i>
-                        <span class="mdc-button__label">Sign Out</span>
-                    </button>
-                    <button class="mdc-button mdc-button--raised mdc-button__error hover-no-expand margin-top-5"
-                            id="deleteAcctBtn" data-mdc-auto-init="MDCRipple">
-                        <span class="mdc-button__ripple"></span>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">delete_forever</i>
-                        <span class="mdc-button__label">Delete Account</span>
-                    </button>
-                </div>
-                <!-- Messages related to user account -->
-                <div class="mdc-card mdc-card__info margin-top-10 hidden margin-bottom-5" id="authMsg">
-                    <div class="mdc-card-wrapper__text-section padding-bottom-0">This is a message</div>
-                    <div class="mdc-card__actions">
-                        <div class="mdc-card__action-buttons">
-                            <button class="mdc-button mdc-card__action mdc-card__action--button hover-no-expand" data-mdc-auto-init="MDCRipple">
-                                <div class="mdc-button__ripple"></div>
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">check_circle</i>
-                                <span class="mdc-button__label">Dismiss</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="mdc-dialog__scrim"></div>
+<!-- Tooltips -->
+<div id="tt-1" class="mdc-tooltip" role="tooltip" aria-hidden="true" data-mdc-auto-init="MDCTooltip">
+    <div class="mdc-tooltip__surface">Article Creator</div>
+</div>
+<div id="tt-2" class="mdc-tooltip" role="tooltip" aria-hidden="true" data-mdc-auto-init="MDCTooltip">
+    <div class="mdc-tooltip__surface">Article Manager</div>
+</div>
+<div id="tt-3" class="mdc-tooltip" role="tooltip" aria-hidden="true" data-mdc-auto-init="MDCTooltip">
+    <div class="mdc-tooltip__surface">Image Post Dashboard</div>
+</div>
+<div id="tt-4" class="mdc-tooltip" role="tooltip" aria-hidden="true" data-mdc-auto-init="MDCTooltip">
+    <div class="mdc-tooltip__surface">User Management</div>
+</div>
+<div id="tt-5" class="mdc-tooltip" role="tooltip" aria-hidden="true" data-mdc-auto-init="MDCTooltip">
+    <div class="mdc-tooltip__surface">Link Editor</div>
+</div>
+<div id="tt-6" class="mdc-tooltip" role="tooltip" aria-hidden="true" data-mdc-auto-init="MDCTooltip">
+    <div class="mdc-tooltip__surface">Quiz Creator/Manager</div>
+</div>
+<div id="tt-7" class="mdc-tooltip" role="tooltip" aria-hidden="true" data-mdc-auto-init="MDCTooltip">
+    <div class="mdc-tooltip__surface">Leaderboard Admin</div>
+</div>
+<div id="tt-8" class="mdc-tooltip" role="tooltip" aria-hidden="true" data-mdc-auto-init="MDCTooltip">
+    <div class="mdc-tooltip__surface">Coming Soon!</div>
 </div>
 <!------>
-<main>
-    <h1 class="mdc-typography--headline2 margin-top-5 margin-bottom-20">Article Creator</h1>
-    <hr>
-
-    <!------>
-    <h4 class="mdc-typography--headline4 margin-top-10 margin-bottom-20">Step 1. Compose Article</h4>
-    <!------>
-    <!-- Title field -->
-    <label class="mdc-text-field mdc-text-field--filled margin-bottom-10 width-100" data-mdc-auto-init="MDCTextField" id="article-title">
-        <span class="mdc-text-field__ripple"></span>
-        <span class="mdc-floating-label" id="article-title-label">Article Title</span>
-        <input class="mdc-text-field__input" type="text" aria-labelledby="article-title-label">
-        <span class="mdc-line-ripple"></span>
-    </label>
-    <!------>
-    <!-- Progress Spinner -->
-    <div class="mdc-circular-progress centered-progress" style="width:48px;height:48px;" role="progressbar" aria-label="Example Progress Bar" aria-valuemin="0" data-mdc-auto-init="MDCCircularProgress" aria-valuemax="1" id="editorLoading">
+<!-- Loading scrim -->
+<div class="loading-scrim center-child">
+    <div class="mdc-circular-progress" style="width:48px;height:48px;" role="progressbar" aria-label="Loading..." aria-valuemin="0" aria-valuemax="1" data-mdc-auto-init="MDCCircularProgress">
         <div class="mdc-circular-progress__determinate-container">
             <svg class="mdc-circular-progress__determinate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                 <circle class="mdc-circular-progress__determinate-track" cx="24" cy="24" r="18" stroke-width="4"/>
@@ -182,72 +100,28 @@
             </div>
         </div>
     </div>
-    <!------>
-    <!-- Editor -->
-    <textarea class="mdc-text-field__input" rows="8" cols="40" aria-label="Label" id="contentEditor"></textarea>
-    <small class="display-block margin-top-10 margin-bottom-10">Editor can be resized by dragging its bottom right corner</small>
-    <hr>
-    <!------>
-
-    <!------>
-    <!-- Links -->
-    <h4 class="mdc-typography--headline4 margin-top-15 margin-bottom-5">Step 2. Add Resource Links</h4>
-    <p>Add resource links to be shown beside main content, e.g. other websites with for additional reading</p>
-    <label class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea" data-mdc-auto-init="MDCTextField">
-        <span class="mdc-text-field__ripple"></span>
-        <span class="mdc-floating-label" id="linkTextFieldLabel">Resource links, separated with spaces</span>
-        <span class="mdc-text-field__resizer">
-        <textarea class="mdc-text-field__input" rows="2" cols="40" aria-labelledby="linkTextFieldLabel" id="resourceLink"></textarea>
-    </span>
-        <span class="mdc-line-ripple"></span>
-    </label>
-    <small class="display-block margin-top-10 margin-bottom-10">Text box can be resized by dragging its bottom right corner</small>
-    <hr>
-    <!------>
-
-    <!------>
-    <h4 class="mdc-typography--headline4 margin-top-15 margin-bottom-5">Step 3. Upload Images/Videos</h4>
-    <!------>
-    <!-- Image upload -->
-    <input type="file" name="filename" id="fileUpload" accept="image/*" multiple>
-    <button class="mdc-button mdc-button--outlined" data-mdc-auto-init="MDCRipple" id="uploadBtn">
-        <span class="mdc-button__ripple"></span>
-        <i class="material-icons mdc-button__icon" aria-hidden="true">cloud_upload</i>
-        <span class="mdc-button__label">Upload Media</span>
-    </button>
-    <small class="margin-left-5" id="uploadFName">No file(s) selected</small>
-
-    <!-- Image previews -->
-    <div class="imgPreviews margin-bottom-10" style="display: none"></div>
-
-    <!-- Upload progress -->
-    <p id="uploadProgLabel">No uploads in progress</p>
-    <div role="progressbar" class="mdc-linear-progress centered-progress" aria-label="Example Progress Bar" data-mdc-auto-init="MDCLinearProgress"
-         aria-valuemin="0" aria-valuemax="1" aria-valuenow="0" id="file-upload-progress">
-        <div class="mdc-linear-progress__buffer">
-            <div class="mdc-linear-progress__buffer-bar"></div>
-            <div class="mdc-linear-progress__buffer-dots"></div>
-        </div>
-        <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
-            <span class="mdc-linear-progress__bar-inner"></span>
-        </div>
-        <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
-            <span class="mdc-linear-progress__bar-inner"></span>
-        </div>
+</div>
+<main class="padding-bottom-0">
+    <h2 class="mdc-typography--headline2 text-centered">NE Website<br><b>Admin Panel</b></h2>
+    <div class="admin-btn-holder">
+        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface" href="admin/article-creator.html"
+           data-mdc-auto-init="MDCRipple" aria-describedby="tt-1">create</a>
+        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface" href="admin/article-manager.html"
+           data-mdc-auto-init="MDCRipple" aria-describedby="tt-2">list</a>
+        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface"
+           data-mdc-auto-init="MDCRipple" aria-describedby="tt-3">collections</a>
+        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface"
+           data-mdc-auto-init="MDCRipple" aria-describedby="tt-4">manage_accounts</a>
+        <!-- New row -->
+        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface"
+           data-mdc-auto-init="MDCRipple" aria-describedby="tt-5">link</a>
+        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface"
+           data-mdc-auto-init="MDCRipple" aria-describedby="tt-6">help</a>
+        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface"
+           data-mdc-auto-init="MDCRipple" aria-describedby="tt-7">leaderboard</a>
+        <a class="admin-buttons mdc-elevation--z8 material-icons mdc-ripple-surface"
+           data-mdc-auto-init="MDCRipple" aria-describedby="tt-8">shopping_cart</a>
     </div>
-
-    <!-- Submit -->
-    <button class="mdc-button mdc-button--raised width-100 hover-no-expand" data-mdc-auto-init="MDCRipple" id="submitBtn">
-        <span class="mdc-button__ripple"></span>
-        <i class="material-icons mdc-button__icon" aria-hidden="true">done</i>
-        <span class="mdc-button__label">Add Article</span>
-    </button>
 </main>
-
-<!-- Footer -->
-<footer>
-    <h2 class="margin-top-10">National Education Website</h2>
-    <p>Created by Vincent Kwok and Wang Zerui (M21204) in collaboration with the NUS High NE community</p>
-</footer>
 </body>
 </html>

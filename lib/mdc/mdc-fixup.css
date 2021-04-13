@@ -63,11 +63,12 @@
 .mdc-chip .mdc-chip__checkmark-path {
     stroke: var(--header-text-color);
 }
+
+/* Dialogs */
 .mdc-dialog .mdc-dialog__content {
     color: var(--header-text-color);
     overflow-x: hidden;
 }
-/* Dialogs */
 .mdc-dialog__title {
     border-bottom: 1px solid var(--sep-border-color);
 }
@@ -111,9 +112,16 @@
 .mdc-dialog .mdc-dialog__title {
     color: var(--header-text-color, #fff);
 }
+.mdc-dialog__actions {
+    border-top-color: var(--sep-border-color);
+}
 /* Outlined buttons */
 .mdc-button--outlined:not(:disabled) {
     border-color: var(--sep-border-color);
+}
+.mdc-button--outlined:disabled {
+    border-color: var(--sep-border-color);
+    color: var(--sep-border-color)
 }
 /* Raised buttons */
 .mdc-button.mdc-button--raised {
@@ -212,6 +220,7 @@
 /* Icon button */
 .mdc-icon-button {
     border-radius: 50%;
+    color: var(--mdc-theme-text-icon-on-dark);
 }
 
 /* Fix progress bars */
@@ -226,6 +235,29 @@
 }
 .mdc-linear-progress__buffer-bar {
     background-color: var(--outline-border-color);
+}
+
+/* Data tables */
+.mdc-data-table__cell, .mdc-data-table__header-cell, .mdc-data-table__pagination-rows-per-page-label, .mdc-data-table__pagination-total {
+    color: var(--mdc-theme-text-primary-on-background);
+}
+.mdc-data-table__pagination, .mdc-data-table__row {
+    border-top-color: var(--outline-border-color);
+}
+.mdc-data-table__row {
+    transition: background-color .1s ease-in-out;
+}
+.mdc-data-table__row--selected {
+    background-color: rgba(98, 0, 238, .1);
+}
+.mdc-linear-progress.mdc-linear-progress--indeterminate.mdc-data-table__linear-progress {
+    height: 4px;
+    border-radius: 0;
+}
+th.mdc-data-table__header-cell {
+    font-weight: bolder;
+    font-size: 16px;
+    font-family: "Roboto Slab", Helvetica, sans-serif;
 }
 
 /* Additional customisations */

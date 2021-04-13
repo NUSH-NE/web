@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>National Education - NUS High</title>
 
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+
     <!-- MDC Components -->
     <script src="lib/mdc/material-components.min.js" defer></script>
     <script src="lib/mdc/init.min.js" defer></script> <!-- MDC auto-init -->
@@ -24,9 +30,8 @@
     <script src="lib/firebase/firebase-app.min.js" defer></script>
     <script src="lib/firebase/firebase-analytics.min.js" defer></script>
     <script src="lib/firebase/firebase-auth.min.js" defer></script>
-    <script src="lib/firebase/firebase-ui-auth.min.js" defer></script>
     <script src="lib/firebase/firebase-firestore.min.js" defer></script>
-    <link rel="stylesheet" href="lib/firebase/firebase-ui-auth.min.css">
+    <script src="lib/firebase/firebase-storage.min.js" defer></script>
     <script src="lib/firebase/init.min.js" defer></script>
 
     <!-- Modenizr -->
@@ -36,6 +41,9 @@
     <script src="lib/flickity/flickity.min.js" defer></script>
     <link rel="stylesheet" href="lib/flickity/flickity.min.css">
     <link rel="stylesheet" href="lib/flickity/flickity-fixup.min.css">
+
+    <!-- UUIDv5 -->
+    <script src="lib/uuid/uuidv4.min.js" defer></script>
 
     <!-- JS -->
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js" defer></script>
@@ -66,36 +74,6 @@
              aria-modal="true"
              aria-describedby="login-content">
             <div class="mdc-dialog__content" id="login-content">
-                <div id="firebaseui-auth-container"></div>
-                <div id="loginLoader">
-                    <div class="mdc-circular-progress" style="width:48px;height:48px;" role="progressbar" aria-label="Loading login..." aria-valuemin="0" aria-valuemax="1" data-mdc-auto-init="MDCCircularProgress">
-                        <div class="mdc-circular-progress__determinate-container">
-                            <svg class="mdc-circular-progress__determinate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                <circle class="mdc-circular-progress__determinate-track" cx="24" cy="24" r="18" stroke-width="4"/>
-                                <circle class="mdc-circular-progress__determinate-circle" cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="113.097" stroke-width="4"/>
-                            </svg>
-                        </div>
-                        <div class="mdc-circular-progress__indeterminate-container">
-                            <div class="mdc-circular-progress__spinner-layer">
-                                <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-left">
-                                    <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="4"/>
-                                    </svg>
-                                </div>
-                                <div class="mdc-circular-progress__gap-patch">
-                                    <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="3.2"/>
-                                    </svg>
-                                </div>
-                                <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-right">
-                                    <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="4"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div id="usrOps" class="margin-bottom-5">
                     <h2>Hello</h2>
                     <hr>
@@ -118,7 +96,7 @@
                     <!------>
                     <h3>Personal Information</h3>
                     <p class="margin-bottom-0"><span id="usrName">Name: </span><a href="#">Change</a></p>
-                    <p class="margin-top-5"><span id="usrEmail">Email: </span><a href="#">Change</a></p>
+                    <p class="margin-top-5"><span id="usrEmail">Email: </span></p>
                     <!------>
                     <h3 class="margin-top-10">Danger Zone</h3>
                     <button class="mdc-button mdc-button--outlined mdc-button__error hover-no-expand margin-top-5"
@@ -225,7 +203,7 @@
                 --><h2>Create Post</h2>
             </div>
             <div class="mdc-dialog__content" id="postImg-content">
-                <img class="img-preview mdc-elevation--z12" alt="Preview of uploaded image" src="">
+                <img class="img-preview mdc-elevation--z12" alt="Preview of uploaded image" src="" onerror="this.src='assets/img/broken_image-dark.svg'">
                 <hr>
                 <label class="mdc-text-field mdc-text-field--outlined width-100 margin-top-10" data-mdc-auto-init="MDCTextField" id="post-caption">
                     <span class="mdc-notched-outline">
@@ -246,7 +224,7 @@
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">Cancel</span>
                 </button>
-                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="upload">
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">Post</span>
                     <i class="material-icons mdc-button__icon" aria-hidden="true">cloud_upload</i>
@@ -294,6 +272,19 @@
     <div class="mdc-card margin-top-15 margin-bottom-10 margin-left-10 margin-right-10">
         <div class="mdc-card-wrapper__text-section">
             <h2 class="mdc-typography--headline2 text-centered margin-no">NE Event Images</h2>
+        </div>
+        <div role="progressbar" class="mdc-linear-progress centered-progress" aria-label="Image upload progress" data-mdc-auto-init="MDCLinearProgress"
+             aria-valuemin="0" aria-valuemax="1" aria-valuenow="0" id="file-upload-progress">
+            <div class="mdc-linear-progress__buffer">
+                <div class="mdc-linear-progress__buffer-bar"></div>
+                <div class="mdc-linear-progress__buffer-dots"></div>
+            </div>
+            <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+                <span class="mdc-linear-progress__bar-inner"></span>
+            </div>
+            <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                <span class="mdc-linear-progress__bar-inner"></span>
+            </div>
         </div>
         <div class="mdc-card__actions">
             <input type="file" name="filename" id="fileUpload" accept="image/*">
@@ -406,7 +397,8 @@
         </div>
     </div>
     <div class="segmented__section segmented-heading">
-        <img alt="NUS High Logo" src="assets/img/link-icon-dark.svg" />
+        <img alt="NUS High Logo" src="assets/img/link-icon-dark.svg" class="show-on-dark" />
+        <img alt="NUS High Logo" src="assets/img/link-icon-light.svg" class="show-on-light" />
         <hr>
         <h3 class="mdc-typography--headline2">Other Links</h3>
     </div>
@@ -414,7 +406,8 @@
 <section class="abt-nus-high">
     <div class="segmented segmented-lr">
         <div class="segmented__section segmented-heading">
-            <img alt="NUS High Logo" src="assets/img/nush-logo-dark.png" />
+            <img alt="NUS High Logo" src="assets/img/nush-logo-dark.png" class="show-on-dark" />
+            <img alt="NUS High Logo" src="assets/img/nush-logo-light.png" class="show-on-light" />
             <hr>
             <h3 class="mdc-typography--headline2">NUS High</h3>
         </div>

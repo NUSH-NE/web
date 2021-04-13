@@ -1,8 +1,3 @@
-/* Reading cards, for demo purposes only */
-.reads .mdc-card__media--16-9 {
-    background-image: url('https://picsum.photos/800/450.webp');
-}
-
 /******* Login Dialog *******/
 #loginDialog .mdc-dialog__surface {
     background-color: var(--scrim-bg);
@@ -52,7 +47,8 @@ div.reader-dialog aside.readerAside {
     transition-delay: 1s;
     transition-property: max-width, padding;
     background-color: var(--mdc-theme-surface);
-    position: relative;
+    position: sticky;
+    top: 0;
 }
 div.reader-dialog aside.readerAside > h2 {
     margin: 12px 0;
@@ -94,15 +90,20 @@ div.reader-dialog aside.readerAside > ul {
 /******* Hero *******/
 
 .hero {
+    padding: 16px;
+    background-position: center !important;
     background: linear-gradient(
             rgba(0, 0, 0, .4),
             rgba(0, 0, 0, .4)
     ), url("../img/hero_bg.png");
-    background-position: center;
-    background-attachment: fixed;
     background-size: cover !important;
-    background-repeat: no-repeat;
-    padding: 16px;
+    background-attachment: fixed;
+}
+body.light .hero {
+    background-image: url("../img/hero_bg.png");
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed;
 }
 
 .header {
@@ -125,6 +126,9 @@ div.reader-dialog aside.readerAside > ul {
 }
 .reads {
     margin-top: 16px;
+    max-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .reads > h3, .quizMoreInfo > .quiz > h3 {
     margin-left: 20px;
@@ -143,8 +147,22 @@ div.reader-dialog aside.readerAside > ul {
 /****** Games and others ******/
 
 section.gamesEtc {
+    overflow: hidden;
+    position: relative;
+}
+section.gamesEtc:before {
+    content: '';
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: url("../img/gamesBg.webp");
+    background-color: var(--mdc-theme-surface);
+    background-position: center !important;
     background-size: cover !important;
-    background: url("../img/gamesBg.webp") no-repeat fixed center;
+    will-change: transform;
+    z-index: -2;
 }
 
 /* More info + quiz grid */
@@ -224,6 +242,7 @@ section.gamesEtc {
     justify-content: center;
     -webkit-align-items: center;
     align-items: center;
+    position: relative;
 }
 
 .carousel-cell img {
@@ -260,6 +279,23 @@ section.gamesEtc {
     -webkit-filter: none;
     filter: none;
 }
+.carousel-cell > div.content-cover {
+    position: absolute;
+    word-break: break-all;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    opacity: 0;
+    padding: 16px;
+    background: linear-gradient(0deg, var(--darker-surface-bg) 0%, var(--darker-surface-bg) 80%, rgba(0, 0, 0, 0) 100%);
+    border-radius: var(--mdc-shape-medium);
+    overflow: hidden auto;
+    transition: opacity .4s ease-out;
+}
+.carousel-cell.is-selected:hover > div.content-cover {
+    opacity: 1;
+}
 
 @media screen and ( max-width: 499px ) {
     .carousel-cell {
@@ -289,7 +325,7 @@ section.gamesEtc {
 }
 /* Arrow colors */
 .flickity-prev-next-button .arrow, .flickity-prev-next-button.no-svg {
-    fill: white;
+    fill: var(--mdc-theme-text-icon-on-dark);
 }
 /* Move arrows closer to edge */
 .flickity-prev-next-button.previous { left: 0; }

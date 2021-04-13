@@ -2,39 +2,8 @@ main {
     padding: 16px;
 }
 
-body {
-    background: black linear-gradient(124deg, rgba(126, 92, 14, .6), rgba(113, 116, 14, .6),
-    rgba(14, 116, 32, .6), rgba(14, 110, 116, .6), rgba(34, 29, 149, 0.6), rgba(110, 0, 121, .6),
-    rgba(110, 0, 121, .6), rgba(128, 18, 0, .6), rgba(116, 14, 14, .6));
-    background-size: 2400% 2400%;
 
-    -webkit-animation: rainbow 24s linear infinite;
-    -z-animation: rainbow 24s linear infinite;
-    -o-animation: rainbow 24s linear infinite;
-    animation: rainbow 24s linear infinite;
-}
 
-/* Rainbow background animation */
-@-webkit-keyframes rainbow {
-    0%{background-position:0% 82%}
-    50%{background-position:100% 19%}
-    100%{background-position:0% 82%}
-}
-@-moz-keyframes rainbow {
-    0%{background-position:0% 82%}
-    50%{background-position:100% 19%}
-    100%{background-position:0% 82%}
-}
-@-o-keyframes rainbow {
-    0%{background-position:0% 82%}
-    50%{background-position:100% 19%}
-    100%{background-position:0% 82%}
-}
-@keyframes rainbow {
-    0%{background-position:0% 82%}
-    50%{background-position:100% 19%}
-    100%{background-position:0% 82%}
-}
 
 h2.mdc-typography--headline2 {
     margin: .25em 0;

@@ -1,0 +1,75 @@
+body {
+    --border-width: 5px
+}
+
+main {
+    padding: 24px;
+    position: relative;
+    border-radius: var(--mdc-shape-medium);
+    background-color: var(--mdc-theme-surface);
+    min-height: 200px;
+    min-width: 200px;
+}
+
+/* Border gradient animation */
+main::after {
+    position: absolute;
+    content: "";
+    top: calc(-1 * var(--border-width));
+    left: calc(-1 * var(--border-width));
+    z-index: -1;
+    width: calc(100% + var(--border-width) * 2);
+    height: calc(100% + var(--border-width) * 2);
+    background: linear-gradient(
+            60deg,
+            hsl(224, 85%, 66%),
+            hsl(269, 85%, 66%),
+            hsl(314, 85%, 66%),
+            hsl(359, 85%, 66%),
+            hsl(44, 85%, 66%),
+            hsl(89, 85%, 66%),
+            hsl(134, 85%, 66%),
+            hsl(179, 85%, 66%)
+    );
+    background-size: 300% 300%;
+    background-position: 0 50%;
+    border-radius: calc(2 * var(--border-width));
+    animation: moveGradient 4s alternate infinite;
+}
+@keyframes moveGradient {
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+div.admin-btn-holder {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+main > h2.text-centered.mdc-typography--headline2 {
+    background: -webkit-linear-gradient(0deg, #ffa745 0%, #fe869f 30%, #ef7ac8 45%, #a083ed 70%, #43aeff 85%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+body.light main > h2.text-centered.mdc-typography--headline2 {
+    background: -webkit-linear-gradient(0deg, rgb(224, 116, 0) 0px, rgb(212, 0, 37) 30%, rgb(205, 30, 142) 45%, rgb(91, 39, 199) 70%, rgb(0, 95, 167) 85%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+div.admin-btn-holder > a.admin-buttons {
+    display: block;
+    height: 100px;
+    width: 100px;
+    border-radius: var(--mdc-shape-small);
+    background-color: var(--mdc-theme-surface);
+    line-height: 100px; /* Hack to center align icons */
+    font-size: 60px;
+    text-align: center;
+    text-decoration: none;
+}
+
