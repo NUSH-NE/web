@@ -99,6 +99,8 @@ class pointsCalc {
 }
 
 (() => {
+    const db = firebase.firestore(); // Init Firestore
+
     // Elements
     const resDialog = $('result-dialog').MDCDialog;
     const endDialog = $('end-dialog').MDCDialog;
@@ -117,7 +119,8 @@ class pointsCalc {
 
     const qPt = new pointsCalc(10000);
 
-    const qnsObj = [{
+    let qnsObj = [];
+    /* {
         qn: 'This is a test question',
         op1: 'First option',
         op2: 'This is definitely the correct option',
@@ -138,7 +141,8 @@ class pointsCalc {
         op3: 'Even more options',
         op4: 'You can include as many questions as you want',
         cOp: 1
-    }];
+    }
+     */
 
     const qnSeq = [];
 
@@ -232,7 +236,7 @@ class pointsCalc {
 
         qPt.end(qnSeq[0], res); // Call points tally counter
 
-        showMsg(res === 2 ? 'Out of time' : !!res ? 'Correct' : 'Wrong');
+        showMsg(res === 2 ? 'Out of time!' : !!res ? 'Correct!' : 'Wrong!');
         showRes(res === 1, res === 2);
 
         $('main-anim').pause();
@@ -267,5 +271,38 @@ class pointsCalc {
         refreshUI();
     }
 
-    startQuiz();
+    // Download questions
+    db.collection("quiz").doc(new URLSearchParams(window.location.search).get('id')).get().then((doc) => {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+            // Populate array
+            qnsObj = doc.data().qns;
+
+            // Delete loading portion of scrim (and animate it)
+            const sl = $('scrimLoader');
+            const sc = $('scrimContent');
+            const ANIM_DURATION = 400;
+
+            // First fade out the loader
+            sl.classList.add('fader', 'faded');
+            sc.classList.add('fader', 'faded');
+            setTimeout(() => {
+                sl.remove(); // Remove the loader after it has faded
+                sc.classList.remove('display-none');
+                setTimeout(() => sc.classList.remove('faded'), 10); // Then fade in the content
+                setTimeout(() => startQuiz(), ANIM_DURATION / 5); // Start the quiz when the element reaches ~20% opacity
+            }, ANIM_DURATION);
+        } else {
+            // Show errors
+            const a = $('dQuizAnim');
+            a.load('assets/raw/error.json');
+            a.loop = false;
+
+            $('dQuizHeader').textContent = 'The quiz with the specified ID could not be downloaded';
+            $('dQuizOverline').textContent = 'Go to the quiz page and click on the link that led you here again';
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+    //startQuiz();
 })(); // Wrap the whole logic into a self calling function

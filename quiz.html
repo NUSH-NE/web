@@ -111,13 +111,24 @@
     <div class="abstract abstract__1"></div>
     <div class="abstract abstract__2"></div>
     <div class="abstract abstract__3"></div>
+    <div class="abstract abstract__4"></div>
+    <div class="abstract abstract__5"></div>
 
     <!-- Normally positioned elements -->
-    <div class="text-centered">
+    <div class="text-centered display-none" id="scrimContent">
         <h1 class="mdc-typography--headline2" id="scrimQn"></h1>
-        <div class="shaker__little center-child">
+        <div class="center-child">
             <div class="timer-abstract" id="scrimTimer"><span></span></div>
         </div>
+    </div>
+    <!-- Loader -->
+    <div id="scrimLoader" class="text-centered">
+        <!-- Circular progress bar -->
+        <lottie-player class="text-centered margin-top-15 margin-left-auto margin-right-auto" background="transparent" src="assets/raw/download.json"
+                       speed="1" style="width:150px;height:150px" autoplay loop id="dQuizAnim"></lottie-player>
+        <!-- Subtitle text -->
+        <p class="mdc-typography--headline6 margin-bottom-0" id="dQuizHeader">Downloading quiz payload...</p>
+        <small class="mdc-typography--overline" id="dQuizOverline">Your quiz will be ready soon!</small>
     </div>
 </div>
 <!-- Start of main quiz elements -->
@@ -146,14 +157,14 @@
 </div>
 <div class="quiz-header">
     <div class="margin-right-auto">
-        <div class="quiz-counter" id="timer-number">8</div>
+        <div class="quiz-counter" id="timer-number"></div>
     </div>
     <div class="text-centered qn-holder">
-        <h2 class="mdc-typography--headline2 margin-top-0 margin-bottom-0" id="question-text"></h2>
+        <h2 class="mdc-typography--headline4 margin-top-0 margin-bottom-0" id="question-text"></h2>
         <lottie-player src="assets/raw/google-loading.json" background="transparent" speed="1" id="main-anim" loop autoplay style="width: auto;height: 200px"></lottie-player>
     </div>
     <div class="margin-left-auto">
-        <div class="quiz-counter" id="num-qns">8</div>
+        <div class="quiz-counter" id="num-qns"></div>
     </div>
 </div>
 <button class="quiz-btn quiz-opt__1 mdc-ripple-surface hover-no-expand" data-mdc-auto-init="MDCRipple">

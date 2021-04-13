@@ -156,6 +156,9 @@ img {
 .display-block {
     display: block;
 }
+.display-none {
+    display: none;
+}
 /* Margins */
 .margin-no {
     margin: 0 !important;

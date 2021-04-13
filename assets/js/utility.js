@@ -35,7 +35,8 @@ firebase.auth().onAuthStateChanged((user) => {
             else window.location = 'index.html';
         }
         else showMsg(`Signed in as ${user.displayName}`);
-        window.history.replaceState({}, document.title, window.location.pathname); // Remove all query strings
+        window.history.replaceState({}, document.title, window.location.pathname +
+            window.location.search.replace(/redirect=.*&/m, '')); // Remove all query strings
     } else {
         // No user is signed in.
         cUser = null;
