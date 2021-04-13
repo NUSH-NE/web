@@ -91,7 +91,6 @@ class pointsCalc {
     }
 
     getTotPts() {
-        console.log(this.history);
         let s = 0;
         for (const k in this.history) if (this.history.hasOwnProperty(k)) s += Math.round(this.history[k].pts);
         return s;
@@ -100,11 +99,6 @@ class pointsCalc {
 
 (() => {
     const db = firebase.firestore(); // Init Firestore
-
-    // Hmm what's this?
-    const i = () => {
-
-    }
 
     // Elements
     const resDialog = $('result-dialog').MDCDialog;
@@ -277,9 +271,21 @@ class pointsCalc {
     }
 
     // Download questions
-    db.collection("quiz").doc(new URLSearchParams(window.location.search).get('id')).get().then((doc) => {
+    const a = $('dQuizAnim');
+    const p = new URLSearchParams(window.location.search).get('id');
+    const downloadErr = () => {
+        a.load('assets/raw/error.json');
+        a.loop = false;
+    }
+
+    if (!p) {
+        downloadErr();
+        $('dQuizHeader').textContent = 'No quiz ID specified';
+        $('dQuizOverline').textContent = 'Go to the quiz page and click on the link that led you here again';
+        return;
+    }
+    db.collection("quiz").doc(p).get().then((doc) => {
         if (doc.exists) {
-            console.log("Document data:", doc.data());
             // Populate array
             qnsObj = doc.data().qns;
 
@@ -299,15 +305,15 @@ class pointsCalc {
             }, ANIM_DURATION);
         } else {
             // Show errors
-            const a = $('dQuizAnim');
-            a.load('assets/raw/error.json');
-            a.loop = false;
-
+            downloadErr();
             $('dQuizHeader').textContent = 'The quiz with the specified ID could not be downloaded';
             $('dQuizOverline').textContent = 'Go to the quiz page and click on the link that led you here again';
         }
     }).catch((error) => {
-        console.log("Error getting document:", error);
+        downloadErr();
+        $('dQuizHeader').textContent = 'Error downloading quiz';
+        $('dQuizOverline').textContent = 'Refresh this page to try again';
+        console.error(error);
     });
     //startQuiz();
 })(); // Wrap the whole logic into a self calling function

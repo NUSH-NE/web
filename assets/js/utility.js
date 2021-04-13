@@ -78,13 +78,14 @@ const setTheme = (newTheme) => {
 // Set current theme to stored theme
 refreshTheme();
 
+// Hmm what's this?
 window.onload = () => {
     console.log('%c' + atob('CiBfICAgXyBfICAgXyBfX19fXyBfICAgXyAgIF8gICBfICBfX19fXyAKfCBcIHwgfCB8IHwgLyAgX19ffCB8IHwgfCB8IFwgfCB8fCAgX19ffAp8ICBcfCB8IHwgfCBcIGAtLS58IHxffCB8IHwgIFx8IHx8IHxfXyAgCnwgLiBgIHwgfCB8IHxgLS0uIFwgIF8gIHwgfCAuIGAgfHwgIF9ffCAKfCB8XCAgfCB8X3wgL1xfXy8gLyB8IHwgfCB8IHxcICB8fCB8X19fIApcX3wgXF8vXF9fXy9cX19fXy9cX3wgfF8vIFxffCBcXy9cX19fXy8g'),
         'color:#ff0000;font-family:Courier;font-weight:900;');
-    console.log('%cProgrammed by Vincent Kwok and Wang Zerui (NUSH M21204)', 'color:#00a778; font-size:2em;font-family:"Trebuchet MS"');
+    console.log('%cProgrammed by Vincent Kwok and Wang Zerui (NUSH M21204)', 'color:#00a778;font-size:2em;font-family:"Trebuchet MS"');
     console.log('%c                           ',
         'height:320px;line-height:160px;' +
-        'background-image:url("https://cdn.discordapp.com/attachments/822758666246815755/831543415500963911/sketch-1614682583636.png");' +
+        'background:url("https://cdn.discordapp.com/attachments/822758666246815755/831543415500963911/sketch-1614682583636.png");' +
         'background-size:contain;background-position:center;');
     console.log('%cPasting anything here could lead to loss of private data and/or other serious issues. ' +
         'If you\'re unsure, close this window by clicking on the [x] button at the top right corner.',
