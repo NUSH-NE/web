@@ -101,6 +101,11 @@ class pointsCalc {
 (() => {
     const db = firebase.firestore(); // Init Firestore
 
+    // Hmm what's this?
+    const i = () => {
+
+    }
+
     // Elements
     const resDialog = $('result-dialog').MDCDialog;
     const endDialog = $('end-dialog').MDCDialog;
